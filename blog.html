@@ -148,7 +148,14 @@ function extractThumbnail(postContent) {
 
 function displayPosts() {
     postsContainer.innerHTML = "";
-    const postsToShow = allPosts.slice(0, currentIndex + postsPerPage);
+    
+    // Filter posts to exclude any post with label 'pdf' (case-insensitive)
+    const filteredPosts = allPosts.filter(post => {
+        if (!post.labels) return true; // If no labels, include the post
+        return !post.labels.some(label => label.toLowerCase() === "pdf");
+    });
+
+    const postsToShow = filteredPosts.slice(0, currentIndex + postsPerPage);
 
     postsToShow.forEach(post => {
         const postElement = document.createElement("div");
@@ -171,7 +178,7 @@ function displayPosts() {
 
     currentIndex += postsPerPage;
 
-    if (allPosts.length > currentIndex) {
+    if (filteredPosts.length > currentIndex) {
         loadMoreBtn.style.display = "block";
     } else {
         loadMoreBtn.style.display = "none";
@@ -180,7 +187,6 @@ function displayPosts() {
 
 loadMoreBtn.addEventListener("click", displayPosts);
 fetchPosts();
-
    </script>
 
 </body>
