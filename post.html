@@ -222,39 +222,66 @@
    <script src="script.js">script.js</script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const postId = urlParams.get("id");
+        document.addEventListener("DOMContentLoaded", async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get("id");
 
-  async function fetchPost() {
-    try {
-      const response = await fetch(`https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/?id=${postId}`);
-      const post = await response.json();
+    async function fetchPost() {
+        try {
+            const response = await fetch(`https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/?id=${postId}`);
+            const post = await response.json();
 
-      document.getElementById("post-title").innerText = post.title;
-      document.getElementById("breadcrumb-title").innerText = post.title;
-      document.getElementById("post-author").innerText = post.author || "Admin";
-      document.getElementById("post-date").innerText = new Date(post.published).toDateString();
-      document.getElementById("post-content").innerHTML = post.content;
+            document.getElementById("post-title").innerText = post.title;
+            document.getElementById("breadcrumb-title").innerText = post.title;
+            document.getElementById("post-author").innerText = post.author || "Admin";
+            document.getElementById("post-date").innerText = new Date(post.published).toDateString();
+            document.getElementById("post-content").innerHTML = post.content;
 
-      document.getElementById("skeleton-loader").style.display = "none";
-      document.getElementById("post-container").style.display = "block";
+            document.getElementById("skeleton-loader").style.display = "none";
+            document.getElementById("post-container").style.display = "block";
 
-      fetchRelatedPosts();
-    } catch (error) {
-      console.error("Error fetching post:", error);
+            if (post.labels && post.labels.length > 0) {
+                fetchRelatedPosts(post.labels[0]); // Fetch related posts using the first label
+            } else {
+                document.getElementById("related-skeleton").style.display = "none";
+                document.getElementById("related-posts-container").style.display = "block";
+                document.getElementById("related-posts").innerHTML = "<p>No related posts found.</p>";
+            }
+        } catch (error) {
+            console.error("Error fetching post:", error);
+        }
     }
-  }
 
-  async function fetchRelatedPosts() {
-    setTimeout(() => {
-      document.getElementById("related-skeleton").style.display = "none";
-      document.getElementById("related-posts-container").style.display = "block";
-    }, 1500);
-  }
+    async function fetchRelatedPosts(label) {
+        try {
+            const response = await fetch(`https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/?label=${encodeURIComponent(label)}`);
+            const data = await response.json();
 
-  fetchPost();
+            document.getElementById("related-skeleton").style.display = "none";
+            document.getElementById("related-posts-container").style.display = "block";
+
+            const relatedPostsContainer = document.getElementById("related-posts");
+            relatedPostsContainer.innerHTML = "";
+
+            if (data.items && data.items.length > 0) {
+                data.items.forEach(post => {
+                    if (post.id !== postId) { // Avoid showing the same post
+                        const postElement = document.createElement("div");
+                        postElement.innerHTML = `<a href="post.html?id=${post.id}" class="related-link">${post.title}</a>`;
+                        relatedPostsContainer.appendChild(postElement);
+                    }
+                });
+            } else {
+                relatedPostsContainer.innerHTML = "<p>No related posts found.</p>";
+            }
+        } catch (error) {
+            console.error("Error fetching related posts:", error);
+        }
+    }
+
+    fetchPost();
 });
+
     </script>
 </body>
 </html>
