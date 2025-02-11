@@ -223,14 +223,24 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
-    const cloudflareURL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev"; // Replace with your Worker URL
+    const workerUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev"; // Replace with your Worker URL
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id");
 
     async function fetchPost() {
+        if (!postId) {
+            console.error("No Post ID provided.");
+            return;
+        }
+
         try {
-            const response = await fetch(`${cloudflareURL}?id=${postId}`);
+            const response = await fetch(`${workerUrl}?id=${postId}`);
             const post = await response.json();
+
+            if (post.error) {
+                console.error("Error fetching post:", post.error);
+                return;
+            }
 
             document.getElementById("post-title").innerText = post.title;
             document.getElementById("breadcrumb-title").innerText = post.title;
@@ -248,6 +258,8 @@
     }
 
     async function fetchRelatedPosts(labels) {
+        if (!labels || labels.length === 0) return;
+        
         setTimeout(() => {
             document.getElementById("related-skeleton").style.display = "none";
             document.getElementById("related-posts-container").style.display = "block";
