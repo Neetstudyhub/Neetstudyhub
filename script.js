@@ -306,3 +306,70 @@ document.addEventListener('DOMContentLoaded', () => {
     window.contentManager = new ContentManager();
     window.searchManager = new SearchManager();
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Load latest blog posts
+  const content = JSON.parse(localStorage.getItem('siteContent')) || { blogPosts: [] };
+  const container = document.getElementById('latestUpdatesContainer');
+
+  if (!container) return;
+
+  const latestPosts = content.blogPosts
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3); // Show only the 3 most recent posts
+
+  if (latestPosts.length === 0) {
+    container.innerHTML = '<div class="col-12 text-center"><p>No blog posts yet. Check back soon!</p></div>';
+    return;
+  }
+
+  container.innerHTML = latestPosts.map(post => `
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">${post.title}</h5>
+                            <p class="card-text">${post.content.substring(0, 100)}...</p>
+                            <p class="text-muted">
+                                <i class="fas fa-calendar-alt"></i> 
+                                ${new Date(post.date).toLocaleDateString()}
+                            </p>
+                            <button class="btn btn-primary" onclick='showFullPost(${JSON.stringify(post)})'>
+                                Read More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+});
+
+function showFullPost(post) {
+  const modal = document.createElement('div');
+  modal.className = 'modal fade';
+  modal.innerHTML = `
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">${post.title}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-muted">
+                                <i class="fas fa-calendar-alt"></i> 
+                                ${new Date(post.date).toLocaleDateString()}
+                            </p>
+                            <div class="blog-content">
+                                ${post.content}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+  document.body.appendChild(modal);
+  const modalInstance = new bootstrap.Modal(modal);
+  modalInstance.show();
+  modal.addEventListener('hidden.bs.modal', () => {
+    modalInstance.dispose();
+    modal.remove();
+  });
+}
