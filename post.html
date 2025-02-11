@@ -59,30 +59,49 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
-        .related-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .related-posts div {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            transition: 0.2s;
-        }
-        .related-posts div:hover {
-            background: #e9ecef;
-        }
-        .related-link {
-            text-decoration: none;
-            font-size: 16px;
-            color: #007bff;
-            font-weight: 500;
-        }
-        .related-link:hover {
-            text-decoration: underline;
-        }
+        .related-posts-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.related-list {
+    list-style: none;
+    padding: 0;
+}
+
+.related-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.related-item:hover {
+    background: #eee;
+}
+
+.related-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.related-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
         /* Skeleton Loader */
         .skeleton {
             background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
@@ -264,13 +283,35 @@
             relatedPostsContainer.innerHTML = "";
 
             if (data.items && data.items.length > 0) {
-                data.items.forEach(post => {
-                    if (post.id !== postId) { // Avoid showing the same post
-                        const postElement = document.createElement("div");
-                        postElement.innerHTML = `<a href="post.html?id=${post.id}" class="related-link">${post.title}</a>`;
-                        relatedPostsContainer.appendChild(postElement);
-                    }
+                let posts = data.items.filter(post => post.id !== postId); // Exclude current post
+                
+                // Shuffle and pick 5 random posts
+                posts = posts.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+                const listElement = document.createElement("ol");
+                listElement.classList.add("related-list");
+
+                posts.forEach((post, index) => {
+                    const postElement = document.createElement("li");
+                    postElement.classList.add("related-item");
+
+                    // Extract first image from post content
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = post.content;
+                    const imgTag = tempDiv.querySelector("img");
+                    const thumbnail = imgTag ? imgTag.src : "https://via.placeholder.com/100";
+
+                    postElement.innerHTML = `
+                        <a href="post.html?id=${post.id}" class="related-link">
+                            <img src="${thumbnail}" class="related-thumbnail" alt="${post.title}">
+                            <span>${post.title}</span>
+                        </a>
+                    `;
+
+                    listElement.appendChild(postElement);
                 });
+
+                relatedPostsContainer.appendChild(listElement);
             } else {
                 relatedPostsContainer.innerHTML = "<p>No related posts found.</p>";
             }
@@ -281,6 +322,7 @@
 
     fetchPost();
 });
+
 
     </script>
 </body>
