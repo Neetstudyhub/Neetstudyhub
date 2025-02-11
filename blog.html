@@ -3,181 +3,185 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>NEET Study Hub - Complete NEET Preparation Resources</title>
-   
-   <!-- SEO Meta Tags -->
-   <meta name="description" content="NEET Study Hub provides comprehensive study materials, previous year questions, NCERT solutions, and expert guidance for NEET preparation.">
-   <meta name="keywords" content="NEET preparation, NEET study materials, NEET PYQs, NCERT solutions, medical entrance exam">
-   <meta name="author" content="NEET Study Hub">
-   <meta name="robots" content="index, follow">
-   <link rel="canonical" href="https://neetstudyhub.github.io/Neetstudyhub/">
+   <title>NEET Study Hub - Latest NEET Blogs</title>
 
-   <!-- Open Graph Meta Tags -->
-   <meta property="og:title" content="NEET Study Hub - Complete NEET Preparation Resources">
-   <meta property="og:description" content="Comprehensive study materials, previous year questions, NCERT solutions, and expert guidance for NEET preparation.">
-   <meta property="og:image" content="https://neetstudyhub.com/images/og-image.jpg">
-   <meta property="og:url" content="https://neetstudyhub.github.io/Neetstudyhub/">
-
-   <!-- Bootstrap & Font Awesome -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <!-- Google Fonts & Icons -->
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="style.css" rel="stylesheet">
 
-   <!-- Custom CSS -->
    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .container {
-            max-width: 1100px;
-            margin: auto;
-        }
-        .post-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-            display: flex;
-            align-items: center;
-        }
-        .post-card:hover {
-            transform: scale(1.02);
-        }
-        .thumbnail {
-            width: 120px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-right: 15px;
-        }
-        .post-content h2 {
-            font-size: 18px;
-            color: #007bff;
-            cursor: pointer;
-        }
-        .post-content h2:hover {
-            text-decoration: underline;
-        }
-        .post-content p {
-            font-size: 14px;
-            color: #666;
-        }
-        .skeleton {
-            background: #e0e0e0;
-            height: 80px;
-            width: 100%;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            animation: loading 1.5s infinite ease-in-out;
-        }
-        @keyframes loading {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-        #loadMore {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 20px 0;
-            text-align: center;
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        #loadMore:hover {
-            background: #0056b3;
-        }
+   
+       body { font-family: 'Poppins', sans-serif; background: #f9f9f9; color: #333; }
+       .container1 { 
+         max-width: 1100px; margin: auto; padding: 20px; }
+       .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+       .post-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+       .post-card img { width: 100%; height: 180px; object-fit: cover; }
+       .post-content { padding: 15px; }
+       .post-content h2 { font-size: 18px; color: #007bff; cursor: pointer; margin: 0 0 10px; }
+       .post-content h2:hover { text-decoration: underline; }
+       .post-content p { font-size: 14px; color: #666; }
+       .labels { font-size: 13px; color: #007bff; margin-top: 5px; }
+       .labels span { background: #e0f2ff; padding: 5px 8px; border-radius: 4px; margin-right: 5px; }
+       .load-more { display: none; width: 200px; margin: 20px auto; padding: 10px; background: #007bff; color: white; text-align: center; border-radius: 5px; cursor: pointer; font-weight: bold; }
+       .load-more:hover { background: #0056b3; }
+       .skeleton { animation: shimmer 1.2s infinite; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; }
+       .skeleton-img { height: 180px; background: #ddd; }
+       .skeleton-text { height: 16px; background: #ddd; margin: 10px 0; border-radius: 4px; }
+       .skeleton-text.short { width: 60%; }
+       @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+       
    </style>
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif; ">
+<!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-microscope me-2"></i>NEET Study Hub
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
+          <li class="nav-item"><a class="nav-link" href="ncert.html">NCERT PDFs</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-       <div class="container">
-           <a class="navbar-brand" href="index.html"><i class="fas fa-microscope me-2"></i>NEET Study Hub</a>
-           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-               <span class="navbar-toggler-icon"></span>
-           </button>
-           <div class="collapse navbar-collapse" id="navbarNav">
-               <ul class="navbar-nav ms-auto">
-                   <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                   <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
-                   <li class="nav-item"><a class="nav-link" href="ncert.html">NCERT PDFs</a></li>
-                   <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-               </ul>
-           </div>
-       </div>
-   </nav>
 
    <div class="container">
-       <h1 class="mt-4 text-center">Latest Blog Posts</h1>
-       <div id="posts"></div>
-       <button id="loadMore">Load More</button>
+       <h1 class="text-center" style="margin: 16px;">Latest Blog Posts</h1>
+       <div id="posts" class="post-grid"></div>
+       <div id="loadMoreBtn" class="load-more">Load More</div>
    </div>
+  <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">NEET Study Hub</h5>
+                    <p>Your complete NEET preparation companion with comprehensive study materials and resources.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="pyqs.html" class="text-white-50">PYQs</a></li>
+                        <li><a href="ncert.html" class="text-white-50">NCERT PDFs</a></li>
+                        <li><a href="blog.html" class="text-white-50">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Connect With Us</h5>
+                    <div class="social-links mb-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <div class="d-flex justify-content-center gap-4 mb-3">
+                    <a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
+                    <a href="contact.html" class="text-white-50 text-decoration-none">Contact Us</a>
+                    <a href="privacy.html" class="text-white-50 text-decoration-none">Privacy Policy</a>
+                    <a href="login.html" class="text-white-50 text-decoration-none">Admin Panel</a>
+                </div>
+                <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="script.js">script.js</script>
    <script>
        const apiUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
+       
        const postsContainer = document.getElementById("posts");
-       const loadMoreBtn = document.getElementById("loadMore");
-       let startIndex = 0;
+       const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+       let allPosts = [];
+       let currentIndex = 0;
        const postsPerPage = 12;
 
-       function showSkeleton(count) {
+       function showSkeleton() {
            postsContainer.innerHTML = "";
-           for (let i = 0; i < count; i++) {
-               let skeleton = document.createElement("div");
+           for (let i = 0; i < postsPerPage; i++) {
+               const skeleton = document.createElement("div");
                skeleton.classList.add("skeleton");
+               skeleton.innerHTML = `
+                   <div class="skeleton-img"></div>
+                   <div class="post-content">
+                       <div class="skeleton-text short"></div>
+                       <div class="skeleton-text"></div>
+                   </div>
+               `;
                postsContainer.appendChild(skeleton);
            }
        }
 
        async function fetchPosts() {
-           showSkeleton(postsPerPage);
+           showSkeleton();
            try {
-               const response = await fetch(apiUrl);
+               const response = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}`);
                const data = await response.json();
-               displayPosts(data.items.slice(startIndex, startIndex + postsPerPage));
-               startIndex += postsPerPage;
-               if (startIndex >= data.items.length) {
-                   loadMoreBtn.style.display = "none";
+               allPosts = data.items || [];
+               if (allPosts.length > 0) {
+                   displayPosts();
                }
            } catch (error) {
                console.error("Error fetching posts:", error);
            }
        }
 
-       function displayPosts(posts) {
-           postsContainer.innerHTML = "";
-           posts.forEach(post => {
-               let imgSrc = "https://via.placeholder.com/120x80"; 
-               const imgMatch = post.content.match(/<img.*?src=["'](.*?)["']/);
-               if (imgMatch) imgSrc = imgMatch[1];
+       function extractThumbnail(postContent) {
+           const match = postContent.match(/<img.*?src=["'](.*?)["']/);
+           return match ? match[1] : "https://via.placeholder.com/300x180";
+       }
 
+       function displayPosts() {
+           postsContainer.innerHTML = "";
+           const postsToShow = allPosts.slice(0, currentIndex + postsPerPage);
+
+           postsToShow.forEach(post => {
                const postElement = document.createElement("div");
                postElement.classList.add("post-card");
+               const postThumbnail = extractThumbnail(post.content);
+               const labels = post.labels ? post.labels.map(label => `<span>${label}</span>`).join(" ") : "";
+
                postElement.innerHTML = `
-                   <img class="thumbnail" src="${imgSrc}" alt="Thumbnail">
-                   <div class="post-content">
-                       <h2 onclick="openPost('${post.id}')">${post.title}</h2>
-                       <p>${post.content.replace(/<[^>]+>/g, "").substring(0, 100)}...</p>
-                   </div>
+                   <a href="post.html?id=${post.id}" style="text-decoration: none; color: inherit;">
+                       <img src="${postThumbnail}" alt="Post Image">
+                       <div class="post-content">
+                           <h2>${post.title}</h2>
+                           <p>${post.content.replace(/<[^>]*>/g, "").substring(0, 100)}...</p>
+                           <div class="labels">${labels}</div>
+                       </div>
+                   </a>
                `;
                postsContainer.appendChild(postElement);
            });
+
+           currentIndex += postsPerPage;
+
+           if (allPosts.length > currentIndex) {
+               loadMoreBtn.style.display = "block";
+           } else {
+               loadMoreBtn.style.display = "none";
+           }
        }
 
-       function openPost(postId) {
-           window.location.href = `post.html?id=${postId}`;
-       }
-
-       loadMoreBtn.addEventListener("click", fetchPosts);
+       loadMoreBtn.addEventListener("click", displayPosts);
        fetchPosts();
    </script>
+
 </body>
 </html>
