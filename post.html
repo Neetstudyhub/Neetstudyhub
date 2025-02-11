@@ -15,8 +15,7 @@
         }
         .container1 {
             max-width: 1200px;
-            margin: auto;
-            padding: 20px;
+            margin: 1;
         }
         .card {
             background: white;
@@ -29,6 +28,7 @@
             font-size: 28px;
             font-weight: 600;
             color: #007bff;
+            text-align: left;
         }
         .separator {
             border-top: 2px solid #ddd;
@@ -36,7 +36,13 @@
         }
         .breadcrumbs {
             font-size: 14px;
+            margin-bottom: 10px;
             color: #666;
+        }
+        .meta {
+            font-size: 14px;
+            color: #888;
+            text-align: left;
             margin-bottom: 10px;
         }
         .post-content {
@@ -53,6 +59,30 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
+        .related-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .related-posts div {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+        .related-posts div:hover {
+            background: #e9ecef;
+        }
+        .related-link {
+            text-decoration: none;
+            font-size: 16px;
+            color: #007bff;
+            font-weight: 500;
+        }
+        .related-link:hover {
+            text-decoration: underline;
+        }
         /* Skeleton Loader */
         .skeleton {
             background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
@@ -64,11 +94,6 @@
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
-        .skeleton-header, .skeleton-footer {
-            height: 50px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
         .skeleton-title {
             height: 30px;
             width: 60%;
@@ -77,6 +102,11 @@
         .skeleton-meta {
             height: 15px;
             width: 40%;
+            margin-bottom: 10px;
+        }
+        .skeleton-separator {
+            height: 2px;
+            width: 100%;
             margin-bottom: 10px;
         }
         .skeleton-content {
@@ -88,32 +118,47 @@
             width: 80%;
             margin-bottom: 10px;
         }
+        .breadcrumbs a {
+  text-decoration: none;
+  color: #666;
+  transition: color 0.3s;
+}
+
     </style>
 </head>
 <body>
-    <!-- Skeleton Header -->
-    <div class="skeleton skeleton-header"></div>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-microscope me-2"></i>NEET Study Hub
-            </a>
-        </div>
-    </nav>
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-microscope me-2"></i>NEET Study Hub
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
+          <li class="nav-item"><a class="nav-link" href="ncert.html">NCERT PDFs</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
     <div class="container1">
         <!-- Skeleton Loader -->
         <div class="card" id="skeleton-loader">
             <div class="skeleton skeleton-title"></div>
             <div class="skeleton skeleton-meta"></div>
+            <div class="skeleton skeleton-separator"></div>
             <div class="skeleton skeleton-content"></div>
         </div>
 
         <!-- Actual Content (Hidden Initially) -->
         <div class="card" id="post-container" style="display: none;">
             <div class="breadcrumbs">
-                <a href="index.html">Home</a> › <span id="breadcrumb-title"></span>
+                <a href="index.html">Home</a>  › <span id="breadcrumb-title"></span>
             </div>
             <h1 id="post-title"></h1>
             <p class="meta">By <span id="post-author"></span> | <span id="post-date"></span></p>
@@ -126,58 +171,90 @@
             <div class="skeleton skeleton-title"></div>
             <div class="skeleton skeleton-related"></div>
             <div class="skeleton skeleton-related"></div>
+            <div class="skeleton skeleton-related"></div>
         </div>
 
         <!-- Actual Related Posts (Hidden Initially) -->
         <div class="card" id="related-posts-container" style="display: none;">
-            <h3>Related Posts</h3>
+            <h3 class="related-title">Related Posts</h3>
             <div id="related-posts"></div>
         </div>
     </div>
-
-    <!-- Skeleton Footer -->
-    <div class="skeleton skeleton-footer"></div>
-
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
+   <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">NEET Study Hub</h5>
+                    <p>Your complete NEET preparation companion with comprehensive study materials and resources.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="pyqs.html" class="text-white-50">PYQs</a></li>
+                        <li><a href="ncert.html" class="text-white-50">NCERT PDFs</a></li>
+                        <li><a href="blog.html" class="text-white-50">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Connect With Us</h5>
+                    <div class="social-links mb-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <div class="d-flex justify-content-center gap-4 mb-3">
+                    <a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
+                    <a href="contact.html" class="text-white-50 text-decoration-none">Contact Us</a>
+                    <a href="privacy.html" class="text-white-50 text-decoration-none">Privacy Policy</a>
+                    <a href="login.html" class="text-white-50 text-decoration-none">Admin Panel</a>
+                </div>
+                <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="script.js">script.js</script>
+
     <script>
-        document.addEventListener("DOMContentLoaded", async function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const postId = urlParams.get("id");
+        document.addEventListener("DOMContentLoaded", async function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get("id");
 
-            async function fetchPost() {
-                try {
-                    const response = await fetch(`https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/?id=${postId}`);
-                    const post = await response.json();
+  async function fetchPost() {
+    try {
+      const response = await fetch(`https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/?id=${postId}`);
+      const post = await response.json();
 
-                    document.getElementById("post-title").innerText = post.title;
-                    document.getElementById("breadcrumb-title").innerText = post.title;
-                    document.getElementById("post-author").innerText = post.author || "Admin";
-                    document.getElementById("post-date").innerText = new Date(post.published).toDateString();
-                    document.getElementById("post-content").innerHTML = post.content;
+      document.getElementById("post-title").innerText = post.title;
+      document.getElementById("breadcrumb-title").innerText = post.title;
+      document.getElementById("post-author").innerText = post.author || "Admin";
+      document.getElementById("post-date").innerText = new Date(post.published).toDateString();
+      document.getElementById("post-content").innerHTML = post.content;
 
-                    document.getElementById("skeleton-loader").style.display = "none";
-                    document.getElementById("post-container").style.display = "block";
+      document.getElementById("skeleton-loader").style.display = "none";
+      document.getElementById("post-container").style.display = "block";
 
-                    fetchRelatedPosts();
-                } catch (error) {
-                    console.error("Error fetching post:", error);
-                }
-            }
+      fetchRelatedPosts();
+    } catch (error) {
+      console.error("Error fetching post:", error);
+    }
+  }
 
-            async function fetchRelatedPosts() {
-                setTimeout(() => {
-                    document.getElementById("related-skeleton").style.display = "none";
-                    document.getElementById("related-posts-container").style.display = "block";
-                }, 1500);
-            }
+  async function fetchRelatedPosts() {
+    setTimeout(() => {
+      document.getElementById("related-skeleton").style.display = "none";
+      document.getElementById("related-posts-container").style.display = "block";
+    }, 1500);
+  }
 
-            fetchPost();
-        });
+  fetchPost();
+});
     </script>
 </body>
 </html>
