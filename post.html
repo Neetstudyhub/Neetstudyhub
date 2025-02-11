@@ -60,11 +60,17 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         .related-posts-container {
-    margin-top: 20px;
+    margin-top: 30px;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background: #f9f9f9;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.related-posts-container h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .related-list {
@@ -75,15 +81,19 @@
 .related-item {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    padding: 8px;
-    background: white;
+    padding: 10px;
+    background: #fafafa;
     border-radius: 5px;
     transition: 0.3s;
+    border-bottom: 1px solid #ddd;
+}
+
+.related-item:last-child {
+    border-bottom: none;
 }
 
 .related-item:hover {
-    background: #eee;
+    background: #f0f0f0;
 }
 
 .related-link {
@@ -92,6 +102,7 @@
     text-decoration: none;
     color: #333;
     font-weight: bold;
+    width: 100%;
 }
 
 .related-thumbnail {
@@ -196,7 +207,9 @@
         <!-- Actual Related Posts (Hidden Initially) -->
         <div class="card" id="related-posts-container" style="display: none;">
             <h3 class="related-title">Related Posts</h3>
-            <div id="related-posts"></div>
+            <ol id="related-posts" class="related-list"></ol>
+    </section>
+
         </div>
     </div>
    <footer class="bg-dark text-white py-4">
@@ -241,7 +254,8 @@
    <script src="script.js">script.js</script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async function () {
+        
+document.addEventListener("DOMContentLoaded", async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id");
 
@@ -251,7 +265,6 @@
             const post = await response.json();
 
             document.getElementById("post-title").innerText = post.title;
-            document.getElementById("breadcrumb-title").innerText = post.title;
             document.getElementById("post-author").innerText = post.author || "Admin";
             document.getElementById("post-date").innerText = new Date(post.published).toDateString();
             document.getElementById("post-content").innerHTML = post.content;
@@ -288,9 +301,6 @@
                 // Shuffle and pick 5 random posts
                 posts = posts.sort(() => 0.5 - Math.random()).slice(0, 5);
 
-                const listElement = document.createElement("ol");
-                listElement.classList.add("related-list");
-
                 posts.forEach((post, index) => {
                     const postElement = document.createElement("li");
                     postElement.classList.add("related-item");
@@ -304,14 +314,12 @@
                     postElement.innerHTML = `
                         <a href="post.html?id=${post.id}" class="related-link">
                             <img src="${thumbnail}" class="related-thumbnail" alt="${post.title}">
-                            <span>${post.title}</span>
+                            <span>${index + 1}. ${post.title}</span>
                         </a>
                     `;
 
-                    listElement.appendChild(postElement);
+                    relatedPostsContainer.appendChild(postElement);
                 });
-
-                relatedPostsContainer.appendChild(listElement);
             } else {
                 relatedPostsContainer.innerHTML = "<p>No related posts found.</p>";
             }
@@ -322,7 +330,6 @@
 
     fetchPost();
 });
-
 
     </script>
 </body>
