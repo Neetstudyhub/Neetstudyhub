@@ -207,8 +207,8 @@
         <!-- Actual Related Posts (Hidden Initially) -->
         <div class="card" id="related-posts-container" style="display: none;">
             <h3 class="related-title">Related Posts</h3>
-            <ol id="related-posts" class="related-list"></ol>
-    </section>
+             <div id="related-posts"></div>
+        </section>
 
         </div>
     </div>
@@ -254,8 +254,7 @@
    <script src="script.js">script.js</script>
 
     <script>
-        
-document.addEventListener("DOMContentLoaded", async function () {
+        document.addEventListener("DOMContentLoaded", async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id");
 
@@ -265,6 +264,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const post = await response.json();
 
             document.getElementById("post-title").innerText = post.title;
+            document.getElementById("breadcrumb-title").innerText = post.title;
             document.getElementById("post-author").innerText = post.author || "Admin";
             document.getElementById("post-date").innerText = new Date(post.published).toDateString();
             document.getElementById("post-content").innerHTML = post.content;
@@ -301,6 +301,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // Shuffle and pick 5 random posts
                 posts = posts.sort(() => 0.5 - Math.random()).slice(0, 5);
 
+                const listElement = document.createElement("ol");
+                listElement.classList.add("related-list");
+
                 posts.forEach((post, index) => {
                     const postElement = document.createElement("li");
                     postElement.classList.add("related-item");
@@ -314,12 +317,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                     postElement.innerHTML = `
                         <a href="post.html?id=${post.id}" class="related-link">
                             <img src="${thumbnail}" class="related-thumbnail" alt="${post.title}">
-                            <span>${index + 1}. ${post.title}</span>
+                            <span>${post.title}</span>
                         </a>
                     `;
 
-                    relatedPostsContainer.appendChild(postElement);
+                    listElement.appendChild(postElement);
                 });
+
+                relatedPostsContainer.appendChild(listElement);
             } else {
                 relatedPostsContainer.innerHTML = "<p>No related posts found.</p>";
             }
@@ -330,6 +335,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     fetchPost();
 });
+
 
     </script>
 </body>
