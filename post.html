@@ -223,41 +223,40 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
-            const blogId = "4486426116532955837";
-            const apiKey = "AIzaSyCt55BMSsa_3-clozbZSPPuHXwPwFqAVNU";
-            const urlParams = new URLSearchParams(window.location.search);
-            const postId = urlParams.get("id");
+    const cloudflareURL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev"; // Replace with your Worker URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get("id");
 
-            async function fetchPost() {
-                try {
-                    const response = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts/${postId}?key=${apiKey}`);
-                    const post = await response.json();
+    async function fetchPost() {
+        try {
+            const response = await fetch(`${cloudflareURL}?id=${postId}`);
+            const post = await response.json();
 
-                    document.getElementById("post-title").innerText = post.title;
-                    document.getElementById("breadcrumb-title").innerText = post.title;
-                    document.getElementById("post-author").innerText = post.author.displayName || "Admin";
-                    document.getElementById("post-date").innerText = new Date(post.published).toDateString();
-                    document.getElementById("post-content").innerHTML = post.content.replace(/<img[^>]*display:\s*none[^>]*>/gi, '');
+            document.getElementById("post-title").innerText = post.title;
+            document.getElementById("breadcrumb-title").innerText = post.title;
+            document.getElementById("post-author").innerText = post.author.displayName || "Admin";
+            document.getElementById("post-date").innerText = new Date(post.published).toDateString();
+            document.getElementById("post-content").innerHTML = post.content.replace(/<img[^>]*display:\s*none[^>]*>/gi, '');
 
-                    document.getElementById("skeleton-loader").style.display = "none";
-                    document.getElementById("post-container").style.display = "block";
+            document.getElementById("skeleton-loader").style.display = "none";
+            document.getElementById("post-container").style.display = "block";
 
-                    fetchRelatedPosts(post.labels);
-                } catch (error) {
-                    console.error("Error fetching post:", error);
-                }
-            }
+            fetchRelatedPosts(post.labels);
+        } catch (error) {
+            console.error("Error fetching post:", error);
+        }
+    }
 
-            async function fetchRelatedPosts(labels) {
-                // Fetch all posts under these labels
-                setTimeout(() => {
-                    document.getElementById("related-skeleton").style.display = "none";
-                    document.getElementById("related-posts-container").style.display = "block";
-                }, 1500);
-            }
+    async function fetchRelatedPosts(labels) {
+        setTimeout(() => {
+            document.getElementById("related-skeleton").style.display = "none";
+            document.getElementById("related-posts-container").style.display = "block";
+        }, 1500);
+    }
 
-            fetchPost();
-        });
+    fetchPost();
+});
+
     </script>
 </body>
 </html>
