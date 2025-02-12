@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 let posts = data.items.filter(post => {
                     // Exclude the current post and any posts labeled with "pdf" (case-insensitive)
                     const labels = post.labels ? post.labels.map(label => label.toLowerCase()) : [];
-                    return post.id !== postId && !labels.includes("pdf");
+                    return post.id !== postId && !labels.includes("pdf-pyq");
                 });
 
                 // Shuffle and pick 5 random posts
