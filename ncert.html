@@ -13,133 +13,140 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Card Styling */
-        .post-card {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    /* Card Styling with Fixed Size */
+    .post-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        height: 350px; /* Fixed height for all cards */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-        .post-card:hover {
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
+    .post-card:hover {
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
 
-        .post-thumbnail {
-            height: 180px;
-            object-fit: cover;
-            width: 100%;
-        }
+    .post-thumbnail {
+        height: 180px; /* Fixed size for thumbnails */
+        width: 100%;
+        object-fit: cover;
+    }
 
-        .post-card-body {
-            padding: 15px;
-            flex-grow: 1;
-        }
+    .post-card-body {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-        .post-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
+    .post-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-        .post-label {
-            font-size: 12px;
-            color: #fff;
-            background-color: #007bff;
-            padding: 3px 8px;
-            border-radius: 5px;
-            margin-right: 5px;
-            display: inline-block;
-        }
+    .post-label {
+        font-size: 12px;
+        color: #fff;
+        background-color: #007bff;
+        padding: 3px 8px;
+        border-radius: 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
 
-        .post-buttons {
-            margin-top: 10px;
-            text-align: center;
-        }
+    .post-buttons {
+        text-align: center;
+    }
 
-        .post-buttons a {
-            margin: 5px 8px;
-            font-size: 14px;
-        }
+    .post-buttons a {
+        margin: 5px 8px;
+        font-size: 14px;
+    }
 
-        /* Skeleton Loader Styling */
-        .skeleton-thumbnail {
-            height: 180px;
+    /* Skeleton Loader Styling (No Changes) */
+    .skeleton-thumbnail {
+        height: 180px;
+        background-color: #e0e0e0;
+        animation: skeleton-loading 1.5s infinite ease-in-out;
+    }
+
+    .skeleton-title {
+        height: 18px;
+        width: 60%;
+        background-color: #e0e0e0;
+        animation: skeleton-loading 1.5s infinite ease-in-out;
+        margin-bottom: 10px;
+        border-radius: 4px;
+    }
+
+    .skeleton-label {
+        height: 14px;
+        width: 50px;
+        background-color: #e0e0e0;
+        animation: skeleton-loading 1.5s infinite ease-in-out;
+        border-radius: 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .skeleton-buttons {
+        height: 32px;
+        width: 80px;
+        background-color: #e0e0e0;
+        animation: skeleton-loading 1.5s infinite ease-in-out;
+        border-radius: 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    @keyframes skeleton-loading {
+        0% {
             background-color: #e0e0e0;
-            animation: skeleton-loading 1.5s infinite ease-in-out;
         }
-
-        .skeleton-title {
-            height: 18px;
-            width: 60%;
+        50% {
+            background-color: #f0f0f0;
+        }
+        100% {
             background-color: #e0e0e0;
-            animation: skeleton-loading 1.5s infinite ease-in-out;
-            margin-bottom: 10px;
-            border-radius: 4px;
         }
+    }
 
-        .skeleton-label {
-            height: 14px;
-            width: 50px;
-            background-color: #e0e0e0;
-            animation: skeleton-loading 1.5s infinite ease-in-out;
-            border-radius: 5px;
-            margin-right: 5px;
-            display: inline-block;
+    /* Responsive Grid Adjustments */
+    @media (max-width: 576px) {
+        .col-md-4 {
+            flex: 0 0 50%;
+            max-width: 50%;
         }
+    }
 
-        .skeleton-buttons {
-            height: 32px;
-            width: 80px;
-            background-color: #e0e0e0;
-            animation: skeleton-loading 1.5s infinite ease-in-out;
-            border-radius: 5px;
-            margin-right: 5px;
-            display: inline-block;
+    @media (min-width: 577px) and (max-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 33.333%;
+            max-width: 33.333%;
         }
+    }
 
-        @keyframes skeleton-loading {
-            0% {
-                background-color: #e0e0e0;
-            }
-            50% {
-                background-color: #f0f0f0;
-            }
-            100% {
-                background-color: #e0e0e0;
-            }
+    @media (min-width: 769px) {
+        .col-md-4 {
+            flex: 0 0 25%;
+            max-width: 25%;
         }
+    }
 
-        /* Responsive Grid Layout */
-        @media (max-width: 576px) {
-            .col-md-4 {
-                flex: 0 0 50%;
-                max-width: 50%;
-            }
-        }
 
-        @media (min-width: 577px) and (max-width: 768px) {
-            .col-md-4 {
-                flex: 0 0 33.333%;
-                max-width: 33.333%;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .col-md-4 {
-                flex: 0 0 25%;
-                max-width: 25%;
-            }
-        }
-    
+        
     /* Footer Styling */
     footer {
         background-color: #2c3e50;
@@ -184,26 +191,7 @@
     }
 
     /* Responsive Grid Adjustments */
-    @media (max-width: 576px) {
-        .col-md-4 {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-    }
-
-    @media (min-width: 577px) and (max-width: 768px) {
-        .col-md-4 {
-            flex: 0 0 33.333%;
-            max-width: 33.333%;
-        }
-    }
-
-    @media (min-width: 769px) {
-        .col-md-4 {
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-    }
+    
 </style>
 
 </head>
