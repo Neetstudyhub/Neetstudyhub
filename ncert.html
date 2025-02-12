@@ -81,9 +81,31 @@
     background-color: #0056b3;
 }
 
+@media (min-width: 468px) {
+    .post-card {
+        width: 450px;
+        margin: 2.5%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .post-thumbnail {
+        height: 200px;
+    }
+
+    .post-buttons {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .post-buttons a {
+        font-size: 12px;
+    }
+}
+
 @media (min-width: 768px) {
     .post-card {
-        width: 450;
+        width: 450px;
         margin: 2.5%;
         display: inline-block;
         vertical-align: top;
