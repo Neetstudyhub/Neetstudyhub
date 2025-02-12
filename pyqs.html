@@ -3,124 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEET PYQs - Filtered</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Card styling */
-        .card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            background: #fff;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .card-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-
-        .card-buttons a {
-            font-size: 0.85rem;
-            padding: 8px 12px;
-            border-radius: 8px;
-            text-align: center;
-            flex: 1;
-            margin: 0 5px;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-        }
-
-        /* Responsive card layout */
-        #pyqsContainer {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            #pyqsContainer {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1200px) {
-            #pyqsContainer {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* Skeleton loader for cards */
-        .skeleton-card {
-            border-radius: 12px;
-            background: #f0f0f0;
-            animation: pulse 1.5s infinite ease-in-out;
-            height: 260px;
-        }
-
-        @keyframes pulse {
-            0% {
-                background-color: #f4f4f4;
-            }
-            50% {
-                background-color: #e8e8e8;
-            }
-            100% {
-                background-color: #f4f4f4;
-            }
-        }
-
-        /* Empty state */
-        .no-pyqs {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #777;
-            margin-top: 50px;
-        }
-    </style>
+    <title>Previous Year Questions - NEET Study Hub</title>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="style.css" rel="stylesheet">
+   
 </head>
-<body>
-    <!-- Header -->
+<body Style="font-family: 'Poppins', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -131,8 +21,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="pyqs.html">PYQs</a></li>
                     <li class="nav-item"><a class="nav-link" href="ncert.html">NCERT PDFs</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                 </ul>
@@ -140,86 +30,116 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main>
-        <section class="py-5">
+        <section class="py-5 bg-light">
             <div class="container">
-                <h1 class="text-center mb-4">Previous Year Questions</h1>
-                <div id="pyqsContainer">
-                    <!-- Skeletons and filtered cards will load here -->
+                <h1 class="text-center mb-5">NEET Previous Year Questions</h1>
+                <div class="row" id="pyqsContainer">
+                    <!-- PYQs will be loaded dynamically -->
                 </div>
-                <p class="no-pyqs d-none">No PYQs available. Try again later.</p>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">NEET Study Hub</h5>
+                    <p>Your complete NEET preparation companion with comprehensive study materials and resources.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="pyqs.html" class="text-white-50">PYQs</a></li>
+                        <li><a href="ncert.html" class="text-white-50">NCERT PDFs</a></li>
+                        <li><a href="blog.html" class="text-white-50">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Connect With Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
             <div class="text-center">
                 <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="script.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const pyqsContainer = document.getElementById("pyqsContainer");
-            const noPyqsMessage = document.querySelector(".no-pyqs");
-            const labelFilter = ["pyq-pdf", "PDF-PYQ"]; // Filter labels
+        const pyqsContainer = document.getElementById("pyqsContainer");
 
-            function showSkeletons(count = 6) {
-                pyqsContainer.innerHTML = "";
-                for (let i = 0; i < count; i++) {
-                    pyqsContainer.innerHTML += `<div class="skeleton-card"></div>`;
-                }
-            }
+// Cloudflare API Proxy URL
+const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
 
-            function fetchPYQs() {
-                showSkeletons();
-                const proxyURL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
-                fetch(`${proxyURL}?alt=json&max-results=50`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const posts = data.feed.entry || [];
-                        const filteredPosts = posts.filter(post => {
-                            const labels = post.category?.map(cat => cat.term.toLowerCase()) || [];
-                            return labelFilter.some(label => labels.includes(label.toLowerCase()));
-                        });
+// Function to fetch Blogger posts with label "pdf"
+async function fetchPosts() {
+    try {
+        const response = await fetch(`${apiProxyUrl}?label=pdf`);
+        const data = await response.json();
 
-                        pyqsContainer.innerHTML = "";
-                        noPyqsMessage.classList.add("d-none");
+        if (data && data.items) {
+            displayPosts(data.items);
+        } else {
+            pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
+        }
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        pyqsContainer.innerHTML = "<p class='text-center'>Failed to load content. Please try again later.</p>";
+    }
+}
 
-                        if (filteredPosts.length === 0) {
-                            noPyqsMessage.classList.remove("d-none");
-                        } else {
-                            filteredPosts.forEach(post => {
-                                const postCard = `
-                                    <div class="card">
-                                        <img src="${post.media$thumbnail?.url || 'https://via.placeholder.com/300x160'}" alt="Post Thumbnail">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${post.title.$t}</h5>
-                                            <div class="card-buttons">
-                                                <a href="${post.link[0].href}" class="btn-primary">View</a>
-                                                <a href="#" class="btn-secondary">Download</a>
-                                                <a href="#" class="btn-success">Share</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                                pyqsContainer.innerHTML += postCard;
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching posts:", error);
-                        noPyqsMessage.textContent = "Error fetching PYQs. Please try again later.";
-                        noPyqsMessage.classList.remove("d-none");
-                    });
-            }
+// Function to display posts dynamically
+function displayPosts(posts) {
+    posts.forEach((post) => {
+        // Extract required fields
+        const title = post.title || "Untitled";
+        const link = post.url || "#";
+        const content = post.content || "";
 
-            fetchPYQs();
-        });
+        // Extract buttons
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = content;
+
+        const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
+        const readOnlineLink = tempDiv.querySelector(".read-online")?.getAttribute("href") || "#";
+        const solutionLink = tempDiv.querySelector(".solution-button")?.getAttribute("href") || "#";
+
+        // Create a card for each post
+        const postCard = `
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">${title}</h5>
+                        <p class="card-text">Explore resources to excel in NEET preparation.</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="${downloadLink}" class="btn btn-primary btn-sm mb-2" target="_blank">Download</a>
+                        <a href="readonline.html?src=${encodeURIComponent(readOnlineLink)}" class="btn btn-success btn-sm mb-2" target="_blank">Read Online</a>
+                        <a href="${solutionLink}" class="btn btn-secondary btn-sm" target="_blank">View Solution</a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Append the post card to the container
+        pyqsContainer.innerHTML += postCard;
+    });
+}
+
+// Fetch posts on page load
+fetchPosts();
+
     </script>
 </body>
 </html>
