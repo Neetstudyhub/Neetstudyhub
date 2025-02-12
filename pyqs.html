@@ -187,8 +187,7 @@ footer {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="script.js"></script>
     <script>
-        
-const pyqsContainer = document.getElementById("pyqsContainer");
+    const pyqsContainer = document.getElementById("pyqsContainer");
 
 // Cloudflare API Proxy URL
 const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
@@ -233,6 +232,26 @@ async function fetchPosts() {
     }
 }
 
+// Function to get the thumbnail from the Blogger post
+function getThumbnail(post) {
+    // Check if `media$thumbnail` exists
+    if (post.media$thumbnail?.url) {
+        return post.media$thumbnail.url;
+    }
+
+    // Extract first image from post content
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = post.content;
+
+    const imgTag = tempDiv.querySelector("img");
+    if (imgTag) {
+        return imgTag.src;
+    }
+
+    // Default placeholder if no image is found
+    return "https://via.placeholder.com/300x180";
+}
+
 // Function to display posts dynamically
 function displayPosts(posts) {
     pyqsContainer.innerHTML = ""; // Clear skeleton loaders
@@ -241,7 +260,7 @@ function displayPosts(posts) {
         const title = post.title || "Untitled";
         const link = post.url || "#";
         const content = post.content || "";
-        const thumbnail = post.images?.[0]?.url || "https://via.placeholder.com/300x180";
+        const thumbnail = getThumbnail(post); // Fetch the thumbnail
 
         // Extract buttons
         const tempDiv = document.createElement("div");
