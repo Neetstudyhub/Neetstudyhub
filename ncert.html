@@ -9,23 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <style>
-        @media (min-width:400px)
-        {
-  .post-card {
-    height: 420px;
-    width: 440px;
-      padding: 10px;
-      display: grid;
-    justify-content: space-around;
-}
-
-        }
-/* Post Card Styling */
-.post-card {
+        
+/* post cards */
+        
+ .post-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
+    width: 90%;
+    margin: 5% auto;
+    box-sizing: border-box;
 }
 
 .post-card:hover {
@@ -33,9 +27,9 @@
 }
 
 .post-thumbnail {
-    height: 200px;
-    object-fit: cover;
+    height: auto;
     width: 100%;
+    object-fit: cover;
 }
 
 .post-title {
@@ -44,6 +38,10 @@
     color: #333;
     margin-bottom: 8px;
     text-transform: capitalize;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .post-label {
@@ -62,11 +60,60 @@
 
 .post-buttons {
     margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex-direction: column;
 }
 
 .post-buttons a {
-    margin-right: 8px;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
+
+.post-buttons a:hover {
+    background-color: #0056b3;
+}
+
+@media (min-width: 768px) {
+    .post-card {
+        width: 45%;
+        margin: 2.5%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .post-thumbnail {
+        height: 200px;
+    }
+
+    .post-buttons {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .post-buttons a {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .post-card {
+        width: 45%;
+        margin: 2.5%;
+    }
+
+    .post-thumbnail {
+        height: 250px;
+    }
+}
+        
 
 /* Skeleton Loader Styling */
 .skeleton-thumbnail {
