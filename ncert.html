@@ -241,33 +241,46 @@
         }
 
         function displayNCERTs(posts) {
-            ncertContainer.innerHTML = "";
-            posts.forEach((post) => {
-                const title = post.title || "Untitled";
-                const link = post.url || "#";
-                const content = post.content || "";
+    ncertContainer.innerHTML = "";
+    posts.forEach((post) => {
+        const title = post.title || "Untitled";
+        const link = post.url || "#";
+        const content = post.content || "";
 
-                const classMatch = content.match(/<p><strong>Class:<\/strong>\s*(.+?)<\/p>/);
-                const subjectMatch = content.match(/<p><strong>Subject:<\/strong>\s*(.+?)<\/p>/);
+        const classMatch = content.match(/<p><strong>Class:<\/strong>\s*(.+?)<\/p>/);
+        const subjectMatch = content.match(/<p><strong>Subject:<\/strong>\s*(.+?)<\/p>/);
+        const thumbnailMatch = content.match(/<img src="(.+?)"/);
 
-                const postClass = classMatch ? classMatch[1].trim() : "all";
-                const postSubject = subjectMatch ? subjectMatch[1].trim() : "all";
+        const postClass = classMatch ? classMatch[1].trim() : "all";
+        const postSubject = subjectMatch ? subjectMatch[1].trim() : "all";
+        const thumbnail = thumbnailMatch ? thumbnailMatch[1] : "https://via.placeholder.com/300x180";
 
-                const card = `
-                    <div class="card" data-class="${postClass.toLowerCase()}" data-subject="${postSubject.toLowerCase()}">
-                        <div class="card-body">
-                            <h5 class="card-title">${title}</h5>
-                            <p><strong>Class:</strong> ${postClass}</p>
-                            <p><strong>Subject:</strong> ${postSubject}</p>
+        const card = `
+            <div class="pdf-card" data-class="${postClass.toLowerCase()}" data-subject="${postSubject.toLowerCase()}">
+                <img src="${thumbnail}" alt="${title}" class="card-image">
+                <div class="card-content">
+                    <h3 class="doc-title">${title}</h3>
+                    <div class="doc-details">
+                        <div class="detail-item">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Class: ${postClass}</span>
                         </div>
-                        <div class="card-footer text-center">
-                            <a href="${link}" class="btn btn-primary btn-sm" target="_blank">Download</a>
+                        <div class="detail-item">
+                            <i class="fas fa-book-open"></i>
+                            <span>Subject: ${postSubject}</span>
                         </div>
                     </div>
-                `;
-                ncertContainer.innerHTML += card;
-            });
-        }
+                    <a href="${link}" class="download-btn" target="_blank">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+        `;
+        ncertContainer.innerHTML += card;
+    });
+}
+
+        
 
         function filterNCERTs() {
             const selectedClass = classFilter.value.toLowerCase();
