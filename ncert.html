@@ -3,331 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCERT PDFs - NEET Study Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>NCERT Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2196F3;
+            --secondary-color: #1976D2;
+            --text-color: #333;
+            --bg-color: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
         }
 
-        main {
-            min-height: calc(100vh - 300px);
-        }
-
-        footer {
-            margin-top: 25px;
-        }
-
-        .filter-container {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            padding: 20px;
-            
-            
-            background: #f8f9fa;
-               }
-
-        .filter-container select {
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            padding: 12px;
-            font-size: 14px;
-            min-width: 200px;
-            background: transparent;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .filter-container select:hover {
-            border-color: #007bff;
-            box-shadow: 0px 2px 6px rgba(0, 123, 255, 0.3);
-        }
-
-        .pdf-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.pdf-card:hover {
-    transform: translateY(-5px);
-}
-
-.card-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-.card-content {
-    padding: 20px;
-}
-
-.doc-title {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.doc-details {
-    margin-bottom: 15px;
-}
-
-.detail-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    color: #666;
-}
-
-.detail-item span {
-    margin-left: 8px;
-    font-size: 0.9rem;
-}
-
-.download-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 12px;
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.download-btn:hover {
-    background-color: #1976D2;
-}
-
-.download-btn i {
-    margin-right: 8px;
-}
-
-
-        
-
-        /* Skeleton Loader */
-        .skeleton-card {
-            background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
-            border-radius: 10px;
-            width: 100%;
-            height: 200px;
-            margin-bottom: 20px;
-            animation: shimmer 1.5s infinite;
-            background-size: 200% 100%;
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200px 0;
-            }
-            100% {
-                background-position: 200px 0;
-            }
-        }
-
-        .skeleton-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        @media (max-width: 760px) {
-            .card {
-                flex: 0 1 calc(100% - 20px);
-                max-width: calc(100% - 20px);
-            }
-        }
-
-        h1.dynamic-heading {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333;
+        /* Header Styles */
+        header {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
-            margin-bottom: 20px;
         }
+
+        /* Filter Section */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .pdf-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+            background: #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .skeleton-text {
+            width: 100%;
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-image {
+            width: 100%;
+            height: 180px;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-color: #e0e0e0; }
+            100% { background-color: #f5f5f5; }
+        }
+
+        /* Footer Styles */
+        footer {
+            background: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+
+        /* Include previous dropdown and card styles from earlier answers */
+        /* Add all previous dropdown and card CSS here */
+        /* ... Previous CSS styles ... */
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-book me-2"></i>NEET Study Hub
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+    <header>
+        <h1>NCERT Resources</h1>
+    </header>
+
+    <div class="filters">
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('class')">
+                <span>All Classes</span>
+                <span class="material-icons arrow">expand_more</span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="ncert.html">NCERT PDFs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                </ul>
+            <div class="dropdown-menu" id="classDropdown"></div>
+        </div>
+
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('subject')">
+                <span>All Subjects</span>
+                <span class="material-icons arrow">expand_more</span>
+            </button>
+            <div class="dropdown-menu" id="subjectDropdown"></div>
+        </div>
+    </div>
+
+    <div class="card-grid" id="cardContainer">
+        <!-- Skeleton Loading -->
+        <div class="pdf-card">
+            <div class="skeleton skeleton-image"></div>
+            <div class="card-content">
+                <div class="skeleton skeleton-text" style="width: 70%"></div>
+                <div class="skeleton skeleton-text" style="width: 50%"></div>
+                <div class="skeleton skeleton-text" style="width: 60%"></div>
+                <div class="skeleton skeleton-text" style="height: 40px"></div>
             </div>
         </div>
-    </nav>
+        <!-- Repeat skeleton cards as needed -->
+    </div>
 
-    <main>
-        <section class="py-5 bg-light">
-            <div class="container">
-                <h1 class="dynamic-heading" id="dynamicHeading">NCERT PDFs</h1>
-                <div class="filter-container">
-                    <select id="classFilter">
-                        <option value="all">All Classes</option>
-                        <option value="6th">Class 6</option>
-                        <option value="7th">Class 7</option>
-                        <option value="8th">Class 8</option>
-                        <option value="9th">Class 9</option>
-                        <option value="10th">Class 10</option>
-                        <option value="11th">Class 11</option>
-                        <option value="12th">Class 12</option>
-                    </select>
-                    <select id="subjectFilter">
-                        <option value="all">All Subjects</option>
-                        <option value="Physics">Physics</option>
-                        <option value="Chemistry">Chemistry</option>
-                        <option value="Biology">Biology</option>
-                        <option value="Mathematics">Mathematics</option>
-                        <option value="SocialScience">Social Science</option>
-                        <option value="English">English</option>
-                    </select>
-                </div>
-                <div class="skeleton-wrapper" id="skeletonWrapper">
-                    <div class="skeleton-card"></div>
-                    <div class="skeleton-card"></div>
-                    <div class="skeleton-card"></div>
-                    <div class="skeleton-card"></div>
-                </div>
-                <div class="card-container d-none" id="ncertContainer"></div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="text-center">
-                <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
-            </div>
-        </div>
+    <footer>
+        <p>© 2023 NCERT Resources. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const ncertContainer = document.getElementById("ncertContainer");
-        const skeletonWrapper = document.getElementById("skeletonWrapper");
-        const classFilter = document.getElementById("classFilter");
-        const subjectFilter = document.getElementById("subjectFilter");
-        const dynamicHeading = document.getElementById("dynamicHeading");
-        const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
+        const API_ENDPOINT = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+        let allPosts = [];
+        let filters = { class: 'All', subject: 'All' };
 
-        let ncertPosts = [];
-
-        async function fetchNCERTPosts() {
+        async function fetchPosts() {
             try {
-                const response = await fetch(`${apiProxyUrl}?label=ncertpdf`);
+                const response = await fetch(API_ENDPOINT);
                 const data = await response.json();
-
-                if (data && data.items) {
-                    ncertPosts = data.items;
-                    displayNCERTs(ncertPosts);
-                } else {
-                    skeletonWrapper.innerHTML = "<p>No NCERT PDFs Found!</p>";
-                }
+                allPosts = data.items.map(post => ({
+                    ...post,
+                    class: extractContent(post.content, 'pdfclass'),
+                    subject: extractContent(post.content, 'pdfsubject'),
+                    downloadUrl: extractDownloadUrl(post.content),
+                    image: extractFirstImage(post.content)
+                }));
+                
+                populateFilters();
+                renderCards();
             } catch (error) {
-                skeletonWrapper.innerHTML = "<p>Failed to load content. Please try again later.</p>";
-            } finally {
-                skeletonWrapper.classList.add("d-none");
-                ncertContainer.classList.remove("d-none");
+                console.error('Error fetching posts:', error);
             }
         }
 
-        function displayNCERTs(posts) {
-    ncertContainer.innerHTML = "";
-    posts.forEach((post) => {
-        const title = post.title || "Untitled";
-        const link = post.url || "#";
-        const content = post.content || "";
-
-        const classMatch = content.match(/<p><strong>Class:<\/strong>\s*(.+?)<\/p>/);
-        const subjectMatch = content.match(/<p><strong>Subject:<\/strong>\s*(.+?)<\/p>/);
-        const thumbnailMatch = content.match(/<img src="(.+?)"/);
-
-        const postClass = classMatch ? classMatch[1].trim() : "all";
-        const postSubject = subjectMatch ? subjectMatch[1].trim() : "all";
-        const thumbnail = thumbnailMatch ? thumbnailMatch[1] : "https://via.placeholder.com/300x180";
-
-        const card = `
-            <div class="pdf-card" data-class="${postClass.toLowerCase()}" data-subject="${postSubject.toLowerCase()}">
-                <img src="${thumbnail}" alt="${title}" class="card-image">
-                <div class="card-content">
-                    <h3 class="doc-title">${title}</h3>
-                    <div class="doc-details">
-                        <div class="detail-item">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span>Class: ${postClass}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-book-open"></i>
-                            <span>Subject: ${postSubject}</span>
-                        </div>
-                    </div>
-                    <a href="${link}" class="download-btn" target="_blank">
-                        <i class="fas fa-download"></i> Download PDF
-                    </a>
-                </div>
-            </div>
-        `;
-        ncertContainer.innerHTML += card;
-    });
-}
-
-        
-
-        function filterNCERTs() {
-            const selectedClass = classFilter.value.toLowerCase();
-            const selectedSubject = subjectFilter.value.toLowerCase();
-
-            const cards = document.querySelectorAll(".card");
-
-            cards.forEach((card) => {
-                const cardClass = card.getAttribute("data-class").toLowerCase();
-                const cardSubject = card.getAttribute("data-subject").toLowerCase();
-
-                const classMatch = selectedClass === "all" || cardClass === selectedClass;
-                const subjectMatch = selectedSubject === "all" || cardSubject === selectedSubject;
-
-                card.style.display = classMatch && subjectMatch ? "block" : "none";
-            });
-
-            const headingText = `NCERT PDFs for ${
-                selectedClass !== "all" ? `Class ${selectedClass}` : "All Classes"
-            } ${
-                selectedSubject !== "all" ? `and ${selectedSubject}` : ""
-            }`.trim();
-
-            dynamicHeading.innerText = headingText;
+        function extractContent(html, className) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            return doc.querySelector(`.${className}`)?.textContent || 'N/A';
         }
 
-        classFilter.addEventListener("change", filterNCERTs);
-        subjectFilter.addEventListener("change", filterNCERTs);
+        function extractDownloadUrl(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            return doc.querySelector('.download-button')?.href || '#';
+        }
 
-        fetchNCERTPosts();
+        function extractFirstImage(html) {
+            const imgMatch = html.match(/<img[^>]+src="([^">]+)"/);
+            return imgMatch ? imgMatch[1] : 'https://via.placeholder.com/300x180';
+        }
+
+        function populateFilters() {
+            const classes = [...new Set(allPosts.map(post => post.class))];
+            const subjects = [...new Set(allPosts.map(post => post.subject))];
+
+            populateDropdown('classDropdown', classes);
+            populateDropdown('subjectDropdown', subjects);
+        }
+
+        function populateDropdown(dropdownId, items) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = items.map(item => `
+                <div class="dropdown-item" onclick="setFilter('${dropdownId.replace('Dropdown', '')}', '${item}')">
+                    ${item}
+                </div>
+            `).join('');
+        }
+
+        function renderCards() {
+            const container = document.getElementById('cardContainer');
+            container.innerHTML = allPosts
+                .filter(post => 
+                    (filters.class === 'All' || post.class === filters.class) &&
+                    (filters.subject === 'All' || post.subject === filters.subject)
+                )
+                .map(post => `
+                    <div class="pdf-card">
+                        <img src="${post.image}" alt="${post.title}" class="card-image">
+                        <div class="card-content">
+                            <h3 class="doc-title">${post.title}</h3>
+                            <div class="doc-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Class: ${post.class}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-book-open"></i>
+                                    <span>Subject: ${post.subject}</span>
+                                </div>
+                            </div>
+                            <a href="${post.downloadUrl}" class="download-btn" target="_blank">
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        // Filter functions
+        function setFilter(type, value) {
+            filters[type] = value;
+            document.querySelector(`#${type}Dropdown`).previousElementSibling
+                .querySelector('span:first-child').textContent = value;
+            renderCards();
+            toggleDropdown(type);
+        }
+
+        // Initialize
+        fetchPosts();
+    </script>
+
+    <!-- Include previous dropdown JavaScript logic -->
+    <script>
+        // Previous dropdown toggle functions
+        function toggleDropdown(type) {
+            const menu = document.getElementById(`${type}Dropdown`);
+            const arrow = document.querySelector(`#${type}Dropdown`).previousElementSibling.querySelector('.arrow');
+            menu.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Click-outside detection
+        document.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown-container');
+            dropdowns.forEach(container => {
+                if (!container.contains(event.target)) {
+                    const menu = container.querySelector('.dropdown-menu');
+                    const arrow = container.querySelector('.arrow');
+                    menu.classList.remove('active');
+                    arrow.classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
