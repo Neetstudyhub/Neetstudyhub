@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEET PYQs - Year-wise</title>
+    <title>NEET PYQs - Filtered</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -156,37 +156,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">NEET Study Hub</h5>
-                    <p>Your complete NEET preparation companion with comprehensive study materials and resources.</p>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="pyqs.html" class="text-white-50">PYQs</a></li>
-                        <li><a href="ncert.html" class="text-white-50">NCERT PDFs</a></li>
-                        <li><a href="blog.html" class="text-white-50">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3">Connect With Us</h5>
-                    <div class="social-links mb-4">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-4">
             <div class="text-center">
-                <div class="d-flex justify-content-center gap-4 mb-3">
-                    <a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
-                    <a href="contact.html" class="text-white-50 text-decoration-none">Contact Us</a>
-                    <a href="privacy.html" class="text-white-50 text-decoration-none">Privacy Policy</a>
-                    <a href="login.html" class="text-white-50 text-decoration-none">Admin Panel</a>
-                </div>
                 <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
             </div>
         </div>
@@ -196,7 +166,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const pyqsContainer = document.getElementById("pyqsContainer");
             const noPyqsMessage = document.querySelector(".no-pyqs");
-            const apiProxyURL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
+            const labelFilter = ["pyq-pdf", "PDF-PYQ"]; // Filter labels
 
             function showSkeletons(count = 6) {
                 pyqsContainer.innerHTML = "";
@@ -207,40 +177,43 @@
 
             function fetchPYQs() {
                 showSkeletons();
-                fetch(apiProxyURL)
+                const proxyURL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
+                fetch(`${proxyURL}?alt=json&max-results=50`)
                     .then(response => response.json())
                     .then(data => {
-                        pyqsContainer.innerHTML = "";
-                        noPyqsMessage.classList.add("d-none");
-                        const items = data.items || [];
-                        const filteredItems = items.filter(item => {
-                            const year = item.title.match(/\b(20\d{2})\b/);
-                            return year; // Only include posts with a year in the title
+                        const posts = data.feed.entry || [];
+                        const filteredPosts = posts.filter(post => {
+                            const labels = post.category?.map(cat => cat.term.toLowerCase()) || [];
+                            return labelFilter.some(label => labels.includes(label.toLowerCase()));
                         });
 
-                        if (filteredItems.length === 0) {
+                        pyqsContainer.innerHTML = "";
+                        noPyqsMessage.classList.add("d-none");
+
+                        if (filteredPosts.length === 0) {
                             noPyqsMessage.classList.remove("d-none");
                         } else {
-                            filteredItems.forEach(post => {
-                                const postYear = post.title.match(/\b(20\d{2})\b/)[0];
+                            filteredPosts.forEach(post => {
                                 const postCard = `
                                     <div class="card">
-                                        <img src="${post.thumbnail || 'https://via.placeholder.com/300x160'}" alt="Post Thumbnail">
+                                        <img src="${post.media$thumbnail?.url || 'https://via.placeholder.com/300x160'}" alt="Post Thumbnail">
                                         <div class="card-body">
-                                            <h5 class="card-title">${post.title}</h5>
+                                            <h5 class="card-title">${post.title.$t}</h5>
                                             <div class="card-buttons">
-                                                <a href="#" class="btn-primary">Download</a>
-                                                <a href="#" class="btn-secondary">Read Online</a>
-                                                <a href="#" class="btn-success">Solution</a>
+                                                <a href="${post.link[0].href}" class="btn-primary">View</a>
+                                                <a href="#" class="btn-secondary">Download</a>
+                                                <a href="#" class="btn-success">Share</a>
                                             </div>
                                         </div>
-                                    </div>`;
+                                    </div>
+                                `;
                                 pyqsContainer.innerHTML += postCard;
                             });
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error("Error fetching posts:", error);
+                        noPyqsMessage.textContent = "Error fetching PYQs. Please try again later.";
                         noPyqsMessage.classList.remove("d-none");
                     });
             }
