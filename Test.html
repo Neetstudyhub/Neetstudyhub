@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCERT Resource Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Your CSS (no changes made) */
         :root {
-            --primary: #3b82f6;
-            --secondary: #2563eb;
-            --text: #1e293b;
-            --bg: #f8fafc;
-            --border: #e2e8f0;
-            --error: #dc2626;
+            --primary: #1e3a8a; /* Blue */
+            --secondary: #1e293b; /* Black */
+            --text: #1e293b; /* Text Black */
+            --bg: #ffffff; /* White */
+            --border: #e5e7eb; /* Light Gray */
+            --highlight: #3b82f6; /* Light Blue */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -32,85 +31,53 @@
         }
 
         header {
-            background: white;
+            background: var(--primary);
             padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: var(--bg);
             text-align: center;
         }
 
         .logo {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .scroll-buttons {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: var(--bg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+
+        .scroll-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .scroll-button:hover {
+            background: var(--highlight);
+        }
+
+        .heading {
+            text-align: center;
             font-size: 1.8rem;
             font-weight: 600;
-            color: var(--primary);
-        }
-
-        .filters {
-            display: flex;
-            gap: 1rem;
-            padding: 1.5rem;
-            max-width: 1400px;
-            margin: 2rem auto 0;
-            width: 100%;
-        }
-
-        .dropdown-container {
-            position: relative;
-            width: 240px;
-        }
-
-        .dropdown-btn {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .dropdown-btn:hover {
-            border-color: var(--primary);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 110%;
-            left: 0;
-            width: 100%;
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.2s;
-            z-index: 10;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .dropdown-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
             color: var(--text);
-        }
-
-        .dropdown-item:hover {
-            background: #f1f5f9;
+            margin: 1rem 0;
         }
 
         .card-grid {
-            flex: 1;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
@@ -121,9 +88,9 @@
         }
 
         .pdf-card {
-            background: white;
+            background: var(--bg);
             border-radius: 0.75rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: transform 0.2s;
         }
@@ -150,21 +117,6 @@
             line-height: 1.4;
         }
 
-        .doc-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
         .download-btn {
             display: flex;
             align-items: center;
@@ -173,7 +125,7 @@
             width: 100%;
             padding: 0.75rem;
             background: var(--primary);
-            color: white;
+            color: var(--bg);
             text-decoration: none;
             border-radius: 0.5rem;
             font-weight: 600;
@@ -181,14 +133,21 @@
         }
 
         .download-btn:hover {
-            background: var(--secondary);
+            background: var(--highlight);
         }
 
         .error {
-            color: var(--error);
+            color: red;
             text-align: center;
             font-size: 1.2rem;
             padding: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -197,158 +156,61 @@
         <div class="logo">NCERT Resource Hub</div>
     </header>
 
-    <div class="filters">
-        <div class="dropdown-container">
-            <div class="dropdown-btn" onclick="toggleDropdown('class')">
-                <span>All Classes</span>
-                <i class="fas fa-chevron-down arrow"></i>
-            </div>
-            <div id="classDropdown" class="dropdown-menu"></div>
-        </div>
-
-        <div class="dropdown-container">
-            <div class="dropdown-btn" onclick="toggleDropdown('subject')">
-                <span>All Subjects</span>
-                <i class="fas fa-chevron-down arrow"></i>
-            </div>
-            <div id="subjectDropdown" class="dropdown-menu"></div>
-        </div>
+    <div class="scroll-buttons">
+        <a href="class6.html" class="scroll-button">Class 6</a>
+        <a href="class7.html" class="scroll-button">Class 7</a>
+        <a href="class8.html" class="scroll-button">Class 8</a>
+        <a href="class9.html" class="scroll-button">Class 9</a>
+        <a href="class10.html" class="scroll-button">Class 10</a>
+        <a href="class11.html" class="scroll-button">Class 11</a>
     </div>
+
+    <h1 class="heading">Explore All Resources</h1>
 
     <div id="cardContainer" class="card-grid"></div>
 
     <script>
-        const API_ENDPOINT = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
-        let allPosts = [];
-        let filters = { class: 'All', subject: 'All' };
+        const API_URL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/"; // Replace with your actual Cloudflare Blogger API URL
 
-        async function init() {
+        async function fetchPosts() {
             try {
-                const response = await fetch(API_ENDPOINT);
-                if (!response.ok) throw new Error('Failed to fetch');
+                const response = await fetch(`${API_URL}?label=pdfclass`);
                 const data = await response.json();
 
-                // Filter posts containing 'pdfclass' label
-                allPosts = data.items.map(post => ({
-                    title: post.title,
-                    class: getContent(post.content, 'pdfclass'),
-                    subject: getContent(post.content, 'pdfsubject'),
-                    image: getFirstImage(post.content),
-                    downloadUrl: getDownloadLink(post.content)
-                }));
+                const posts = data.items || [];
+                const cardContainer = document.getElementById("cardContainer");
+                cardContainer.innerHTML = "";
 
-                populateFilters();
-                renderCards();
-            } catch (error) {
-                console.error('Error:', error);
-                showError('Failed to load resources. Please try again later.');
-            }
-        }
+                if (posts.length === 0) {
+                    cardContainer.innerHTML = "<p class='error'>No posts found for the label 'pdfclass'.</p>";
+                    return;
+                }
 
-        function getContent(html, className) {
-            const doc = new DOMParser().parseFromString(html, 'text/html');
-            return doc.querySelector(`.${className}`)?.textContent?.trim() || null;
-        }
+                posts.forEach(post => {
+                    const title = post.title || "Untitled Post";
+                    const thumbnail = post.image || "https://via.placeholder.com/300x200?text=No+Image";
+                    const downloadLink = post.content.match(/class="download-button" href="([^"]+)"/)?.[1] || "#";
 
-        function getDownloadLink(html) {
-            const doc = new DOMParser().parseFromString(html, 'text/html');
-            return doc.querySelector('.download-button')?.href || '#';
-        }
-
-        function getFirstImage(html) {
-            const img = html.match(/<img[^>]+src="([^">]+)"/);
-            return img?.[1] || 'https://via.placeholder.com/300x200';
-        }
-
-        function populateFilters() {
-            const classes = ['All', ...new Set(allPosts.map(p => p.class).filter(Boolean))];
-            const subjects = ['All', ...new Set(allPosts.map(p => p.subject).filter(Boolean))];
-            
-            populateDropdown('classDropdown', classes);
-            populateDropdown('subjectDropdown', subjects);
-        }
-
-        function populateDropdown(id, items) {
-            const dropdown = document.getElementById(id);
-            dropdown.innerHTML = items.map(item => `
-                <div class="dropdown-item" onclick="setFilter('${id.replace('Dropdown', '')}', '${item}')">
-                    ${item}
-                </div>
-            `).join('');
-        }
-
-        function renderCards() {
-            const filtered = allPosts.filter(post => {
-                const classMatch = filters.class === 'All' || post.class === filters.class;
-                const subjectMatch = filters.subject === 'All' || post.subject === filters.subject;
-                return classMatch && subjectMatch;
-            });
-
-            const cardContainer = document.getElementById('cardContainer');
-            
-            if (filtered.length === 0) {
-                cardContainer.innerHTML = '<p class="error">No resources found matching your filters</p>';
-            } else {
-                cardContainer.innerHTML = filtered.map(post => `
-                    <div class="pdf-card">
-                        <img src="${post.image}" alt="${post.title}" class="card-image">
-                        <div class="card-content">
-                            <h3 class="doc-title">${post.title}</h3>
-                            <div class="doc-details">
-                                <div class="detail-item">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                    <span>${post.class}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-book-open"></i>
-                                    <span>${post.subject}</span>
-                                </div>
+                    const card = `
+                        <div class="pdf-card">
+                            <img src="${thumbnail}" alt="${title}" class="card-image">
+                            <div class="card-content">
+                                <h3 class="doc-title">${title}</h3>
+                                <a href="${downloadLink}" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
                             </div>
-                            <a href="${post.downloadUrl}" class="download-btn" target="_blank">
-                                <i class="fas fa-download"></i>
-                                Download PDF
-                            </a>
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                    cardContainer.innerHTML += card;
+                });
+            } catch (error) {
+                document.getElementById("cardContainer").innerHTML = "<p class='error'>Error fetching posts. Please try again later.</p>";
             }
         }
 
-        function setFilter(type, value) {
-            filters[type] = value === 'All' ? 'All' : value;
-            const button = document.querySelector(`#${type}Dropdown`)
-                            .closest('.dropdown-container')
-                            .querySelector('.dropdown-btn span:first-child');
-            button.textContent = value === 'All' ? `All ${type === 'class' ? 'Classes' : 'Subjects'}` : value;
-            renderCards();
-            toggleDropdown(type);
-        }
-
-        function toggleDropdown(type) {
-            const menu = document.getElementById(`${type}Dropdown`);
-            const arrow = menu.previousElementSibling.querySelector('.arrow');
-            menu.classList.toggle('active');
-            arrow.classList.toggle('active');
-        }
-
-        function showError(message) {
-            const cardContainer = document.getElementById('cardContainer');
-            cardContainer.innerHTML = `<p class="error">${message}</p>`;
-        }
-
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.dropdown-container')) {
-                document.querySelectorAll('.dropdown-menu').forEach(menu => 
-                    menu.classList.remove('active')
-                );
-                document.querySelectorAll('.arrow').forEach(arrow => 
-                    arrow.classList.remove('active')
-                );
-            }
-        });
-
-        // Initialize
-        init();
+        // Fetch posts on page load
+        fetchPosts();
     </script>
 </body>
 </html>
