@@ -3,52 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCERT PDFs - NEET Study Hub</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Previous Year Questions - NEET Study Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="style.css" rel="stylesheet">
     <style>
-        .resource-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Skeleton Loader Styling */
+        .skeleton-card {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            animation: shimmer 1.2s infinite linear;
+        }
+
+        .skeleton-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: #e0e0e0;
+        }
+
+        .skeleton-title {
+            width: 60%;
+            height: 20px;
+            background: #e0e0e0;
+            margin: 15px auto;
+        }
+
+        .skeleton-text {
+            width: 80%;
+            height: 14px;
+            background: #e0e0e0;
+            margin: 10px auto;
+        }
+
+        .skeleton-button {
+            width: 70%;
+            height: 30px;
+            background: #e0e0e0;
+            margin: 8px auto;
+            border-radius: 6px;
+        }
+
+        /* Card Styling */
+        .card {
             border: none;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
-        .resource-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+        .card:hover {
+            transform: scale(1.05);
         }
-        .icon-wrapper {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #f8f9fa;
-            margin-bottom: 1.5rem;
+
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
         }
+
         .card-title {
-            color: #333;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 1rem;
         }
+
         .card-text {
-            color: #6c757d;
-            margin-bottom: 1.5rem;
+            font-size: 14px;
+            color: #555;
         }
-        .btn-outline-primary {
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
+
+        .card-footer .btn {
+            margin: 5px 0;
         }
-        .btn-outline-primary:hover {
-            transform: translateY(-2px);
+
+        .card-footer .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .card-footer .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% {
+                background-color: #f4f4f4;
+            }
+            50% {
+                background-color: #e0e0e0;
+            }
+            100% {
+                background-color: #f4f4f4;
+            }
+        }
+
+        main {
+            min-height: calc(100vh - 200px); /* Adjust this based on header and footer height */
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                margin-top: 15px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            footer {
+                margin-top: 25px;
+            }
         }
     </style>
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -60,8 +129,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="ncert.html">NCERT PDFs</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="pyqs.html">PYQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ncert.html">NCERT PDFs</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                 </ul>
             </div>
@@ -71,9 +140,9 @@
     <main>
         <section class="py-5 bg-light">
             <div class="container">
-                <h1 class="text-center mb-5">NCERT PDFs</h1>
-                <div class="row g-4" id="ncertContainer">
-                    <!-- NCERT PDFs will be loaded dynamically -->
+                <h1 class="text-center mb-5">NCERT Book PDF</h1>
+                <div class="row" id="pyqsContainer">
+                    <!-- PYQs will be loaded dynamically -->
                 </div>
             </div>
         </section>
@@ -96,7 +165,7 @@
                 </div>
                 <div class="col-md-4">
                     <h5 class="mb-3">Connect With Us</h5>
-                    <div class="social-links mb-4">
+                    <div class="social-links">
                         <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
@@ -106,12 +175,6 @@
             </div>
             <hr class="my-4">
             <div class="text-center">
-                <div class="d-flex justify-content-center gap-4 mb-3">
-                    <a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
-                    <a href="contact.html" class="text-white-50 text-decoration-none">Contact Us</a>
-                    <a href="privacy.html" class="text-white-50 text-decoration-none">Privacy Policy</a>
-                    <a href="login.html" class="text-white-50 text-decoration-none">Admin Panel</a>
-                </div>
                 <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
             </div>
         </div>
@@ -119,28 +182,110 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const content = JSON.parse(localStorage.getItem('siteContent')) || { ncertPdfs: [] };
-            
-            document.getElementById('ncertContainer').innerHTML = content.ncertPdfs.map(pdf => `
+<script>
+    const pyqsContainer = document.getElementById("pyqsContainer");
+    const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
+
+    function showSkeletonLoader(count = 6) {
+        pyqsContainer.innerHTML = "";
+        for (let i = 0; i < count; i++) {
+            pyqsContainer.innerHTML += `
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 resource-card">
-                        <div class="card-body text-center">
-                            <div class="icon-wrapper">
-                                <i class="fas fa-file-pdf fa-3x text-primary"></i>
-                            </div>
-                            <h3 class="card-title h4">${pdf.title}</h3>
-                            <p class="card-text">${pdf.description || 'Download NCERT PDF for comprehensive study material'}</p>
-                            <a href="${pdf.url}" class="btn btn-outline-primary" target="_blank">
-                                <i class="fas fa-download me-2"></i>Download PDF
-                            </a>
+                    <div class="card skeleton-card h-100">
+                        <div class="skeleton-thumbnail" style="height: 180px;"></div>
+                        <div class="card-body">
+                            <div class="skeleton-title"></div>
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="skeleton-button"></div>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `;
+        }
+    }
+
+    async function fetchPosts() {
+        showSkeletonLoader();
+        try {
+            const response = await fetch(`${apiProxyUrl}?label=ncertpdf`);
+            const data = await response.json();
+
+            if (data && data.items) {
+                const filteredPosts = data.items.filter((post) => {
+                    return post.labels?.some(label => 
+                        ["NCERTPDF", "ncertpdf", "NCERTpdf", "ncertPDF"].includes(label)
+                    );
+                });
+
+                if (filteredPosts.length > 0) {
+                    displayPosts(filteredPosts);
+                } else {
+                    pyqsContainer.innerHTML = "<p class='text-center'>No NCERT PDFs Found!</p>";
+                }
+            } else {
+                pyqsContainer.innerHTML = "<p class='text-center'>No NCERT PDFs Found!</p>";
+            }
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+            pyqsContainer.innerHTML = "<p class='text-center'>Failed to load content. Please try again later.</p>";
+        }
+    }
+
+    function getThumbnail(post) {
+        if (post.media$thumbnail?.url) {
+            return post.media$thumbnail.url;
+        }
+
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = post.content;
+
+        const imgTag = tempDiv.querySelector("img");
+        if (imgTag) {
+            return imgTag.src;
+        }
+
+        return "https://via.placeholder.com/300x180";
+    }
+
+    function displayPosts(posts) {
+        pyqsContainer.innerHTML = "";
+
+        posts.forEach((post) => {
+            const title = post.title || "Untitled";
+            const content = post.content || "";
+            const thumbnail = getThumbnail(post);
+
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = content;
+
+            const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
+            const solutionLink = tempDiv.querySelector(".solution-button")?.getAttribute("href") || "#";
+
+            const postCard = `
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="${thumbnail}" alt="${title}" class="card-img-top img-fluid">
+                        <div class="card-body">
+                            <h5 class="card-title">${title}</h5>
+                            <p class="card-text">Prepare effectively with these NCERT PDFs.</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="${downloadLink}" class="btn btn-primary btn-sm mb-2" target="_blank">Download</a>
+                            <a href="${solutionLink}" class="btn btn-secondary btn-sm" target="_blank">View Solution</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            pyqsContainer.innerHTML += postCard;
         });
-    </script>
+    }
+
+    fetchPosts();
+</script>
+
 </body>
 </html>
