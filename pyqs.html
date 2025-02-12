@@ -4,119 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Previous Year Questions - NEET Study Hub</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-body {
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General card styles */
+        body {
             font-family: 'Poppins', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex: 1;
         }
 
         .card {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
         }
 
         .card img {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            max-height: 200px;
+            width: 100%;
+            height: 180px;
             object-fit: cover;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .card-body {
-            text-align: center;
+            padding: 15px;
         }
 
         .card-title {
+            font-size: 1.25rem;
             font-weight: 600;
-            font-size: 1.1rem;
             color: #333;
+            margin-bottom: 10px;
         }
 
         .card-text {
             font-size: 0.9rem;
             color: #555;
+            margin-bottom: 15px;
         }
 
-        .card-buttons {
-            margin-top: 10px;
+        .card-body .btn {
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 8px 15px;
         }
 
-        .btn {
-            font-size: 0.9rem;
-            margin: 0 5px;
-            transition: all 0.3s ease;
+        .card-body .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
         }
 
-        /* Skeleton loading */
+        .card-body .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .card-body .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .card-body .d-flex {
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Skeleton styles */
         .skeleton-card {
             border-radius: 10px;
-            background: #e0e0e0;
+            overflow: hidden;
+            background: #f0f0f0;
             margin-bottom: 20px;
-            height: 300px;
+            animation: pulse 1.5s infinite ease-in-out;
         }
 
-        .skeleton-card::before {
-            content: '';
-            display: block;
-            background: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            height: 100%;
+        .skeleton-card .skeleton-img {
             width: 100%;
-            border-radius: 10px;
+            height: 180px;
+            background: #e0e0e0;
         }
 
-        @keyframes shimmer {
+        .skeleton-card .skeleton-body {
+            padding: 15px;
+        }
+
+        .skeleton-line {
+            height: 20px;
+            background: #e0e0e0;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .skeleton-line.short {
+            width: 50%;
+        }
+
+        .skeleton-line.medium {
+            width: 75%;
+        }
+
+        @keyframes pulse {
             0% {
-                background-position: -200% 0;
+                background-color: #f0f0f0;
+            }
+            50% {
+                background-color: #e0e0e0;
             }
             100% {
-                background-position: 200% 0;
+                background-color: #f0f0f0;
             }
         }
-
-        /* Footer styling */
-        footer {
-            text-align: center;
-            padding: 15px 0;
-            background-color: #f8f9fa;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .card img {
-                max-height: 150px;
-            }
-
-            .card-title {
-                font-size: 1rem;
-            }
-
-            .card-text {
-                font-size: 0.8rem;
-            }
-
-            .btn {
-                font-size: 0.8rem;
-                padding: 8px 10px;
-            }
-        }
-</style>
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -137,123 +143,115 @@ body {
             </div>
         </div>
     </nav>
-<main>
+
+    <main>
         <section class="py-5 bg-light">
             <div class="container">
                 <h1 class="text-center mb-5">NEET Previous Year Questions</h1>
                 <div class="row" id="pyqsContainer">
-                    <!-- Skeleton loader -->
-                    <div class="col-md-4 skeleton-card"></div>
-                    <div class="col-md-4 skeleton-card"></div>
-                    <div class="col-md-4 skeleton-card"></div>
+                    <!-- Skeletons for loading will be shown here -->
                 </div>
             </div>
         </section>
     </main>
-    
 
     <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">NEET Study Hub</h5>
-                    <p>Your complete NEET preparation companion with comprehensive study materials and resources.</p>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="pyqs.html" class="text-white-50">PYQs</a></li>
-                        <li><a href="ncert.html" class="text-white-50">NCERT PDFs</a></li>
-                        <li><a href="blog.html" class="text-white-50">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3">Connect With Us</h5>
-                    <div class="social-links">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-4">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
-            </div>
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="script.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const pyqsContainer = document.getElementById("pyqsContainer");
+            const allowedLabels = ["pyq-pdf", "Pyq-Pdf", "PYQ-PDF", "Pyq-PDf"];
+            const apiProxyURL = `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/`;
 
-        <script>
-    const container = document.getElementById("pyqsContainer");
-
-    // Function to fetch posts and display them
-    async function fetchAndDisplayPosts() {
-        try {
-            // Fetch data from the Blogger API
-            const response = await fetch('https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/');
-            const posts = await response.json();
-
-            // Clear skeleton loaders
-            container.innerHTML = '';
-
-            if (!posts || posts.length === 0) {
-                container.innerHTML = '<p class="text-center text-danger">No posts available.</p>';
-                return;
-            }
-
-            // Filter posts with labels "pyq-pdf" (case-insensitive)
-            const filteredPosts = posts.filter(post =>
-                (post.labels || []).some(label => /pyq-pdf/i.test(label))
-            );
-
-            if (filteredPosts.length === 0) {
-                container.innerHTML = '<p class="text-center text-warning">No PYQ-related posts found.</p>';
-                return;
-            }
-
-            // Generate cards for each filtered post
-            filteredPosts.forEach(post => {
-                const thumbnail = post.thumbnail || 'https://via.placeholder.com/150'; // Fallback image
-                const title = post.title || 'Untitled Post';
-                const excerpt = post.excerpt || 'Previous year question paper';
-                const downloadLink = post.download || '#';
-                const readOnlineLink = post.readOnline ? `readonline.html?url=${encodeURIComponent(post.readOnline)}` : '#';
-                const solutionLink = post.solution || '#';
-
-                container.innerHTML += `
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="${thumbnail}" alt="Thumbnail" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">${title}</h5>
-                                <p class="card-text">${excerpt}</p>
-                                <div class="card-buttons">
-                                    <a href="${downloadLink}" target="_blank" class="btn btn-primary">Download</a>
-                                    <a href="${readOnlineLink}" class="btn btn-secondary">Read Online</a>
-                                    <a href="${solutionLink}" target="_blank" class="btn btn-success">Solution</a>
+            // Show skeletons during loading
+            function showSkeletons() {
+                pyqsContainer.innerHTML = "";
+                for (let i = 0; i < 6; i++) {
+                    pyqsContainer.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="skeleton-card">
+                                <div class="skeleton-img"></div>
+                                <div class="skeleton-body">
+                                    <div class="skeleton-line medium"></div>
+                                    <div class="skeleton-line short"></div>
+                                    <div class="skeleton-line"></div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                `;
-            });
-        } catch (error) {
-            console.error('Error fetching posts:', error);
-            container.innerHTML = '<p class="text-center text-danger">Error loading posts. Please try again later.</p>';
-        }
-    }
+                        </div>`;
+                }
+            }
 
-    // Call the function to fetch and display posts on page load
-    fetchAndDisplayPosts();
-</script>
+            // Hide skeletons
+            function hideSkeletons() {
+                pyqsContainer.innerHTML = "";
+            }
 
+            // Fetch posts from the API
+            function fetchPosts() {
+                showSkeletons();
 
+                fetch(apiProxyURL)
+                    .then(response => response.json())
+                    .then(data => {
+                        hideSkeletons();
+                        let filteredPosts = 0;
+
+                        if (data.items) {
+                            data.items.forEach(post => {
+                                const postLabels = post.labels || [];
+                                const hasAllowedLabel = postLabels.some(label => allowedLabels.includes(label));
+
+                                if (hasAllowedLabel) {
+                                    const parser = new DOMParser();
+                                    const htmlContent = parser.parseFromString(post.content, "text/html");
+
+                                    const downloadButton = htmlContent.querySelector(".download-button a");
+                                    const readOnlineButton = htmlContent.querySelector(".read-online a");
+                                    const solutionButton = htmlContent.querySelector(".solution-button a");
+
+                                    const thumbnail = htmlContent.querySelector("img");
+                                    const thumbnailSrc = thumbnail ? thumbnail.src : "https://via.placeholder.com/300x180.png?text=Thumbnail";
+
+                                    const postCard = `
+                                        <div class="col-md-4">
+                                            <div class="card h-100">
+                                                <img src="${thumbnailSrc}" alt="Post Thumbnail" class="card-img-top">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${post.title}</h5>
+                                                    <p class="card-text">${post.contentSnippet || "Click below to access resources."}</p>
+                                                    <div class="d-flex flex-column align-items-center">
+                                                        ${downloadButton ? `<a href="${downloadButton.href}" class="btn btn-primary" target="_blank">Download</a>` : ""}
+                                                        ${readOnlineButton ? `<a href="readonline.html?url=${encodeURIComponent(readOnlineButton.href)}" class="btn btn-secondary" target="_blank">Read Online</a>` : ""}
+                                                        ${solutionButton ? `<a href="${solutionButton.href}" class="btn btn-success" target="_blank">Solution</a>` : ""}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                                    pyqsContainer.innerHTML += postCard;
+                                    filteredPosts++;
+                                }
+                            });
+
+                            if (filteredPosts === 0) {
+                                pyqsContainer.innerHTML = `<p class="text-center">No PYQs with the specified labels found.</p>`;
+                            }
+                        } else {
+                            pyqsContainer.innerHTML = `<p class="text-center">No PYQs available at the moment.</p>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching posts:", error);
+                        hideSkeletons();
+                        pyqsContainer.innerHTML = `<p class="text-center text-danger">Failed to load PYQs. Please try again later.</p>`;
+                    });
+            }
+
+            fetchPosts();
+        });
     </script>
 </body>
 </html>
