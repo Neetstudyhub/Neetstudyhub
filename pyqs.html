@@ -8,7 +8,105 @@
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
    <link href="style.css" rel="stylesheet">
-   
+ <style>
+/* Skeleton Loader Styling */
+.skeleton-card {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    animation: shimmer 1.2s infinite linear;
+}
+
+.skeleton-thumbnail {
+    width: 100%;
+    height: 180px;
+    background: #e0e0e0;
+}
+
+.skeleton-title {
+    width: 60%;
+    height: 20px;
+    background: #e0e0e0;
+    margin: 15px auto;
+}
+
+.skeleton-text {
+    width: 80%;
+    height: 14px;
+    background: #e0e0e0;
+    margin: 10px auto;
+}
+
+.skeleton-button {
+    width: 70%;
+    height: 30px;
+    background: #e0e0e0;
+    margin: 8px auto;
+    border-radius: 6px;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #555;
+}
+
+.card-footer .btn {
+    margin: 5px 0;
+}
+
+.card-footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.card-footer .btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.card-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+    0% {
+        background-color: #f4f4f4;
+    }
+    50% {
+        background-color: #e0e0e0;
+    }
+    100% {
+        background-color: #f4f4f4;
+    }
+}
+
+     
+ </style>
 </head>
 <body Style="font-family: 'Poppins', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -82,8 +180,33 @@
 // Cloudflare API Proxy URL
 const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
 
+// Show skeleton cards while loading
+function showSkeletonLoader(count = 6) {
+    pyqsContainer.innerHTML = "";
+    for (let i = 0; i < count; i++) {
+        pyqsContainer.innerHTML += `
+            <div class="col-md-4 mb-4">
+                <div class="card skeleton-card h-100">
+                    <div class="skeleton-thumbnail"></div>
+                    <div class="card-body">
+                        <h5 class="skeleton-title"></h5>
+                        <p class="skeleton-text"></p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="skeleton-button"></div>
+                        <div class="skeleton-button"></div>
+                        <div class="skeleton-button"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+}
+
 // Function to fetch Blogger posts with label "pdf"
 async function fetchPosts() {
+    showSkeletonLoader();
+
     try {
         const response = await fetch(`${apiProxyUrl}?label=pdf`);
         const data = await response.json();
@@ -101,11 +224,14 @@ async function fetchPosts() {
 
 // Function to display posts dynamically
 function displayPosts(posts) {
+    pyqsContainer.innerHTML = ""; // Clear skeleton loaders
+
     posts.forEach((post) => {
         // Extract required fields
         const title = post.title || "Untitled";
         const link = post.url || "#";
         const content = post.content || "";
+        const thumbnail = post.images?.[0]?.url || "https://via.placeholder.com/300x180"; // Use post image or placeholder
 
         // Extract buttons
         const tempDiv = document.createElement("div");
@@ -119,9 +245,10 @@ function displayPosts(posts) {
         const postCard = `
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
+                    <img src="${thumbnail}" alt="${title}" class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">${title}</h5>
-                        <p class="card-text">Explore resources to excel in NEET preparation.</p>
+                        <p class="card-text">Prepare effectively with these previous year questions.</p>
                     </div>
                     <div class="card-footer text-center">
                         <a href="${downloadLink}" class="btn btn-primary btn-sm mb-2" target="_blank">Download</a>
