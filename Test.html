@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCERT Resources Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --text: #1f2937;
+            --bg: #f3f4f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            width: 100%;
+        }
+
+        /* Dropdown */
+        .dropdown-container {
+            position: relative;
+            width: 240px;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dropdown-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* PDF Card */
+        .pdf-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .doc-title {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .doc-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: #e2e8f0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skeleton::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: skeleton-loading 1.5s infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .skeleton-image {
+            height: 200px;
+        }
+
+        .skeleton-text {
+            height: 1rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .filters {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .dropdown-container {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">NCERT Hub</div>
+    </header>
+
+    <div class="filters">
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('class')">
+                <span>All Classes</span>
+                <span class="material-icons arrow">expand_more</span>
+            </button>
+            <div class="dropdown-menu" id="classDropdown"></div>
+        </div>
+
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('subject')">
+                <span>All Subjects</span>
+                <span class="material-icons arrow">expand_more</span>
+            </button>
+            <div class="dropdown-menu" id="subjectDropdown"></div>
+        </div>
+    </div>
+
+    <div class="card-grid" id="cardContainer">
+        <!-- Skeleton Loaders -->
+        <div class="pdf-card">
+            <div class="skeleton skeleton-image"></div>
+            <div class="card-content">
+                <div class="skeleton skeleton-text" style="width: 80%"></div>
+                <div class="skeleton skeleton-text" style="width: 60%"></div>
+                <div class="skeleton skeleton-text" style="width: 70%"></div>
+                <div class="skeleton skeleton-text" style="height: 40px"></div>
+            </div>
+        </div>
+        <!-- Repeat skeleton cards 5-6 times -->
+    </div>
+
+    <footer>
+        <p>© 2023 NCERT Hub. Quality educational resources for everyone.</p>
+    </footer>
+
+    <script>
+        const API_ENDPOINT = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+        let allPosts = [];
+        let filters = { class: 'All', subject: 'All' };
+
+        // DOM Elements
+        const cardContainer = document.getElementById('cardContainer');
+
+        // Fetch Data
+        async function init() {
+            try {
+                const response = await fetch(API_ENDPOINT);
+                const data = await response.json();
+                
+                allPosts = data.items.map(post => ({
+                    title: post.title,
+                    class: getContent(post.content, 'pdfclass'),
+                    subject: getContent(post.content, 'pdfsubject'),
+                    image: getFirstImage(post.content),
+                    downloadUrl: getDownloadLink(post.content),
+                    content: post.content
+                }));
+
+                populateFilters();
+                renderCards();
+                initDropdowns();
+            } catch (error) {
+                console.error('Error:', error);
+                cardContainer.innerHTML = '<p class="error">Failed to load resources. Please try again later.</p>';
+            }
+        }
+
+        // Content Parsers
+        function getContent(html, className) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.querySelector(`.${className}`)?.textContent?.trim() || 'N/A';
+        }
+
+        function getDownloadLink(html) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.querySelector('.download-button')?.href || '#';
+        }
+
+        function getFirstImage(html) {
+            const img = html.match(/<img[^>]+src="([^">]+)"/);
+            return img?.[1] || 'https://via.placeholder.com/300x200';
+        }
+
+        // Filter Handling
+        function populateFilters() {
+            const classes = ['All', ...new Set(allPosts.map(p => p.class))];
+            const subjects = ['All', ...new Set(allPosts.map(p => p.subject))];
+
+            populateDropdown('classDropdown', classes);
+            populateDropdown('subjectDropdown', subjects);
+        }
+
+        function populateDropdown(id, items) {
+            const dropdown = document.getElementById(id);
+            dropdown.innerHTML = items.map(item => `
+                <div class="dropdown-item" onclick="setFilter('${id.replace('Dropdown', '')}', '${item}')">
+                    ${item}
+                </div>
+            `).join('');
+        }
+
+        // Rendering
+        function renderCards() {
+            const filtered = allPosts.filter(post => 
+                (filters.class === 'All' || post.class === filters.class) &&
+                (filters.subject === 'All' || post.subject === filters.subject)
+            );
+
+            cardContainer.innerHTML = filtered.map(post => `
+                <div class="pdf-card">
+                    <img src="${post.image}" alt="${post.title}" class="card-image">
+                    <div class="card-content">
+                        <h3 class="doc-title">${post.title}</h3>
+                        <div class="doc-details">
+                            <div class="detail-item">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>${post.class}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-book-open"></i>
+                                <span>${post.subject}</span>
+                            </div>
+                        </div>
+                        <a href="${post.downloadUrl}" class="download-btn" target="_blank">
+                            <i class="fas fa-download"></i>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Controls
+        function setFilter(type, value) {
+            filters[type] = value;
+            document.querySelector(`#${type}Dropdown`)
+                .previousElementSibling
+                .querySelector('span:first-child').textContent = value;
+            renderCards();
+            toggleDropdown(type);
+        }
+
+        // Dropdown Handlers
+        function toggleDropdown(type) {
+            const menu = document.getElementById(`${type}Dropdown`);
+            const arrow = menu.previousElementSibling.querySelector('.arrow');
+            menu.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Click Outside Handler
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown-container')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => 
+                    menu.classList.remove('active')
+                );
+                document.querySelectorAll('.arrow').forEach(arrow => 
+                    arrow.classList.remove('active')
+                );
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
