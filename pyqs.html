@@ -175,7 +175,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="script.js"></script>
     <script>
-        const pyqsContainer = document.getElementById("pyqsContainer");
+        
+const pyqsContainer = document.getElementById("pyqsContainer");
 
 // Cloudflare API Proxy URL
 const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
@@ -189,12 +190,10 @@ function showSkeletonLoader(count = 6) {
                 <div class="card skeleton-card h-100">
                     <div class="skeleton-thumbnail"></div>
                     <div class="card-body">
-                        <h5 class="skeleton-title"></h5>
-                        <p class="skeleton-text"></p>
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-text"></div>
                     </div>
                     <div class="card-footer text-center">
-                        <div class="skeleton-button"></div>
-                        <div class="skeleton-button"></div>
                         <div class="skeleton-button"></div>
                     </div>
                 </div>
@@ -227,11 +226,10 @@ function displayPosts(posts) {
     pyqsContainer.innerHTML = ""; // Clear skeleton loaders
 
     posts.forEach((post) => {
-        // Extract required fields
         const title = post.title || "Untitled";
         const link = post.url || "#";
         const content = post.content || "";
-        const thumbnail = post.images?.[0]?.url || "https://via.placeholder.com/300x180"; // Use post image or placeholder
+        const thumbnail = post.images?.[0]?.url || "https://via.placeholder.com/300x180";
 
         // Extract buttons
         const tempDiv = document.createElement("div");
@@ -259,13 +257,29 @@ function displayPosts(posts) {
             </div>
         `;
 
-        // Append the post card to the container
         pyqsContainer.innerHTML += postCard;
     });
+
+    // Ensure footer sticks to the bottom if content is less
+    adjustFooter();
+}
+
+// Adjust footer position
+function adjustFooter() {
+    const footer = document.querySelector("footer");
+    const bodyHeight = document.body.scrollHeight;
+    const windowHeight = window.innerHeight;
+
+    if (bodyHeight < windowHeight) {
+        footer.classList.add("fixed-bottom");
+    } else {
+        footer.classList.remove("fixed-bottom");
+    }
 }
 
 // Fetch posts on page load
 fetchPosts();
+window.addEventListener("resize", adjustFooter);
 
     </script>
 </body>
