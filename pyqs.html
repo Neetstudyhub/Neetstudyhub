@@ -137,17 +137,20 @@ body {
             </div>
         </div>
     </nav>
-
-    <main>
+<main>
         <section class="py-5 bg-light">
             <div class="container">
                 <h1 class="text-center mb-5">NEET Previous Year Questions</h1>
                 <div class="row" id="pyqsContainer">
-                    <!-- Cards will be dynamically loaded here -->
+                    <!-- Skeleton loader -->
+                    <div class="col-md-4 skeleton-card"></div>
+                    <div class="col-md-4 skeleton-card"></div>
+                    <div class="col-md-4 skeleton-card"></div>
                 </div>
             </div>
         </section>
     </main>
+    
 
     <footer class="bg-dark text-white py-4">
         <div class="container">
@@ -186,33 +189,70 @@ body {
     <script src="script.js"></script>
     <script>
 
-        const container = document.getElementById("pyqsContainer");
-        fetch('https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/')
-            .then(response => response.json())
-            .then(posts => {
-                container.innerHTML = ''; // Remove skeleton loaders
-                posts.forEach(post => {
-                    const labels = post.labels || [];
-                    if (labels.some(label => /pyq-pdf/i.test(label))) {
-                        container.innerHTML += `
-                            <div class="col-md-4 mb-4">
-                                <div class="card">
-                                    <img src="${post.thumbnail}" alt="Thumbnail" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${post.title}</h5>
-                                        <p class="card-text">${post.excerpt || "Previous year question paper"}</p>
-                                        <div class="card-buttons">
-                                            <a href="${post.download}" target="_blank" class="btn btn-primary">Download</a>
-                                            <a href="readonline.html?url=${post.readOnline}" class="btn btn-secondary">Read Online</a>
-                                            <a href="${post.solution}" target="_blank" class="btn btn-success">Solution</a>
-                                        </div>
-                                    </div>
+        <script>
+    const container = document.getElementById("pyqsContainer");
+
+    // Function to fetch posts and display them
+    async function fetchAndDisplayPosts() {
+        try {
+            // Fetch data from the Blogger API
+            const response = await fetch('https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/');
+            const posts = await response.json();
+
+            // Clear skeleton loaders
+            container.innerHTML = '';
+
+            if (!posts || posts.length === 0) {
+                container.innerHTML = '<p class="text-center text-danger">No posts available.</p>';
+                return;
+            }
+
+            // Filter posts with labels "pyq-pdf" (case-insensitive)
+            const filteredPosts = posts.filter(post =>
+                (post.labels || []).some(label => /pyq-pdf/i.test(label))
+            );
+
+            if (filteredPosts.length === 0) {
+                container.innerHTML = '<p class="text-center text-warning">No PYQ-related posts found.</p>';
+                return;
+            }
+
+            // Generate cards for each filtered post
+            filteredPosts.forEach(post => {
+                const thumbnail = post.thumbnail || 'https://via.placeholder.com/150'; // Fallback image
+                const title = post.title || 'Untitled Post';
+                const excerpt = post.excerpt || 'Previous year question paper';
+                const downloadLink = post.download || '#';
+                const readOnlineLink = post.readOnline ? `readonline.html?url=${encodeURIComponent(post.readOnline)}` : '#';
+                const solutionLink = post.solution || '#';
+
+                container.innerHTML += `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="${thumbnail}" alt="Thumbnail" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">${title}</h5>
+                                <p class="card-text">${excerpt}</p>
+                                <div class="card-buttons">
+                                    <a href="${downloadLink}" target="_blank" class="btn btn-primary">Download</a>
+                                    <a href="${readOnlineLink}" class="btn btn-secondary">Read Online</a>
+                                    <a href="${solutionLink}" target="_blank" class="btn btn-success">Solution</a>
                                 </div>
                             </div>
-                        `;
-                    }
-                });
+                        </div>
+                    </div>
+                `;
             });
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            container.innerHTML = '<p class="text-center text-danger">Error loading posts. Please try again later.</p>';
+        }
+    }
+
+    // Call the function to fetch and display posts on page load
+    fetchAndDisplayPosts();
+</script>
+
 
     </script>
 </body>
