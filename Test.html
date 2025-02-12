@@ -170,7 +170,7 @@
     <div id="cardContainer" class="card-grid"></div>
 
     <script>
-        const API_URL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/"; // Replace with your actual Cloudflare Blogger API URL
+        const API_URL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/"; // Replace with your Blogger API URL
 
         async function fetchPosts() {
             try {
@@ -188,7 +188,7 @@
 
                 posts.forEach(post => {
                     const title = post.title || "Untitled Post";
-                    const thumbnail = post.image || "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4FXtUrHHNEVfV1gKmLwrEpTd-eJpe5uvYhvxLPIMfrtNR5WF909tI3XiMb0-DJY5jer8jt5aQNsFcSJDHRzg9QwjevTH6q4SR_5_h1vDtseMVf3dUhxwnqJPEERflJc-Is7gJazPJLDLBmKJ51ZwyV2-4piE9w2JUjkamyvlrZugFn2Mqn7y6z-pnbhdn/s639/1000030327.png";
+                    const thumbnail = post.images?.[0].url || "https://via.placeholder.com/300x200.png?text=No+Image";
                     const downloadLink = post.content.match(/class="download-button" href="([^"]+)"/)?.[1] || "#";
 
                     const card = `
