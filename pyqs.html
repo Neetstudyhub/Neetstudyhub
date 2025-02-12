@@ -74,5 +74,58 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="script.js"></script>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+    const pyqsContainer = document.getElementById("pyqsContainer");
+
+    // Cloudflare Worker Proxy URL
+    const apiProxyURL = `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/`;
+
+    // Fetch posts from Cloudflare API Proxy
+    fetch(apiProxyURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.items) {
+                data.items.forEach(post => {
+                    // Create a card for each post
+                    const postCard = document.createElement("div");
+                    postCard.classList.add("col-md-4", "mb-4");
+
+                    const parser = new DOMParser();
+                    const htmlContent = parser.parseFromString(post.content, "text/html");
+
+                    // Extract button links from post content
+                    const downloadButton = htmlContent.querySelector(".download-button a");
+                    const readOnlineButton = htmlContent.querySelector(".read-online a");
+                    const solutionButton = htmlContent.querySelector(".solution-button a");
+
+                    postCard.innerHTML = `
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">${post.title}</h5>
+                                <p class="card-text">${post.contentSnippet || "Click below to access resources."}</p>
+                                <div class="d-flex flex-column">
+                                    ${downloadButton ? `<a href="${downloadButton.href}" class="btn btn-primary mb-2" target="_blank">Download</a>` : ""}
+                                    ${readOnlineButton ? `<a href="readonline.html?url=${encodeURIComponent(readOnlineButton.href)}" class="btn btn-secondary mb-2" target="_blank">Read Online</a>` : ""}
+                                    ${solutionButton ? `<a href="${solutionButton.href}" class="btn btn-success" target="_blank">Solution</a>` : ""}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    pyqsContainer.appendChild(postCard);
+                });
+            } else {
+                pyqsContainer.innerHTML = `<p class="text-center">No PYQs available at the moment.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching posts:", error);
+            pyqsContainer.innerHTML = `<p class="text-center text-danger">Failed to load PYQs. Please try again later.</p>`;
+        });
+});
+
+    </script>
 </body>
 </html>
