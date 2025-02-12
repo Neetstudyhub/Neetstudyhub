@@ -178,7 +178,8 @@ main {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="script.js"></script>
     <script>
-    const pyqsContainer = document.getElementById("pyqsContainer");
+    
+const pyqsContainer = document.getElementById("pyqsContainer");
 
 // Cloudflare API Proxy URL
 const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
@@ -210,20 +211,11 @@ async function fetchPosts() {
     showSkeletonLoader();
 
     try {
-        const response = await fetch(`${apiProxyUrl}?label=pdf`);
+        const response = await fetch(`${apiProxyUrl}?label=NEETPYQ`);
         const data = await response.json();
 
         if (data && data.items) {
-            // Filter posts that have the label "NEETPYQ"
-            const filteredPosts = data.items.filter(post =>
-                post.labels && post.labels.includes("NEETPYQ")
-            );
-
-            if (filteredPosts.length > 0) {
-                displayPosts(filteredPosts);
-            } else {
-                pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
-            }
+            displayPosts(data.items);
         } else {
             pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
         }
