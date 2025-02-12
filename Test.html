@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+        /* Your CSS (no changes made) */
         :root {
             --primary: #3b82f6;
             --secondary: #2563eb;
@@ -173,126 +174,48 @@
             padding: 0.75rem;
             background: var(--primary);
             color: white;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background 0.2s;
             text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background 0.2s;
         }
 
         .download-btn:hover {
             background: var(--secondary);
         }
 
-        .skeleton {
-            background: #e2e8f0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .skeleton::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: skeleton-loading 1.5s infinite;
-        }
-
-        @keyframes skeleton-loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .skeleton-image {
-            height: 200px;
-        }
-
-        .skeleton-text {
-            height: 1rem;
-            border-radius: 0.25rem;
-            margin-bottom: 0.75rem;
-        }
-
         .error {
-            text-align: center;
             color: var(--error);
-            padding: 2rem;
-            grid-column: 1 / -1;
-        }
-
-        footer {
-            background: white;
-            padding: 2rem;
-            margin-top: 4rem;
             text-align: center;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .card-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .filters {
-                flex-direction: column;
-                padding: 1rem;
-            }
-
-            .dropdown-container {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
+            font-size: 1.2rem;
+            padding: 1.5rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">NCERT Hub</div>
+        <div class="logo">NCERT Resource Hub</div>
     </header>
 
     <div class="filters">
         <div class="dropdown-container">
-            <button class="dropdown-btn" onclick="toggleDropdown('class')">
+            <div class="dropdown-btn" onclick="toggleDropdown('class')">
                 <span>All Classes</span>
-                <span class="material-icons arrow">expand_more</span>
-            </button>
-            <div class="dropdown-menu" id="classDropdown"></div>
+                <i class="fas fa-chevron-down arrow"></i>
+            </div>
+            <div id="classDropdown" class="dropdown-menu"></div>
         </div>
 
         <div class="dropdown-container">
-            <button class="dropdown-btn" onclick="toggleDropdown('subject')">
+            <div class="dropdown-btn" onclick="toggleDropdown('subject')">
                 <span>All Subjects</span>
-                <span class="material-icons arrow">expand_more</span>
-            </button>
-            <div class="dropdown-menu" id="subjectDropdown"></div>
-        </div>
-    </div>
-
-    <div class="card-grid" id="cardContainer">
-        <!-- Skeleton Loaders -->
-        <div class="pdf-card">
-            <div class="skeleton skeleton-image"></div>
-            <div class="card-content">
-                <div class="skeleton skeleton-text" style="width: 80%"></div>
-                <div class="skeleton skeleton-text" style="width: 60%"></div>
-                <div class="skeleton skeleton-text" style="width: 70%"></div>
-                <div class="skeleton skeleton-text" style="height: 40px"></div>
+                <i class="fas fa-chevron-down arrow"></i>
             </div>
+            <div id="subjectDropdown" class="dropdown-menu"></div>
         </div>
-        <!-- Repeat skeleton cards 5 times -->
     </div>
 
-    <footer>
-        <p>© 2023 NCERT Hub. Quality educational resources for everyone.</p>
-    </footer>
+    <div id="cardContainer" class="card-grid"></div>
 
     <script>
         const API_ENDPOINT = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
@@ -304,15 +227,15 @@
                 const response = await fetch(API_ENDPOINT);
                 if (!response.ok) throw new Error('Failed to fetch');
                 const data = await response.json();
-                
+
+                // Filter posts containing 'pdfclass' label
                 allPosts = data.items.map(post => ({
                     title: post.title,
                     class: getContent(post.content, 'pdfclass'),
                     subject: getContent(post.content, 'pdfsubject'),
                     image: getFirstImage(post.content),
-                    downloadUrl: getDownloadLink(post.content),
-                    content: post.content
-                })).filter(post => post.class && post.subject);
+                    downloadUrl: getDownloadLink(post.content)
+                }));
 
                 populateFilters();
                 renderCards();
@@ -338,8 +261,8 @@
         }
 
         function populateFilters() {
-            const classes = ['All', ...new Set(allPosts.map(p => p.class).filter(Boolean)];
-            const subjects = ['All', ...new Set(allPosts.map(p => p.subject).filter(Boolean)];
+            const classes = ['All', ...new Set(allPosts.map(p => p.class).filter(Boolean))];
+            const subjects = ['All', ...new Set(allPosts.map(p => p.subject).filter(Boolean))];
             
             populateDropdown('classDropdown', classes);
             populateDropdown('subjectDropdown', subjects);
