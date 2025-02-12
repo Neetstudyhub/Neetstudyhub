@@ -3,270 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous Year Questions - NEET Study Hub</title>
+    <title>NEET PYQs - Year-wise</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex: 1;
-        }
-
+        /* Card styling */
         .card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background: #fff;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .card img {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            max-height: 200px;
+            width: 100%;
+            height: 160px;
             object-fit: cover;
         }
 
         .card-body {
-            text-align: center;
+            padding: 15px;
         }
 
         .card-title {
+            font-size: 1.2rem;
             font-weight: 600;
-            font-size: 1.1rem;
             color: #333;
-        }
-
-        .card-text {
-            font-size: 0.9rem;
-            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .card-buttons {
-            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
         }
 
-        .btn {
-            font-size: 0.9rem;
-            margin: 0 5px;
-            transition: all 0.3s ease;
-        }
-
-        /* Skeleton loading */
-        .skeleton-card {
-            border-radius: 10px;
-            background: #e0e0e0;
-            margin-bottom: 20px;
-            height: 300px;
-        }
-
-        .skeleton-card::before {
-            content: '';
-            display: block;
-            background: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            height: 100%;
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
-        }
-
-        /* Footer styling */
-        footer {
-            text-align: center;
-            padding: 15px 0;
-            background-color: #f8f9fa;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .card img {
-                max-height: 150px;
-            }
-
-            .card-title {
-                font-size: 1rem;
-            }
-
-            .card-text {
-                font-size: 0.8rem;
-            }
-
-            .btn {
-                font-size: 0.8rem;
-                padding: 8px 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <main>
-        <section class="py-5 bg-light">
-            <div class="container">
-                <h1 class="text-center mb-5">NEET Previous Year Questions</h1>
-                <div class="row" id="pyqsContainer">
-                    <!-- Skeleton loader -->
-                    <div class="col-md-4 skeleton-card"></div>
-                    <div class="col-md-4 skeleton-card"></div>
-                    <div class="col-md-4 skeleton-card"></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
-    </footer>
-
-    <script>
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous Year Questions - NEET Study Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* General card styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .card {
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .card-text {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .card-body .btn {
+        .card-buttons a {
             font-size: 0.85rem;
-            font-weight: 500;
-            border-radius: 20px;
-            padding: 8px 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #fff;
         }
 
-        .card-body .btn-primary {
+        .btn-primary {
             background-color: #007bff;
-            border-color: #007bff;
         }
 
-        .card-body .btn-secondary {
+        .btn-secondary {
             background-color: #6c757d;
-            border-color: #6c757d;
         }
 
-        .card-body .btn-success {
+        .btn-success {
             background-color: #28a745;
-            border-color: #28a745;
         }
 
-        .card-body .d-flex {
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
+        /* Responsive card layout */
+        #pyqsContainer {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
         }
 
-        /* Skeleton styles */
+        @media (min-width: 768px) {
+            #pyqsContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            #pyqsContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Skeleton loader for cards */
         .skeleton-card {
-            border-radius: 10px;
-            overflow: hidden;
+            border-radius: 12px;
             background: #f0f0f0;
-            margin-bottom: 20px;
             animation: pulse 1.5s infinite ease-in-out;
-        }
-
-        .skeleton-card .skeleton-img {
-            width: 100%;
-            height: 180px;
-            background: #e0e0e0;
-        }
-
-        .skeleton-card .skeleton-body {
-            padding: 15px;
-        }
-
-        .skeleton-line {
-            height: 20px;
-            background: #e0e0e0;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-
-        .skeleton-line.short {
-            width: 50%;
-        }
-
-        .skeleton-line.medium {
-            width: 75%;
+            height: 260px;
         }
 
         @keyframes pulse {
             0% {
-                background-color: #f0f0f0;
+                background-color: #f4f4f4;
             }
             50% {
-                background-color: #e0e0e0;
+                background-color: #e8e8e8;
             }
             100% {
-                background-color: #f0f0f0;
+                background-color: #f4f4f4;
             }
+        }
+
+        /* Empty state */
+        .no-pyqs {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #777;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -277,8 +131,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="pyqs.html">PYQs</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pyqs.html">PYQs</a></li>
                     <li class="nav-item"><a class="nav-link" href="ncert.html">NCERT PDFs</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                 </ul>
@@ -286,18 +140,21 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main>
-        <section class="py-5 bg-light">
+        <section class="py-5">
             <div class="container">
-                <h1 class="text-center mb-5">NEET Previous Year Questions</h1>
-                <div class="row" id="pyqsContainer">
-                    <!-- Skeletons for loading will be shown here -->
+                <h1 class="text-center mb-4">Previous Year Questions</h1>
+                <div id="pyqsContainer">
+                    <!-- Skeletons and filtered cards will load here -->
                 </div>
+                <p class="no-pyqs d-none">No PYQs available. Try again later.</p>
             </div>
         </section>
     </main>
 
-  <footer class="bg-dark text-white py-4">
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4 mb-md-0">
@@ -334,99 +191,61 @@
             </div>
         </div>
     </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="script.js">script.js</script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const pyqsContainer = document.getElementById("pyqsContainer");
-            const allowedLabels = ["pyq-pdf", "Pyq-Pdf", "PYQ-PDF", "Pyq-PDf"];
-            const apiProxyURL = `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/`;
+            const noPyqsMessage = document.querySelector(".no-pyqs");
+            const apiProxyURL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
 
-            // Show skeletons during loading
-            function showSkeletons() {
+            function showSkeletons(count = 6) {
                 pyqsContainer.innerHTML = "";
-                for (let i = 0; i < 6; i++) {
-                    pyqsContainer.innerHTML += `
-                        <div class="col-md-4">
-                            <div class="skeleton-card">
-                                <div class="skeleton-img"></div>
-                                <div class="skeleton-body">
-                                    <div class="skeleton-line medium"></div>
-                                    <div class="skeleton-line short"></div>
-                                    <div class="skeleton-line"></div>
-                                </div>
-                            </div>
-                        </div>`;
+                for (let i = 0; i < count; i++) {
+                    pyqsContainer.innerHTML += `<div class="skeleton-card"></div>`;
                 }
             }
 
-            // Hide skeletons
-            function hideSkeletons() {
-                pyqsContainer.innerHTML = "";
-            }
-
-            // Fetch posts from the API
-            function fetchPosts() {
+            function fetchPYQs() {
                 showSkeletons();
-
                 fetch(apiProxyURL)
                     .then(response => response.json())
                     .then(data => {
-                        hideSkeletons();
-                        let filteredPosts = 0;
+                        pyqsContainer.innerHTML = "";
+                        noPyqsMessage.classList.add("d-none");
+                        const items = data.items || [];
+                        const filteredItems = items.filter(item => {
+                            const year = item.title.match(/\b(20\d{2})\b/);
+                            return year; // Only include posts with a year in the title
+                        });
 
-                        if (data.items) {
-                            data.items.forEach(post => {
-                                const postLabels = post.labels || [];
-                                const hasAllowedLabel = postLabels.some(label => allowedLabels.includes(label));
-
-                                if (hasAllowedLabel) {
-                                    const parser = new DOMParser();
-                                    const htmlContent = parser.parseFromString(post.content, "text/html");
-
-                                    const downloadButton = htmlContent.querySelector(".download-button a");
-                                    const readOnlineButton = htmlContent.querySelector(".read-online a");
-                                    const solutionButton = htmlContent.querySelector(".solution-button a");
-
-                                    const thumbnail = htmlContent.querySelector("img");
-                                    const thumbnailSrc = thumbnail ? thumbnail.src : "https://via.placeholder.com/300x180.png?text=Thumbnail";
-
-                                    const postCard = `
-                                        <div class="col-md-4">
-                                            <div class="card h-100">
-                                                <img src="${thumbnailSrc}" alt="Post Thumbnail" class="card-img-top">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${post.title}</h5>
-                                                    <p class="card-text">${post.contentSnippet || "Click below to access resources."}</p>
-                                                    <div class="d-flex flex-column align-items-center">
-                                                        ${downloadButton ? `<a href="${downloadButton.href}" class="btn btn-primary" target="_blank">Download</a>` : ""}
-                                                        ${readOnlineButton ? `<a href="readonline.html?url=${encodeURIComponent(readOnlineButton.href)}" class="btn btn-secondary" target="_blank">Read Online</a>` : ""}
-                                                        ${solutionButton ? `<a href="${solutionButton.href}" class="btn btn-success" target="_blank">Solution</a>` : ""}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                                    pyqsContainer.innerHTML += postCard;
-                                    filteredPosts++;
-                                }
-                            });
-
-                            if (filteredPosts === 0) {
-                                pyqsContainer.innerHTML = `<p class="text-center">No PYQs with the specified labels found.</p>`;
-                            }
+                        if (filteredItems.length === 0) {
+                            noPyqsMessage.classList.remove("d-none");
                         } else {
-                            pyqsContainer.innerHTML = `<p class="text-center">No PYQs available at the moment.</p>`;
+                            filteredItems.forEach(post => {
+                                const postYear = post.title.match(/\b(20\d{2})\b/)[0];
+                                const postCard = `
+                                    <div class="card">
+                                        <img src="${post.thumbnail || 'https://via.placeholder.com/300x160'}" alt="Post Thumbnail">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${post.title}</h5>
+                                            <div class="card-buttons">
+                                                <a href="#" class="btn-primary">Download</a>
+                                                <a href="#" class="btn-secondary">Read Online</a>
+                                                <a href="#" class="btn-success">Solution</a>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                                pyqsContainer.innerHTML += postCard;
+                            });
                         }
                     })
                     .catch(error => {
-                        console.error("Error fetching posts:", error);
-                        hideSkeletons();
-                        pyqsContainer.innerHTML = `<p class="text-center text-danger">Failed to load PYQs. Please try again later.</p>`;
+                        console.error(error);
+                        noPyqsMessage.classList.remove("d-none");
                     });
             }
 
-            fetchPosts();
+            fetchPYQs();
         });
     </script>
 </body>
