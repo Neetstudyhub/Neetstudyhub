@@ -104,19 +104,10 @@
         background-color: #f4f4f4;
     }
 }
-
-/* Footer Fix */
-footer {
-    background-color: #343a40;
-    color: white;
-    padding: 20px 0;
+main {
+    min-height: calc(100vh - 200px); /* Adjust this based on your header and footer heights */
 }
-
-.fixed-bottom {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
+     
 
  </style>
 </head>
@@ -199,13 +190,14 @@ function showSkeletonLoader(count = 6) {
         pyqsContainer.innerHTML += `
             <div class="col-md-4 mb-4">
                 <div class="card skeleton-card h-100">
-                    <div class="skeleton-thumbnail"></div>
+                    <div class="skeleton-thumbnail" style="height: 180px;"></div>
                     <div class="card-body">
-                        <div class="skeleton-title"></div>
-                        <div class="skeleton-text"></div>
+                        <div class="skeleton-title" style="height: 20px; width: 70%; margin-bottom: 10px;"></div>
+                        <div class="skeleton-text" style="height: 15px; width: 90%; margin-bottom: 5px;"></div>
+                        <div class="skeleton-text" style="height: 15px; width: 60%;"></div>
                     </div>
                     <div class="card-footer text-center">
-                        <div class="skeleton-button"></div>
+                        <div class="skeleton-button" style="height: 30px; width: 80%;"></div>
                     </div>
                 </div>
             </div>
@@ -234,12 +226,10 @@ async function fetchPosts() {
 
 // Function to get the thumbnail from the Blogger post
 function getThumbnail(post) {
-    // Check if `media$thumbnail` exists
     if (post.media$thumbnail?.url) {
         return post.media$thumbnail.url;
     }
 
-    // Extract first image from post content
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = post.content;
 
@@ -248,21 +238,19 @@ function getThumbnail(post) {
         return imgTag.src;
     }
 
-    // Default placeholder if no image is found
     return "https://via.placeholder.com/300x180";
 }
 
 // Function to display posts dynamically
 function displayPosts(posts) {
-    pyqsContainer.innerHTML = ""; // Clear skeleton loaders
+    pyqsContainer.innerHTML = "";
 
     posts.forEach((post) => {
         const title = post.title || "Untitled";
         const link = post.url || "#";
         const content = post.content || "";
-        const thumbnail = getThumbnail(post); // Fetch the thumbnail
+        const thumbnail = getThumbnail(post);
 
-        // Extract buttons
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = content;
 
@@ -270,11 +258,10 @@ function displayPosts(posts) {
         const readOnlineLink = tempDiv.querySelector(".read-online")?.getAttribute("href") || "#";
         const solutionLink = tempDiv.querySelector(".solution-button")?.getAttribute("href") || "#";
 
-        // Create a card for each post
         const postCard = `
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img src="${thumbnail}" alt="${title}" class="card-img-top img-fluid">
+                    <img src="${thumbnail}" alt="${title}" class="card-img-top img-fluid" style="height: 180px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">${title}</h5>
                         <p class="card-text">Prepare effectively with these previous year questions.</p>
@@ -290,27 +277,10 @@ function displayPosts(posts) {
 
         pyqsContainer.innerHTML += postCard;
     });
-
-    // Ensure footer sticks to the bottom if content is less
-    adjustFooter();
-}
-
-// Adjust footer position
-function adjustFooter() {
-    const footer = document.querySelector("footer");
-    const bodyHeight = document.body.scrollHeight;
-    const windowHeight = window.innerHeight;
-
-    if (bodyHeight < windowHeight) {
-        footer.classList.add("fixed-bottom");
-    } else {
-        footer.classList.remove("fixed-bottom");
-    }
 }
 
 // Fetch posts on page load
 fetchPosts();
-window.addEventListener("resize", adjustFooter);
 
     </script>
 </body>
