@@ -152,7 +152,7 @@ function displayPosts() {
     // Filter posts to exclude any post with label 'pdf' (case-insensitive)
     const filteredPosts = allPosts.filter(post => {
         if (!post.labels) return true; // If no labels, include the post
-        return !post.labels.some(label => label.toLowerCase() === "pdf");
+        return !post.labels.some(label => label.toLowerCase() === "pdf-pyq");
     });
 
     const postsToShow = filteredPosts.slice(0, currentIndex + postsPerPage);
