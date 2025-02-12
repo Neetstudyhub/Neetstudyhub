@@ -3,97 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous Year Questions - NEET Study Hub</title>
+    <title>NCERT PDFs - NEET Study Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Skeleton Loader Styling */
-        .skeleton-card {
-            background: linear-gradient(90deg, #f4f4f4, #eaeaea, #f4f4f4);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            animation: shimmer 1.2s infinite;
-        }
-
-        .skeleton-thumbnail {
-            width: 100%;
-            height: 180px;
-            background: #e0e0e0;
-        }
-
-        .skeleton-title, .skeleton-text, .skeleton-button {
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin: 10px auto;
-        }
-
-        .skeleton-title {
-            width: 60%;
-            height: 20px;
-        }
-
-        .skeleton-text {
-            width: 80%;
-            height: 14px;
-        }
-
-        .skeleton-button {
-            width: 70%;
-            height: 30px;
-        }
-
-        /* Modern Card Styling */
-        .card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .card-text {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .card-footer .btn {
-            margin: 5px 0;
-            border-radius: 6px;
-        }
-
-        .card-footer .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-        .card-footer .btn-secondary {
-            background-color: #6c757d;
-            border: none;
         }
 
         main {
@@ -104,21 +20,12 @@
             margin-top: 25px;
         }
 
-        /* Media Query */
-        @media (max-width: 768px) {
-            footer {
-                margin-top: 15px;
-            }
-        }
-
-        /* Shimmer Effect */
-        @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: 200px 0; }
-        }
-
         .filter-container {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .filter-container select {
@@ -126,6 +33,79 @@
             border: 1px solid #ccc;
             padding: 10px;
             font-size: 14px;
+            min-width: 200px;
+            background: #f8f9fa;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-container select:hover {
+            border-color: #007bff;
+            box-shadow: 0px 2px 6px rgba(0, 123, 255, 0.3);
+        }
+
+        .card {
+            border: 1px solid #e3e3e3;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-footer {
+            background: #f8f9fa;
+            border-top: 1px solid #e3e3e3;
+        }
+
+        .btn-primary {
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #007bff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            color: #fff;
+        }
+
+        @media (min-width: 576px) {
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .card-container .col-md-4 {
+                flex: 1 0 45%; /* Show 2 cards in one row for all screen sizes */
+                max-width: 45%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .card-container .col-md-4 {
+                flex: 1 0 100%; /* Single card per row on small screens */
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -153,9 +133,9 @@
         <section class="py-5 bg-light">
             <div class="container">
                 <h1 class="text-center mb-4">NCERT PDFs</h1>
-                <div class="filter-container text-center">
+                <div class="filter-container">
                     <!-- Filter for Class -->
-                    <select id="classFilter" class="me-3">
+                    <select id="classFilter">
                         <option value="all">All Classes</option>
                         <option value="6th">Class 6</option>
                         <option value="7th">Class 7</option>
@@ -178,7 +158,7 @@
                     </select>
                 </div>
 
-                <div class="row" id="ncertContainer">
+                <div class="card-container row" id="ncertContainer">
                     <!-- NCERT PDFs will be loaded dynamically -->
                 </div>
             </div>
@@ -238,7 +218,7 @@
                 const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
 
                 const card = `
-                    <div class="col-md-4 mb-4" data-class="${classLabel}" data-subject="${subjectLabel}">
+                    <div class="col-md-4" data-class="${classLabel}" data-subject="${subjectLabel}">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title">${title}</h5>
@@ -285,5 +265,3 @@
     </script>
 </body>
 </html>
-
-                    
