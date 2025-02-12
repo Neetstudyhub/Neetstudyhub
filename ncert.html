@@ -10,90 +10,6 @@
         
 /* post cards */
         
- .post-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    width: 90%;
-    margin: 5% auto;
-    box-sizing: border-box;
-}
-
-.post-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.post-thumbnail {
-    height: auto;
-    width: 100%;
-    object-fit: cover;
-}
-
-.post-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
-    text-transform: capitalize;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.post-label {
-    font-size: 14px;
-    color: #fff;
-    background-color: #007bff;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-right: 5px;
-    display: inline-block;
-}
-
-.post-card-body {
-    padding: 16px;
-}
-
-.post-buttons {
-    margin-top: 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    flex-direction: column;
-}
-
-.post-buttons a {
-    padding: 8px 16px;
-    text-align: center;
-    font-size: 14px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.post-buttons a:hover {
-    background-color: #0056b3;
-}
-
-@media (min-width: 468px) {
-    .post-card {
-        width: 260px;
-        margin-left: 70px;
-        margin: 20px;
-        display: inline-block;
-        vertical-align: top;
-    }
-
-    .post-thumbnail {
-        height: 200px;
-    }
-
-    .post-buttons {
-        flex-direction: row;
         justify-content: flex-start;
     }
 
@@ -169,21 +85,6 @@
     margin-right: 5px;
     display: inline-block;
 }
-
-/* Skeleton Loading Animation */
-@keyframes skeleton-loading {
-    0% {
-        background-color: #e0e0e0;
-    }
-    50% {
-        background-color: #f0f0f0;
-    }
-    100% {
-        background-color: #e0e0e0;
-    }
-}
-
-    </style>
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
