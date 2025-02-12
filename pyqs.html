@@ -206,16 +206,25 @@ function showSkeletonLoader(count = 6) {
     }
 }
 
-// Function to fetch Blogger posts with label "pdf"
+// Function to fetch Blogger posts with label "neetpyq" (case-insensitive)
 async function fetchPosts() {
     showSkeletonLoader();
 
     try {
-        const response = await fetch(`${apiProxyUrl}?label=NEETPYQ`);
+        const response = await fetch(`${apiProxyUrl}?label=neetpyq`);
         const data = await response.json();
 
         if (data && data.items) {
-            displayPosts(data.items);
+            // Filter posts with the label "neetpyq" (case-insensitive match)
+            const filteredPosts = data.items.filter((post) => {
+                return post.labels?.some(label => label.toLowerCase() === "neetpyq");
+            });
+
+            if (filteredPosts.length > 0) {
+                displayPosts(filteredPosts);
+            } else {
+                pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
+            }
         } else {
             pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
         }
@@ -227,10 +236,12 @@ async function fetchPosts() {
 
 // Function to get the thumbnail from the Blogger post
 function getThumbnail(post) {
+    // Check if the post has a thumbnail in its metadata
     if (post.media$thumbnail?.url) {
         return post.media$thumbnail.url;
     }
 
+    // Check for the first image in the post content
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = post.content;
 
@@ -239,6 +250,7 @@ function getThumbnail(post) {
         return imgTag.src;
     }
 
+    // Fallback placeholder image
     return "https://via.placeholder.com/300x180";
 }
 
@@ -255,6 +267,7 @@ function displayPosts(posts) {
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = content;
 
+        // Extract download, read-online, and solution links
         const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
         const readOnlineLink = tempDiv.querySelector(".read-online")?.getAttribute("href") || "#";
         const solutionLink = tempDiv.querySelector(".solution-button")?.getAttribute("href") || "#";
