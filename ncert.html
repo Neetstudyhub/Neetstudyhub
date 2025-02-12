@@ -130,30 +130,11 @@
         }
 
         .skeleton-card {
-            background: #e0e0e0;
+            background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
             border-radius: 10px;
             width: 300px;
             height: 260px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
             animation: shimmer 1.5s infinite;
-        }
-
-        .skeleton-card .skeleton-thumbnail {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(90deg, #f4f4f4 25%, #e0e0e0 50%, #f4f4f4 75%);
-            border-radius: 10px;
-        }
-
-        .skeleton-card .skeleton-text {
-            width: 80%;
-            height: 16px;
-            background: linear-gradient(90deg, #f4f4f4 25%, #e0e0e0 50%, #f4f4f4 75%);
-            margin: 10px 0;
-            border-radius: 5px;
         }
 
         @keyframes shimmer {
@@ -167,10 +148,6 @@
 
         @media (max-width: 768px) {
             .pdf-card {
-                width: 90%;
-            }
-
-            .skeleton-card {
                 width: 90%;
             }
         }
@@ -215,19 +192,7 @@
             </select>
         </div>
         <div id="cardContainer" class="card-container">
-            <!-- Skeleton cards will show until the data is fetched -->
-            ${Array(6)
-                .fill()
-                .map(
-                    () => `
-                    <div class="skeleton-card">
-                        <div class="skeleton-thumbnail"></div>
-                        <div class="skeleton-text"></div>
-                        <div class="skeleton-text"></div>
-                    </div>
-                `
-                )
-                .join("")}
+            <!-- Cards will be injected here -->
         </div>
     </main>
 
@@ -235,6 +200,7 @@
         &copy; 2025 NEET Study Hub. All rights reserved.
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const apiUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/?label=ncertpdf";
         const cardContainer = document.getElementById("cardContainer");
@@ -259,7 +225,7 @@
         function displayCards(items) {
             cardContainer.innerHTML = "";
             items.forEach((item) => {
-                const { title, url, content, thumbnail } = item;
+                const { title, url, content } = item;
 
                 const classMatch = content.match(/<p><strong>Class:<\/strong>\s*(.+?)<\/p>/);
                 const subjectMatch = content.match(/<p><strong>Subject:<\/strong>\s*(.+?)<\/p>/);
@@ -269,7 +235,7 @@
 
                 const card = `
                     <div class="pdf-card" data-class="${postClass.toLowerCase()}" data-subject="${postSubject.toLowerCase()}">
-                        <img src="${thumbnail}" alt="${title}" class="card-image">
+                        <img src="https://via.placeholder.com/300x180" alt="${title}" class="card-image">
                         <div class="card-content">
                             <h3 class="doc-title">${title}</h3>
                             <div class="doc-details">
@@ -293,9 +259,6 @@
             });
         }
 
-        classFilter.addEventListener("change", filterCards);
-        subjectFilter.addEventListener("change", filterCards);
-
         function filterCards() {
             const selectedClass = classFilter.value.toLowerCase();
             const selectedSubject = subjectFilter.value.toLowerCase();
@@ -315,6 +278,9 @@
                 }
             });
         }
+
+        classFilter.addEventListener("change", filterCards);
+        subjectFilter.addEventListener("change", filterCards);
 
         fetchData();
     </script>
