@@ -6,6 +6,148 @@
     <title>Previous Year Questions - NEET Study Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .card-buttons {
+            margin-top: 10px;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Skeleton loading */
+        .skeleton-card {
+            border-radius: 10px;
+            background: #e0e0e0;
+            margin-bottom: 20px;
+            height: 300px;
+        }
+
+        .skeleton-card::before {
+            content: '';
+            display: block;
+            background: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card img {
+                max-height: 150px;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            .card-text {
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h1 class="text-center mb-5">NEET Previous Year Questions</h1>
+                <div class="row" id="pyqsContainer">
+                    <!-- Skeleton loader -->
+                    <div class="col-md-4 skeleton-card"></div>
+                    <div class="col-md-4 skeleton-card"></div>
+                    <div class="col-md-4 skeleton-card"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Year Questions - NEET Study Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         /* General card styles */
         body {
@@ -155,11 +297,45 @@
         </section>
     </main>
 
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
+  <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">NEET Study Hub</h5>
+                    <p>Your complete NEET preparation companion with comprehensive study materials and resources.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="pyqs.html" class="text-white-50">PYQs</a></li>
+                        <li><a href="ncert.html" class="text-white-50">NCERT PDFs</a></li>
+                        <li><a href="blog.html" class="text-white-50">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Connect With Us</h5>
+                    <div class="social-links mb-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <div class="d-flex justify-content-center gap-4 mb-3">
+                    <a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
+                    <a href="contact.html" class="text-white-50 text-decoration-none">Contact Us</a>
+                    <a href="privacy.html" class="text-white-50 text-decoration-none">Privacy Policy</a>
+                    <a href="login.html" class="text-white-50 text-decoration-none">Admin Panel</a>
+                </div>
+                <p class="mb-0">&copy; 2025 NEET Study Hub. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="script.js">script.js</script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
