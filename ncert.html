@@ -7,7 +7,136 @@
 
          <link href="style.css" rel="stylesheet">
 
-    
+    <style>
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation Bar Customizations (if needed) */
+.navbar-brand i {
+  color: #fff;
+}
+
+/* Post Card Styles */
+.post-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.post-thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.post-card-body {
+  padding: 15px;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.post-label {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+/* Post Buttons */
+.post-buttons .btn {
+  margin-right: 5px;
+}
+
+/* Skeleton Loader Styles */
+.skeleton-thumbnail,
+.skeleton-title,
+.skeleton-label,
+.skeleton-buttons {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(to right, #e0e0e0 0%, #f8f8f8 50%, #e0e0e0 100%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-thumbnail {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.skeleton-label {
+  width: 40%;
+  height: 15px;
+  margin-bottom: 5px;
+}
+
+.skeleton-buttons {
+  width: 30%;
+  height: 30px;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #343a40;
+  color: #fff;
+}
+
+footer a {
+  color: #adb5bd;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+  .post-thumbnail {
+    height: 150px;
+  }
+}
+
+        
+    </style>
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
