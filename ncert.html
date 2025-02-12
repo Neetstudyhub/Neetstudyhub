@@ -87,6 +87,33 @@
             color: #fff;
         }
 
+        /* Skeleton Loader */
+        .skeleton-card {
+            background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
+            border-radius: 10px;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            animation: shimmer 1.5s infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: 200px 0;
+            }
+        }
+
+        .skeleton-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
         @media (min-width: 576px) {
             .card-container {
                 display: flex;
@@ -96,14 +123,14 @@
             }
 
             .card-container .col-md-4 {
-                flex: 1 0 45%; /* Show 2 cards in one row for all screen sizes */
+                flex: 1 0 45%;
                 max-width: 45%;
             }
         }
 
         @media (max-width: 575.98px) {
             .card-container .col-md-4 {
-                flex: 1 0 100%; /* Single card per row on small screens */
+                flex: 1 0 100%;
                 max-width: 100%;
             }
         }
@@ -158,9 +185,16 @@
                     </select>
                 </div>
 
-                <div class="card-container row" id="ncertContainer">
-                    <!-- NCERT PDFs will be loaded dynamically -->
+                <!-- Skeleton Loader -->
+                <div class="skeleton-wrapper" id="skeletonWrapper">
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
                 </div>
+
+                <!-- Card Container -->
+                <div class="card-container row d-none" id="ncertContainer"></div>
             </div>
         </section>
     </main>
@@ -176,90 +210,48 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const ncertContainer = document.getElementById("ncertContainer");
+        const skeletonWrapper = document.getElementById("skeletonWrapper");
         const classFilter = document.getElementById("classFilter");
         const subjectFilter = document.getElementById("subjectFilter");
         const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
 
         async function fetchNCERTPosts() {
-            ncertContainer.innerHTML = "<p>Loading...</p>";
             try {
                 const response = await fetch(`${apiProxyUrl}?label=ncertpdf`);
                 const data = await response.json();
                 if (data && data.items) {
                     displayNCERTs(data.items);
                 } else {
-                    ncertContainer.innerHTML = "<p>No NCERT PDFs Found!</p>";
+                    skeletonWrapper.innerHTML = "<p>No NCERT PDFs Found!</p>";
                 }
             } catch (error) {
                 console.error("Error fetching NCERT PDFs:", error);
-                ncertContainer.innerHTML = "<p>Failed to load content. Please try again later.</p>";
+                skeletonWrapper.innerHTML = "<p>Failed to load content. Please try again later.</p>";
+            } finally {
+                skeletonWrapper.classList.add("d-none");
+                ncertContainer.classList.remove("d-none");
             }
         }
 
-        function extractInfoFromContent(content, key) {
-            const regex = new RegExp(`<strong>${key}:<\/strong>\\s*(.+?)<`, 'i');
-            const match = content.match(regex);
-            return match ? match[1].trim() : `Unknown ${key}`;
-        }
-
         function displayNCERTs(posts) {
-            ncertContainer.innerHTML = "";
-
             posts.forEach((post) => {
                 const title = post.title || "Untitled";
-                const content = post.content || "";
-
-                const classLabel = extractInfoFromContent(content, "Class");
-                const subjectLabel = extractInfoFromContent(content, "Subject");
-
-                const tempDiv = document.createElement("div");
-                tempDiv.innerHTML = content;
-
-                const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
 
                 const card = `
-                    <div class="col-md-4" data-class="${classLabel}" data-subject="${subjectLabel}">
+                    <div class="col-md-4">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title">${title}</h5>
-                                <p class="card-text">
-                                    <strong>Class:</strong> ${classLabel}<br>
-                                    <strong>Subject:</strong> ${subjectLabel}
-                                </p>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="${downloadLink}" class="btn btn-primary btn-sm" target="_blank">Download</a>
+                                <a href="#" class="btn btn-primary btn-sm" target="_blank">Download</a>
                             </div>
                         </div>
                     </div>
                 `;
-
                 ncertContainer.innerHTML += card;
             });
         }
-
-        function filterNCERTs() {
-            const selectedClass = classFilter.value;
-            const selectedSubject = subjectFilter.value;
-
-            const cards = document.querySelectorAll("#ncertContainer .col-md-4");
-            cards.forEach((card) => {
-                const cardClass = card.getAttribute("data-class");
-                const cardSubject = card.getAttribute("data-subject");
-
-                const matchClass = selectedClass === "all" || cardClass === selectedClass;
-                const matchSubject = selectedSubject === "all" || cardSubject === selectedSubject;
-
-                if (matchClass && matchSubject) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
-
-        classFilter.addEventListener("change", filterNCERTs);
-        subjectFilter.addEventListener("change", filterNCERTs);
 
         fetchNCERTPosts();
     </script>
