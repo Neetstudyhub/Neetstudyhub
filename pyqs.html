@@ -7,83 +7,115 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
+body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    /* General card styles */
-.card {
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
+        main {
+            flex: 1;
+        }
 
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-/* Card image (thumbnail) */
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-bottom: 1px solid #f0f0f0;
-}
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-/* Card body spacing */
-.card-body {
-    padding: 15px;
-}
+        .card img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            max-height: 200px;
+            object-fit: cover;
+        }
 
-/* Title styling */
-.card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
-}
+        .card-body {
+            text-align: center;
+        }
 
-/* Description styling */
-.card-text {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 15px;
-}
+        .card-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+        }
 
-/* Buttons alignment */
-.card-body .btn {
-    font-size: 0.85rem;
-    font-weight: 500;
-    border-radius: 20px;
-    padding: 8px 15px;
-}
+        .card-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
 
-.card-body .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
+        .card-buttons {
+            margin-top: 10px;
+        }
 
-.card-body .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
+        .btn {
+            font-size: 0.9rem;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
 
-.card-body .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-}
+        /* Skeleton loading */
+        .skeleton-card {
+            border-radius: 10px;
+            background: #e0e0e0;
+            margin-bottom: 20px;
+            height: 300px;
+        }
 
-.card-body .btn:not(:last-child) {
-    margin-bottom: 10px;
-}
+        .skeleton-card::before {
+            content: '';
+            display: block;
+            background: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+        }
 
-/* Button group alignment */
-.card-body .d-flex {
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
 
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card img {
+                max-height: 150px;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            .card-text {
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+        }
 </style>
 </head>
 <body>
@@ -154,77 +186,33 @@
     <script src="script.js"></script>
     <script>
 
-        document.addEventListener("DOMContentLoaded", () => {
-    const pyqsContainer = document.getElementById("pyqsContainer");
-
-    // Allowed labels for filtering
-    const allowedLabels = ["pyq-pdf", "Pyq-Pdf", "PYQ-PDF", "Pyq-PDf"];
-
-    // Cloudflare Worker Proxy URL
-    const apiProxyURL = `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/`;
-
-    // Fetch posts from Cloudflare API Proxy
-    fetch(apiProxyURL)
-        .then(response => response.json())
-        .then(data => {
-            if (data.items) {
-                let filteredPosts = 0; // Counter to track the filtered posts
-                
-                data.items.forEach(post => {
-                    // Check if the post contains any of the allowed labels
-                    const postLabels = post.labels || [];
-                    const hasAllowedLabel = postLabels.some(label => allowedLabels.includes(label));
-
-                    if (hasAllowedLabel) {
-                        // Create a card for each allowed post
-                        const postCard = document.createElement("div");
-                        postCard.classList.add("col-md-4", "mb-4");
-
-                        const parser = new DOMParser();
-                        const htmlContent = parser.parseFromString(post.content, "text/html");
-
-                        // Extract button links from post content
-                        const downloadButton = htmlContent.querySelector(".download-button a");
-                        const readOnlineButton = htmlContent.querySelector(".read-online a");
-                        const solutionButton = htmlContent.querySelector(".solution-button a");
-
-                        // Extract thumbnail (if available)
-                        const thumbnail = htmlContent.querySelector("img");
-                        const thumbnailSrc = thumbnail ? thumbnail.src : "https://via.placeholder.com/300x180.png?text=Thumbnail";
-
-                        postCard.innerHTML = `
-                            <div class="card h-100">
-                                <img src="${thumbnailSrc}" alt="Post Thumbnail" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">${post.title}</h5>
-                                    <p class="card-text">${post.contentSnippet || "Click below to access resources."}</p>
-                                    <div class="d-flex flex-column align-items-center">
-                                        ${downloadButton ? `<a href="${downloadButton.href}" class="btn btn-primary" target="_blank">Download</a>` : ""}
-                                        ${readOnlineButton ? `<a href="readonline.html?url=${encodeURIComponent(readOnlineButton.href)}" class="btn btn-secondary" target="_blank">Read Online</a>` : ""}
-                                        ${solutionButton ? `<a href="${solutionButton.href}" class="btn btn-success" target="_blank">Solution</a>` : ""}
+        const container = document.getElementById("pyqsContainer");
+        fetch('https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/')
+            .then(response => response.json())
+            .then(posts => {
+                container.innerHTML = ''; // Remove skeleton loaders
+                posts.forEach(post => {
+                    const labels = post.labels || [];
+                    if (labels.some(label => /pyq-pdf/i.test(label))) {
+                        container.innerHTML += `
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <img src="${post.thumbnail}" alt="Thumbnail" class="card-img-top">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${post.title}</h5>
+                                        <p class="card-text">${post.excerpt || "Previous year question paper"}</p>
+                                        <div class="card-buttons">
+                                            <a href="${post.download}" target="_blank" class="btn btn-primary">Download</a>
+                                            <a href="readonline.html?url=${post.readOnline}" class="btn btn-secondary">Read Online</a>
+                                            <a href="${post.solution}" target="_blank" class="btn btn-success">Solution</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         `;
-
-                        pyqsContainer.appendChild(postCard);
-                        filteredPosts++;
                     }
                 });
-
-                // If no posts are filtered, display a message
-                if (filteredPosts === 0) {
-                    pyqsContainer.innerHTML = `<p class="text-center">No PYQs with the specified labels found.</p>`;
-                }
-            } else {
-                pyqsContainer.innerHTML = `<p class="text-center">No PYQs available at the moment.</p>`;
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching posts:", error);
-            pyqsContainer.innerHTML = `<p class="text-center text-danger">Failed to load PYQs. Please try again later.</p>`;
-        });
-});
+            });
 
     </script>
 </body>
