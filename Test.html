@@ -5,90 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCERT Resource Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Color Palette: Blue, Black, White */
         :root {
-            --primary: #1e3a8a; /* Blue */
+            --primary: #3b82f6; /* Blue */
             --secondary: #1e293b; /* Black */
-            --text: #1e293b; /* Text Black */
-            --bg: #ffffff; /* White */
-            --border: #e5e7eb; /* Light Gray */
-            --highlight: #3b82f6; /* Light Blue */
+            --bg: #f8fafc; /* White */
+            --text: #1e293b; /* Text */
+            --border: #e2e8f0;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            background: var(--bg);
-            min-height: 100vh;
+            background-color: var(--bg);
+            color: var(--text);
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
-            background: var(--primary);
+            background-color: var(--primary);
+            color: white;
             padding: 1.5rem;
-            color: var(--bg);
             text-align: center;
         }
 
         .logo {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: bold;
         }
 
-        .scroll-buttons {
+        .page-heading {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+
+        .class-buttons {
             display: flex;
-            gap: 0.5rem;
-            padding: 1rem;
             overflow-x: auto;
-            background: var(--bg);
+            padding: 1rem;
+            gap: 0.5rem;
+            background-color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .class-button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
             white-space: nowrap;
         }
 
-        .scroll-button {
-            padding: 0.75rem 1.5rem;
-            background: var(--primary);
-            color: var(--bg);
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .scroll-button:hover {
-            background: var(--highlight);
-        }
-
-        .heading {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--text);
-            margin: 1rem 0;
+        .class-button:hover {
+            background-color: var(--secondary);
         }
 
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             padding: 1.5rem;
             max-width: 1400px;
             margin: 0 auto;
-            width: 100%;
         }
 
         .pdf-card {
-            background: var(--bg);
+            background-color: white;
             border-radius: 0.75rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -103,51 +101,34 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-bottom: 1px solid var(--border);
         }
 
         .card-content {
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .doc-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
             color: var(--text);
             margin-bottom: 1rem;
-            line-height: 1.4;
         }
 
         .download-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--primary);
-            color: var(--bg);
-            text-decoration: none;
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background 0.2s;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
         }
 
         .download-btn:hover {
-            background: var(--highlight);
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            font-size: 1.2rem;
-            padding: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .card-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
+            background-color: var(--secondary);
         }
     </style>
 </head>
@@ -156,60 +137,75 @@
         <div class="logo">NCERT Resource Hub</div>
     </header>
 
-    <div class="scroll-buttons">
-        <a href="class6.html" class="scroll-button">Class 6</a>
-        <a href="class7.html" class="scroll-button">Class 7</a>
-        <a href="class8.html" class="scroll-button">Class 8</a>
-        <a href="class9.html" class="scroll-button">Class 9</a>
-        <a href="class10.html" class="scroll-button">Class 10</a>
-        <a href="class11.html" class="scroll-button">Class 11</a>
-    </div>
+    <h1 class="page-heading">Class 12 NCERT Resources</h1>
 
-    <h1 class="heading">Explore All Resources</h1>
+    <div class="class-buttons">
+        <a href="class6.html" class="class-button">Class 6th</a>
+        <a href="class7.html" class="class-button">Class 7th</a>
+        <a href="class8.html" class="class-button">Class 8th</a>
+        <a href="class9.html" class="class-button">Class 9th</a>
+        <a href="class10.html" class="class-button">Class 10th</a>
+        <a href="class11.html" class="class-button">Class 11th</a>
+        <!-- Class 12 button is intentionally hidden as per requirements -->
+    </div>
 
     <div id="cardContainer" class="card-grid"></div>
 
     <script>
-        const API_URL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/"; // Replace with your actual Cloudflare Blogger API URL
+        const API_ENDPOINT = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+        let allPosts = [];
 
         async function fetchPosts() {
             try {
-                const response = await fetch(`${API_URL}?label=pdfclass`);
+                const response = await fetch(API_ENDPOINT);
+                if (!response.ok) throw new Error('Failed to fetch');
                 const data = await response.json();
 
-                const posts = data.items || [];
-                const cardContainer = document.getElementById("cardContainer");
-                cardContainer.innerHTML = "";
+                // Process posts
+                allPosts = data.items.map(post => ({
+                    title: post.title,
+                    image: getFirstImage(post.content),
+                    downloadUrl: getDownloadLink(post.content)
+                }));
 
-                if (posts.length === 0) {
-                    cardContainer.innerHTML = "<p class='error'>No posts found for the label 'pdfclass'.</p>";
-                    return;
-                }
-
-                posts.forEach(post => {
-                    const title = post.title || "Untitled Post";
-                    const thumbnail = post.image || "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4FXtUrHHNEVfV1gKmLwrEpTd-eJpe5uvYhvxLPIMfrtNR5WF909tI3XiMb0-DJY5jer8jt5aQNsFcSJDHRzg9QwjevTH6q4SR_5_h1vDtseMVf3dUhxwnqJPEERflJc-Is7gJazPJLDLBmKJ51ZwyV2-4piE9w2JUjkamyvlrZugFn2Mqn7y6z-pnbhdn/s639/1000030327.png";
-                    const downloadLink = post.content.match(/class="download-button" href="([^"]+)"/)?.[1] || "#";
-
-                    const card = `
-                        <div class="pdf-card">
-                            <img src="${thumbnail}" alt="${title}" class="card-image">
-                            <div class="card-content">
-                                <h3 class="doc-title">${title}</h3>
-                                <a href="${downloadLink}" target="_blank" class="download-btn">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                    `;
-                    cardContainer.innerHTML += card;
-                });
+                renderCards();
             } catch (error) {
-                document.getElementById("cardContainer").innerHTML = "<p class='error'>Error fetching posts. Please try again later.</p>";
+                console.error('Error fetching posts:', error);
+                showError('Failed to load resources. Please try again later.');
             }
         }
 
-        // Fetch posts on page load
+        function getDownloadLink(html) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.querySelector('.download-button')?.href || '#';
+        }
+
+        function getFirstImage(html) {
+            const img = html.match(/<img[^>]+src="([^">]+)"/);
+            return img?.[1] || 'https://via.placeholder.com/300x200';
+        }
+
+        function renderCards() {
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = allPosts.map(post => `
+                <div class="pdf-card">
+                    <img src="${post.image}" alt="${post.title}" class="card-image">
+                    <div class="card-content">
+                        <h3 class="doc-title">${post.title}</h3>
+                        <a href="${post.downloadUrl}" class="download-btn" target="_blank">
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showError(message) {
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = `<p class="error">${message}</p>`;
+        }
+
+        // Initialize
         fetchPosts();
     </script>
 </body>
