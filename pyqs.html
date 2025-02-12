@@ -4,125 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Previous Year Questions - NEET Study Hub</title>
-   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link href="style.css" rel="stylesheet">
- <style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
         /* Skeleton Loader Styling */
-.skeleton-card {
-    background: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-    animation: shimmer 1.2s infinite linear;
-}
+        .skeleton-card {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            animation: shimmer 1.2s infinite linear;
+        }
 
-.skeleton-thumbnail {
-    width: 100%;
-    height: 180px;
-    background: #e0e0e0;
-}
+        .skeleton-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: #e0e0e0;
+        }
 
-.skeleton-title {
-    width: 60%;
-    height: 20px;
-    background: #e0e0e0;
-    margin: 15px auto;
-}
+        .skeleton-title {
+            width: 60%;
+            height: 20px;
+            background: #e0e0e0;
+            margin: 15px auto;
+        }
 
-.skeleton-text {
-    width: 80%;
-    height: 14px;
-    background: #e0e0e0;
-    margin: 10px auto;
-}
+        .skeleton-text {
+            width: 80%;
+            height: 14px;
+            background: #e0e0e0;
+            margin: 10px auto;
+        }
 
-.skeleton-button {
-    width: 70%;
-    height: 30px;
-    background: #e0e0e0;
-    margin: 8px auto;
-    border-radius: 6px;
-}
+        .skeleton-button {
+            width: 70%;
+            height: 30px;
+            background: #e0e0e0;
+            margin: 8px auto;
+            border-radius: 6px;
+        }
 
-/* Card Styling */
-.card {
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
+        /* Card Styling */
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
 
-.card:hover {
-    transform: scale(1.05);
-}
+        .card:hover {
+            transform: scale(1.05);
+        }
 
-.card-img-top {
-    height: 180px;
-    object-fit: cover;
-}
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+        }
 
-.card-title {
-    font-size: 18px;
-    font-weight: 600;
-}
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
 
-.card-text {
-    font-size: 14px;
-    color: #555;
-}
+        .card-text {
+            font-size: 14px;
+            color: #555;
+        }
 
-.card-footer .btn {
-    margin: 5px 0;
-}
+        .card-footer .btn {
+            margin: 5px 0;
+        }
 
-.card-footer .btn-primary {
-    background-color: #007bff;
-    border: none;
-}
+        .card-footer .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
 
-.card-footer .btn-success {
-    background-color: #28a745;
-    border: none;
-}
+        .card-footer .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
 
-.card-footer .btn-secondary {
-    background-color: #6c757d;
-    border: none;
-}
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% {
+                background-color: #f4f4f4;
+            }
+            50% {
+                background-color: #e0e0e0;
+            }
+            100% {
+                background-color: #f4f4f4;
+            }
+        }
 
-/* Shimmer Effect */
-@keyframes shimmer {
-    0% {
-        background-color: #f4f4f4;
-    }
-    50% {
-        background-color: #e0e0e0;
-    }
-    100% {
-        background-color: #f4f4f4;
-    }
-}
+        main {
+            min-height: calc(100vh - 200px); /* Adjust this based on header and footer height */
+        }
 
-main {
-    min-height: calc(100vh - 200px); /* Adjust this based on header and footer height */
-}
-     @media (max-width: 768px){
-  
-  footer{
-    margin-top: 15px;
-  }
-     }
-     @media (min-width: 769px){
-  
-  footer{
-    margin-top: 25px;
-  }
-     }
- </style>
+        @media (max-width: 768px) {
+            footer {
+                margin-top: 15px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            footer {
+                margin-top: 25px;
+            }
+        }
+    </style>
 </head>
-<body Style="font-family: 'Poppins', sans-serif;">
+<body style="font-family: 'Poppins', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -187,127 +182,107 @@ main {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="script.js"></script>
     <script>
-    
-const pyqsContainer = document.getElementById("pyqsContainer");
+        const pyqsContainer = document.getElementById("pyqsContainer");
+        const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
 
-// Cloudflare API Proxy URL
-const apiProxyUrl = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/";
-
-// Show skeleton cards while loading
-function showSkeletonLoader(count = 6) {
-    pyqsContainer.innerHTML = "";
-    for (let i = 0; i < count; i++) {
-        pyqsContainer.innerHTML += `
-            <div class="col-md-4 mb-4">
-                <div class="card skeleton-card h-100">
-                    <div class="skeleton-thumbnail" style="height: 180px;"></div>
-                    <div class="card-body">
-                        <div class="skeleton-title" style="height: 20px; width: 70%; margin-bottom: 10px;"></div>
-                        <div class="skeleton-text" style="height: 15px; width: 90%; margin-bottom: 5px;"></div>
-                        <div class="skeleton-text" style="height: 15px; width: 60%;"></div>
+        function showSkeletonLoader(count = 6) {
+            pyqsContainer.innerHTML = "";
+            for (let i = 0; i < count; i++) {
+                pyqsContainer.innerHTML += `
+                    <div class="col-md-4 mb-4">
+                        <div class="card skeleton-card h-100">
+                            <div class="skeleton-thumbnail" style="height: 180px;"></div>
+                            <div class="card-body">
+                                <div class="skeleton-title"></div>
+                                <div class="skeleton-text"></div>
+                                <div class="skeleton-text"></div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="skeleton-button"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer text-center">
-                        <div class="skeleton-button" style="height: 30px; width: 80%;"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-}
-
-// Function to fetch Blogger posts with label "neetpyq" (case-insensitive)
-async function fetchPosts() {
-    showSkeletonLoader();
-
-    try {
-        const response = await fetch(`${apiProxyUrl}?label=neetpyq`);
-        const data = await response.json();
-
-        if (data && data.items) {
-            // Filter posts with the label "neetpyq" (case-insensitive match)
-            const filteredPosts = data.items.filter((post) => {
-                return post.labels?.some(label => label.toLowerCase() === "neetpyq");
-            });
-
-            if (filteredPosts.length > 0) {
-                displayPosts(filteredPosts);
-            } else {
-                pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
+                `;
             }
-        } else {
-            pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
         }
-    } catch (error) {
-        console.error("Error fetching posts:", error);
-        pyqsContainer.innerHTML = "<p class='text-center'>Failed to load content. Please try again later.</p>";
-    }
-}
 
-// Function to get the thumbnail from the Blogger post
-function getThumbnail(post) {
-    // Check if the post has a thumbnail in its metadata
-    if (post.media$thumbnail?.url) {
-        return post.media$thumbnail.url;
-    }
+        async function fetchPosts() {
+            showSkeletonLoader();
+            try {
+                const response = await fetch(`${apiProxyUrl}?label=neetpyq`);
+                const data = await response.json();
 
-    // Check for the first image in the post content
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = post.content;
+                if (data && data.items) {
+                    const filteredPosts = data.items.filter((post) => {
+                        return post.labels?.some(label => label.toLowerCase() === "neetpyq");
+                    });
 
-    const imgTag = tempDiv.querySelector("img");
-    if (imgTag) {
-        return imgTag.src;
-    }
+                    if (filteredPosts.length > 0) {
+                        displayPosts(filteredPosts);
+                    } else {
+                        pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
+                    }
+                } else {
+                    pyqsContainer.innerHTML = "<p class='text-center'>No Previous Year Questions Found!</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+                pyqsContainer.innerHTML = "<p class='text-center'>Failed to load content. Please try again later.</p>";
+            }
+        }
 
-    // Fallback placeholder image
-    return "https://via.placeholder.com/300x180";
-}
+        function getThumbnail(post) {
+            if (post.media$thumbnail?.url) {
+                return post.media$thumbnail.url;
+            }
 
-// Function to display posts dynamically
-function displayPosts(posts) {
-    pyqsContainer.innerHTML = "";
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = post.content;
 
-    posts.forEach((post) => {
-        const title = post.title || "Untitled";
-        const link = post.url || "#";
-        const content = post.content || "";
-        const thumbnail = getThumbnail(post);
+            const imgTag = tempDiv.querySelector("img");
+            if (imgTag) {
+                return imgTag.src;
+            }
 
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = content;
+            return "https://via.placeholder.com/300x180";
+        }
 
-        // Extract download, read-online, and solution links
-        const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
-        const readOnlineLink = tempDiv.querySelector(".read-online")?.getAttribute("href") || "#";
-        const solutionLink = tempDiv.querySelector(".solution-button")?.getAttribute("href") || "#";
+        function displayPosts(posts) {
+            pyqsContainer.innerHTML = "";
 
-        const postCard = `
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <img src="${thumbnail}" alt="${title}" class="card-img-top img-fluid" style="height: 180px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">${title}</h5>
-                        <p class="card-text">Prepare effectively with these previous year questions.</p>
+            posts.forEach((post) => {
+                const title = post.title || "Untitled";
+                const content = post.content || "";
+                const thumbnail = getThumbnail(post);
+
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = content;
+
+                const downloadLink = tempDiv.querySelector(".download-button")?.getAttribute("href") || "#";
+                const solutionLink = tempDiv.querySelector(".solution-button")?.getAttribute("href") || "#";
+
+                const postCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="${thumbnail}" alt="${title}" class="card-img-top img-fluid">
+                            <div class="card-body">
+                                <h5 class="card-title">${title}</h5>
+                                <p class="card-text">Prepare effectively with these previous year questions.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="${downloadLink}" class="btn btn-primary btn-sm mb-2" target="_blank">Download</a>
+                                <a href="${solutionLink}" class="btn btn-secondary btn-sm" target="_blank">View Solution</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer text-center">
-                        <a href="${downloadLink}" class="btn btn-primary btn-sm mb-2" target="_blank">Download</a>
-                        <a href="readonline.html?src=${encodeURIComponent(readOnlineLink)}" class="btn btn-success btn-sm mb-2" target="_blank">Read Online</a>
-                        <a href="${solutionLink}" class="btn btn-secondary btn-sm" target="_blank">View Solution</a>
-                    </div>
-                </div>
-            </div>
-        `;
+                `;
 
-        pyqsContainer.innerHTML += postCard;
-    });
-}
+                pyqsContainer.innerHTML += postCard;
+            });
+        }
 
-// Fetch posts on page load
-fetchPosts();
-
-                    
+        fetchPosts();
     </script>
 </body>
 </html>
