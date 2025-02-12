@@ -11,51 +11,46 @@
             margin: 0;
             padding: 0;
             background: #f8f9fa;
-        }
-        #pdfContainer {
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        .pdf-page {
-            margin-bottom: 20px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            background: #fff;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        canvas {
+        iframe {
             width: 100%;
-            height: auto;
-        }
-        .loader {
-            text-align: center;
-            font-size: 16px;
-            color: #6c757d;
-            padding: 20px;
+            height: 90vh;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         footer {
             text-align: center;
             padding: 10px 0;
             background: #343a40;
             color: #fff;
-            position: relative;
-            bottom: 0;
-            width: 100%;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 </head>
 <body>
-    <header style="background: #007bff; color: white; padding: 10px 20px; text-align: center;">
-        <h1 style="margin: 0; font-size: 24px;">Read Online</h1>
+    <header>
+        <h1>Read Online</h1>
     </header>
 
     <main>
-        <div id="pdfContainer">
-            <div class="loader">Loading PDF, please wait...</div>
-        </div>
+        <iframe id="pdfViewer" src="" allowfullscreen>
+            Your browser does not support iframes.
+        </iframe>
     </main>
 
     <footer>
@@ -67,49 +62,13 @@
         const urlParams = new URLSearchParams(window.location.search);
         const pdfUrl = urlParams.get('src');
 
-        // Validate PDF URL
-        if (!pdfUrl) {
-            document.getElementById('pdfContainer').innerHTML = '<p class="text-danger text-center">No PDF URL provided!</p>';
+        // Validate and set the iframe source
+        if (pdfUrl) {
+            // Convert to Google Drive preview format
+            const drivePreviewUrl = pdfUrl.replace('/uc?export=download', '/preview');
+            document.getElementById('pdfViewer').src = drivePreviewUrl;
         } else {
-            loadPDF(pdfUrl);
-        }
-
-        async function loadPDF(pdfUrl) {
-            try {
-                // Load PDF
-                const loadingTask = pdfjsLib.getDocument(pdfUrl);
-                const pdf = await loadingTask.promise;
-
-                const container = document.getElementById('pdfContainer');
-                container.innerHTML = ''; // Clear loader
-
-                // Loop through all pages and render them
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const viewport = page.getViewport({ scale: 1.5 });
-
-                    // Create canvas for each page
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    // Create a container div for the page
-                    const pdfPage = document.createElement('div');
-                    pdfPage.classList.add('pdf-page');
-                    pdfPage.appendChild(canvas);
-                    container.appendChild(pdfPage);
-
-                    // Render page into the canvas
-                    await page.render({
-                        canvasContext: context,
-                        viewport: viewport,
-                    }).promise;
-                }
-            } catch (error) {
-                console.error('Error loading PDF:', error);
-                document.getElementById('pdfContainer').innerHTML = '<p class="text-danger text-center">Failed to load PDF. Please try again later.</p>';
-            }
+            document.body.innerHTML = '<main><p style="text-align:center;color:red;">No PDF URL provided!</p></main>';
         }
     </script>
 </body>
