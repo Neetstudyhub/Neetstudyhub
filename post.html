@@ -30,7 +30,7 @@ padding: 14px;
   margin-bottom: 20px;
   color: #333;
 }
-  )
+}
 @media (min-width: 769px) {
   main {
     max-width: 1000px;
@@ -116,7 +116,7 @@ hr {
 /* Fixed Sizes for Images (Post Content) */
 @media (min-width: 768px) {
   #post-content img {
-    max-width: 100%; /* Allow scaling on tablets */
+    max-width: 10%; /* Allow scaling on tablets */
   }
 }
 
@@ -224,7 +224,45 @@ hr {
 }
 
 }
-
+@media (min-width: 769px) {
+  #post-title {
+    font-size: 1.8rem;
+  }
+  
+  .related-post-card a {
+    font-size: 1rem;
+  }
+  
+  #post-content {
+    font-size: 0.95rem;
+  }
+  
+  .related-post-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .related-post-thumbnail img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .related-post-card a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .related-post-card a:hover {
+    color: #007bff;
+  }
+  
+}
   </style>
 </head>
 <body>
