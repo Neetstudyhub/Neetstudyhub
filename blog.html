@@ -41,7 +41,14 @@ main {
   height: 200px;
   object-fit: cover;
 }
-
+@media (min-width: 769px) {
+  .blog-card img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  }
+}
 .blog-card .card-content {
   padding: 15px;
 }
