@@ -351,10 +351,10 @@ async function fetchBloggerPosts() {
     skeletonLoader.style.display = 'none'; // Hide skeleton
 
     // Show/Hide Load More Button Based on Post Count
-    if (allPosts.length <= postsPerBatch) {
-      loadMoreBtn.style.display = 'none';
-    } else {
+    if (allPosts.length > postsPerBatch) {
       loadMoreBtn.style.display = 'block';
+    } else {
+      loadMoreBtn.style.display = 'none';
     }
 
     displayPosts();
