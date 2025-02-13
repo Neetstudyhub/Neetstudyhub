@@ -311,45 +311,43 @@ hr {
   
   <script src="script.js"></script>
 <script>
-  const blogId = '4486426116532955837';
-const postId = new URLSearchParams(window.location.search).get('postId');
+       const cloudflareProxy = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev";
+const postId = new URLSearchParams(window.location.search).get("postId");
 
-const relatedPostsSection = document.getElementById('related-posts');
+const relatedPostsSection = document.getElementById("related-posts");
 
 async function fetchPost() {
   if (!postId) {
-    document.getElementById('post-container').innerHTML =
+    document.getElementById("post-container").innerHTML =
       `<p>Invalid Post ID. Please return to the homepage.</p>`;
     return;
   }
 
   try {
-    const response = await fetch(
-      `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/posts/${postId}`
-    );
+    // Fetch the single post using Cloudflare Proxy
+    const response = await fetch(`${cloudflareProxy}?id=${postId}`);
     const post = await response.json();
 
     // Fill in post data
-    document.getElementById('post-title').textContent = post.title;
-    document.getElementById('post-title-breadcrumb').textContent = post.title;
-    document.getElementById('post-meta').textContent = `By - NEET Study Hub | Published on: ${new Date(
+    document.getElementById("post-title").textContent = post.title;
+    document.getElementById("post-title-breadcrumb").textContent = post.title;
+    document.getElementById("post-meta").textContent = `By - NEET Study Hub | Published on: ${new Date(
       post.published
     ).toLocaleDateString()}`;
-    document.getElementById('post-content').innerHTML = post.content;
+    document.getElementById("post-content").innerHTML = post.content;
 
     fetchRelatedPosts();
   } catch (error) {
-    console.error('Error fetching post:', error);
-    document.getElementById('post-container').innerHTML =
+    console.error("Error fetching post:", error);
+    document.getElementById("post-container").innerHTML =
       `<p>Error loading post. Please try again later.</p>`;
   }
 }
 
 async function fetchRelatedPosts() {
   try {
-    const response = await fetch(
-      `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/posts?blogId=${blogId}&maxResults=5`
-    );
+    // Fetch related posts using Cloudflare Proxy
+    const response = await fetch(`${cloudflareProxy}?maxResults=5`);
     const data = await response.json();
 
     relatedPostsSection.innerHTML = data.items
@@ -364,19 +362,19 @@ async function fetchRelatedPosts() {
             <a href="post.html?postId=${post.id}">${post.title}</a>
           </div>`;
       })
-      .join('');
+      .join("");
   } catch (error) {
-    console.error('Error fetching related posts:', error);
+    console.error("Error fetching related posts:", error);
     relatedPostsSection.innerHTML = `<p>Unable to load related posts.</p>`;
   }
 }
 
 function extractThumbnail(content) {
   const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/150';
+  return imgTagMatch ? imgTagMatch[1] : "https://via.placeholder.com/150";
 }
 
-document.addEventListener('DOMContentLoaded', fetchPost);
+document.addEventListener("DOMContentLoaded", fetchPost);
 
 </script>
 
