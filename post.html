@@ -731,7 +731,7 @@ async function fetchPost() {
   }
 }
 
-// Fetch all posts and display 5 random related posts
+// Fetch all posts and display 5 related posts excluding "ncert" and "pyq"
 async function fetchRelatedPosts() {
   try {
     // Fetch related posts data via Cloudflare Worker
@@ -742,9 +742,14 @@ async function fetchRelatedPosts() {
       // Shuffle the posts randomly
       const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
 
-      // Select 5 posts (excluding the current post)
+      // Select 5 posts (excluding the current post and posts with labels "ncert" or "pyq")
+      const excludedLabels = ['ncert', 'pyq'];
       const selectedPosts = shuffledPosts
-        .filter((post) => post.id !== postId) // Exclude the current post
+        .filter(
+          (post) =>
+            post.id !== postId && // Exclude the current post
+            (!post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))) // Exclude posts with specific labels
+        )
         .slice(0, 5);
 
       // Render the selected posts
@@ -785,6 +790,8 @@ function extractImageFromContent(content) {
 // Initialize
 document.addEventListener('DOMContentLoaded', fetchPost);
 
+
+        
   </script>
   <script src="script.js">script.js</script>
 </body>
