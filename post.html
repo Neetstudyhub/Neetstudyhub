@@ -105,13 +105,28 @@ hr {
 }
 
 /* Images in Post Content */
-#post-content img {
-  display: block;
-  width: 100%; /* Ensure images take full width */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px;
-  margin: 20px 0;
+/* For Desktop (min-width: 769px) */
+@media (min-width: 769px) {
+  #post-content img {
+    max-width: 100%; /* Allow the images to scale up to the full container width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure proper block-level rendering */
+    margin: 20px 0; /* Add spacing around the image */
+    border-radius: 8px; /* Keep consistent styling */
+  }
 }
+
+/* For Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  #post-content img {
+    max-width: 100%; /* Full width for mobile */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 20px 0;
+    border-radius: 8px;
+  }
+}
+
 
 /* Fixed Sizes for Images (Post Content) */
 @media (min-width: 768px) {
