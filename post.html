@@ -729,21 +729,20 @@ async function fetchPost() {
   }
 }
 
-// Fetch all posts and display 5 random related posts, excluding "ncert" and "pyq" labels
+// Fetch all posts and display 5 random related posts
 async function fetchRelatedPosts() {
   try {
     const response = await fetch(`${proxyUrl}/posts`);
     const data = await response.json();
 
     if (data.items && data.items.length > 1) {
-      // Filter posts to exclude those with labels "ncert" or "pyq"
-      const filteredPosts = data.items.filter((post) => {
-        const labels = post.labels || [];
-        return !labels.includes('ncert') && !labels.includes('pyq') && post.id !== postId;
-      });
+      // Shuffle the posts randomly
+      const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
 
-      // Shuffle and select 5 posts
-      const selectedPosts = filteredPosts.sort(() => 0.5 - Math.random()).slice(0, 5);
+      // Select 5 posts (excluding the current post)
+      const selectedPosts = shuffledPosts
+        .filter((post) => post.id !== postId) // Exclude the current post
+        .slice(0, 5);
 
       // Render the selected posts
       const relatedPosts = selectedPosts.map((post) => {
@@ -782,7 +781,6 @@ function extractImageFromContent(content) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', fetchPost);
-
 
   </script>
   <script src="script.js">script.js</script>
