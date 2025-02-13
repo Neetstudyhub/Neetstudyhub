@@ -104,16 +104,39 @@ hr {
   text-align: left; /* Align content to the left */
 }
 
-/* Images in Post Content */
+/* Global Styles for Images */
+#post-content img {
+  width: 100%; /* Ensure the image fills its container */
+  max-width: 100%; /* Prevent it from exceeding the container size */
+  height: auto; /* Maintain the image's aspect ratio */
+  display: block; /* Prevent inline spacing issues */
+  margin: 20px auto; /* Center the image and add spacing */
+  border-radius: 8px; /* Optional: Rounded corners */
+}
 
+/* Additional Styling for Parent Containers */
+#post-content {
+  max-width: 800px; /* Set a reasonable maximum width for the content */
+  margin: 0 auto; /* Center the content on the page */
+  padding: 15px; /* Add padding for better readability */
+}
 
+@media (min-width: 769px) {
+  /* Desktop-specific adjustments if needed */
   #post-content img {
-    max-width: 100%; /* Allow the images to scale up to the full container width */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Ensure proper block-level rendering */
-    margin: 20px 0; /* Add spacing around the image */
-    border-radius: 8px; /* Keep consistent styling */
+    width: 100%; /* Let the image adapt to container size */
+    max-width: 800px; /* Prevent images from being excessively large */
   }
+}
+
+@media (max-width: 768px) {
+  /* Mobile-specific adjustments if needed */
+  #post-content img {
+    width: 100%; /* Ensure full width for mobile */
+    max-width: 100%; /* No size restriction */
+  }
+}
+
 
 
 
