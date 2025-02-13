@@ -141,7 +141,7 @@ header .hamburger {
   background-color: none; /* Darker hover effect */
 }
 
-@media (min-width: 500px) {
+@media (min-width: 767px) {
   .sidebar-tab {
     display: none; /* Hide sidebar toggle tab on desktop */
   }
