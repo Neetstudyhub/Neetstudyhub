@@ -316,12 +316,23 @@ async function fetchBloggerPosts() {
     const data = await response.json();
 
     if (!data.items || data.items.length === 0) {
-      throw new Error("No posts found.");
+      throw new Error('No posts found.');
+    }
+
+    // Exclude posts with labels "ncert" and "pyq"
+    const excludedLabels = ['ncert', 'pyq'];
+    const filteredPosts = data.items.filter(
+      (post) =>
+        !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
+    );
+
+    if (filteredPosts.length === 0) {
+      throw new Error('No valid posts found after filtering.');
     }
 
     // Process Posts
     allPosts = await Promise.all(
-      data.items.map(async (post) => {
+      filteredPosts.map(async (post) => {
         const { id, title, content } = post;
         const imageUrl =
           post.images && post.images[0]
@@ -331,7 +342,7 @@ async function fetchBloggerPosts() {
         return {
           id,
           title,
-          contentSnippet: content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120),
+          contentSnippet: content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120),
           imageUrl,
         };
       })
@@ -397,7 +408,6 @@ loadMoreBtn.addEventListener('click', displayPosts);
 
 // Initialize
 document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
-
 
   </script>
 </body>
