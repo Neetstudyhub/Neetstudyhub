@@ -1,304 +1,41 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEET Study Hub</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    
-/* General Body Styling */
+    /* Reuse the CSS provided in your original code */
+    @media (min-width: 769px) {
+      .container {
+        max-width: 100%;
+        padding: 3%;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      /* Add the rest of your desktop styles here */
+    }
 
-@media (max-width: 768px) {
-main {
-  max-width: 1000px;
-  margin: 1px auto;
-}
-  .related1{
-  max-width: 1000px;
-  margin-top: -12px;
-margin: 10px auto;
-padding: 14px;
-}
-.related-posts-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-decoration: underline;
-  margin-top: -30px;
-  margin-bottom: 20px;
-  color: #333;
-}
-}
-@media (min-width: 769px) {
-  main {
-    max-width: 1300px;
-    margin: 20px auto;
-    padding: 30px;
-    
-    
-  }
-}
-/* Main Container */
-
-
-/* Breadcrumbs */
-.breadcrumbs {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 10px;
-  text-transform: capitalize;
-}
-
-.breadcrumbs a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.breadcrumbs a:hover {
-  text-decoration: underline;
-}
-
-/* Post Card */
-.card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 25px;
-  padding-top: -30px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-  text-align: left; /* Align content to the left */
-}
-
-#post-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 10px;
-}
-
-.meta-info {
-  font-size: 0.95rem;
-  color: #999;
-  margin-bottom: 15px;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid #e0e0e0;
-  margin: 20px 0;
-}
-
-/* Post Image (Hidden) */
-#post-image {
-  display: none; /* Hide the post image */
-}
-
-/* Post Content */
-#post-content {
-  font-size: 1rem;
-  line-height: 1.8;
-  margin-bottom: 30px;
-  color: #444;
-  text-align: left; /* Align content to the left */
-}
-
-/* Global Styles for Images */
-#post-content img {
-  width: 100%; /* Ensure the image fills its container */
-  max-width: 100%; /* Prevent it from exceeding the container size */
-  height: auto; /* Maintain the image's aspect ratio */
-  display: block; /* Prevent inline spacing issues */
-  margin: 20px auto; /* Center the image and add spacing */
-  border-radius: 8px; /* Optional: Rounded corners */
-}
-
-/* Additional Styling for Parent Containers */
-#post-content {
-  max-width: 800px; /* Set a reasonable maximum width for the content */
-  margin: 0 auto; /* Center the content on the page */
-  padding: 15px; /* Add padding for better readability */
-}
-
-@media (min-width: 769px) {
-  /* Desktop-specific adjustments if needed */
-  #post-content img {
-    width: 100%; /* Let the image adapt to container size */
-    max-width: 800px; /* Prevent images from being excessively large */
-  }
-}
-
-@media (max-width: 768px) {
-  /* Mobile-specific adjustments if needed */
-  #post-content img {
-    width: 100%; /* Ensure full width for mobile */
-    max-width: 100%; /* No size restriction */
-  }
-}
-
-
-
-
-
-
-/* Fixed Sizes for Images (Post Content) */
-@media (min-width: 768px) {
-  #post-content img {
-    max-width: 100%; /* Allow scaling on tablets */
-  }
-}
-
-@media (max-width: 767px) {
-  #post-content img {
-    max-width: 100%; /* Full width for mobile */
-  }
-}
-
-/* Related Posts Section */
-.related-posts {
-  margin-top: 20px;
-}
-
-.related-posts-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-decoration: underline;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Related Post Cards */
-.related-post-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  align-items: center;
-  text-align: left; /* Align related post content left */
-}
-
-.related-post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.related-post-card img {
-  flex-shrink: 0; /* Prevent image from shrinking */
-  width: 100px; /* Set consistent width */
-  height: 100px; /* Set consistent height */
-  margin-right: 15px;
-  border-radius: 8px;
-  object-fit: cover; /* Ensure image fits within dimensions */
-}
-
-.related-post-card a {
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #007bff;
-}
-
-.related-post-card a:hover {
-  text-decoration: underline;
-}
-
-.related-post-card p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 8px;
-  margin-bottom: 0;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  #post-title {
-    font-size: 1.8rem;
-  }
-
-  .related-post-card a {
-    font-size: 1rem;
-  }
-
-  #post-content {
-    font-size: 0.95rem;
-  }
-
-.related-post-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.related-post-thumbnail img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.related-post-card a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.related-post-card a:hover {
-  color: #007bff;
-}
-
-}
-@media (min-width: 769px) {
-  #post-title {
-    font-size: 1.8rem;
-  }
-  
-  .related-post-card a {
-    font-size: 1rem;
-  }
-  
-  #post-content {
-    font-size: 0.95rem;
-  }
-  
-  .related-post-card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .related-post-thumbnail img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .related-post-card a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .related-post-card a:hover {
-    color: #007bff;
-  }
-  
-}
+    @media (max-width: 768px) {
+      .container {
+        max-width: 800px;
+        padding: 15px;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      /* Add the rest of your mobile styles here */
+    }
   </style>
 </head>
 <body>
-    <!-- Header with Navbar -->
+  <!-- Header -->
   <header>
     <div class="logo">NEET Study Hub</div>
-    <div class="hamburger" id="hamburger">☰</div>
     <nav class="nav-links">
       <a href="#">Home</a>
       <a href="#">About</a>
@@ -308,44 +45,28 @@ hr {
     </nav>
   </header>
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <button class="sidebar-close" id="closeSidebar">&times;</button>
-  <ul class="sidebar-menu">
-    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-    <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
-    <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
-    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-  </ul>
-</div>
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs" id="breadcrumbs"></div>
 
-<!-- Sidebar Toggle Tab -->
-<div class="sidebar-tab" id="sidebarTab">
-  <i class="fas fa-bars"></i>
-</div>
+    <!-- Post Title -->
+    <h1 class="post-title" id="postTitle"></h1>
 
-  <main id="post-container">
-    <!-- Main Post Card -->
-    <div class="card">
-      <nav class="breadcrumbs">
-        <a href="index.html">Home</a> › <a href="#" id="post-label">Category</a> › <span id="post-title-breadcrumb">Post Title</span>
-      </nav>
-      <h1 id="post-title"></h1>
-      <p class="meta-info" id="post-meta"></p>
-      <hr>
-      <img id="post-image" src="" alt="Post Image">
-      <div id="post-content"></div>
-    </div>
+    <!-- Post Meta -->
+    <div class="post-meta" id="postMeta"></div>
+    <hr />
 
-<!-- Related Posts Section -->
-<div class="related1">
-<section class="related-posts">
-  <h3 class="related-posts-heading">Related Posts</h3>
-  <div id="related-posts"></div>
-</section>
-</div>
+    <!-- Post Content -->
+    <div class="post-content" id="postContent"></div>
   </main>
+
+  <main class="container1">
+    <!-- Related Posts -->
+    <h2 class="related-posts-heading">Related Posts :</h2>
+    <div class="related-posts" id="relatedPosts"></div>
+  </main>
+
   <!-- Footer -->
   <footer>
     <div class="footer-container">
@@ -376,75 +97,68 @@ hr {
       <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
     </div>
   </footer>
-  
-  <script src="script.js"></script>
-<script>
-       const cloudflareProxy = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev";
-const postId = new URLSearchParams(window.location.search).get("postId");
 
-const relatedPostsSection = document.getElementById("related-posts");
+  <script>
+    const postId = new URLSearchParams(window.location.search).get('id'); // Get the post ID from the URL
+    const apiUrl = `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/v3/blogs/YOUR_BLOG_ID/posts/${postId}?key=YOUR_API_KEY`;
 
-async function fetchPost() {
-  if (!postId) {
-    document.getElementById("post-container").innerHTML =
-      `<p>Invalid Post ID. Please return to the homepage.</p>`;
-    return;
-  }
+    async function fetchPost() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-  try {
-    // Fetch the single post using Cloudflare Proxy
-    const response = await fetch(`${cloudflareProxy}?id=${postId}`);
-    const post = await response.json();
+        // Set the breadcrumbs
+        document.getElementById('breadcrumbs').innerHTML = `
+          <a href="index.html">Home</a> › 
+          <a href="category.html">${data.labels ? data.labels[0] : 'Category'}</a>
+        `;
 
-    // Fill in post data
-    document.getElementById("post-title").textContent = post.title;
-    document.getElementById("post-title-breadcrumb").textContent = post.title;
-    document.getElementById("post-meta").textContent = `By - NEET Study Hub | Published on: ${new Date(
-      post.published
-    ).toLocaleDateString()}`;
-    document.getElementById("post-content").innerHTML = post.content;
+        // Set the post title
+        document.getElementById('postTitle').textContent = data.title;
 
-    fetchRelatedPosts();
-  } catch (error) {
-    console.error("Error fetching post:", error);
-    document.getElementById("post-container").innerHTML =
-      `<p>Error loading post. Please try again later.</p>`;
-  }
-}
+        // Set the post meta
+        document.getElementById('postMeta').innerHTML = `
+          <img src="https://via.placeholder.com/20" alt="Logo"> 
+          By - NEET Study Hub | Published on: ${new Date(data.published).toLocaleDateString()}
+        `;
 
-async function fetchRelatedPosts() {
-  try {
-    // Fetch related posts using Cloudflare Proxy
-    const response = await fetch(`${cloudflareProxy}?maxResults=5`);
-    const data = await response.json();
+        // Set the post content
+        document.getElementById('postContent').innerHTML = data.content;
 
-    relatedPostsSection.innerHTML = data.items
-      .filter((post) => post.id !== postId) // Exclude the current post
-      .map((post) => {
-        const thumbnailUrl = extractThumbnail(post.content);
-        return `
-          <div class="related-post-card">
+        // Fetch related posts (if available)
+        if (data.labels) {
+          fetchRelatedPosts(data.labels[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching post:', error);
+      }
+    }
+
+    async function fetchRelatedPosts(label) {
+      const relatedPostsUrl = `https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/v3/blogs/YOUR_BLOG_ID/posts?labels=${label}&key=YOUR_API_KEY`;
+
+      try {
+        const response = await fetch(relatedPostsUrl);
+        const data = await response.json();
+
+        const relatedPostsContainer = document.getElementById('relatedPosts');
+        data.items.forEach((post) => {
+          const postCard = document.createElement('div');
+          postCard.classList.add('related-post-card');
+          postCard.innerHTML = `
             <div class="related-post-thumbnail">
-              <img src="${thumbnailUrl}" alt="${post.title}">
+              <img src="${post.images ? post.images[0].url : 'https://via.placeholder.com/150'}" alt="${post.title} Thumbnail">
             </div>
-            <a href="post.html?postId=${post.id}">${post.title}</a>
-          </div>`;
-      })
-      .join("");
-  } catch (error) {
-    console.error("Error fetching related posts:", error);
-    relatedPostsSection.innerHTML = `<p>Unable to load related posts.</p>`;
-  }
-}
+            <a href="post.html?id=${post.id}">${post.title}</a>
+          `;
+          relatedPostsContainer.appendChild(postCard);
+        });
+      } catch (error) {
+        console.error('Error fetching related posts:', error);
+      }
+    }
 
-function extractThumbnail(content) {
-  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-  return imgTagMatch ? imgTagMatch[1] : "https://via.placeholder.com/150";
-}
-
-document.addEventListener("DOMContentLoaded", fetchPost);
-
-</script>
-
+    fetchPost();
+  </script>
 </body>
 </html>
