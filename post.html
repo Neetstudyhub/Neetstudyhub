@@ -694,99 +694,95 @@ body{
   <!-- JavaScript -->
   
   <script>
-  const bloggerApiKey = 'AIzaSyCt55BMSsa_3-clozbZSPPuHXwPwFqAVNU';
-  const blogId = '4486426116532955837';
+  const proxyUrl = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev';
 
-  // Get the postId from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const postId = urlParams.get('postId');
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('postId');
 
-  const breadcrumbs = document.getElementById('breadcrumbs');
-  const postTitle = document.getElementById('post-title');
-  const postMeta = document.getElementById('post-meta');
-  const postContent = document.getElementById('post-content');
-  const relatedPostsContainer = document.getElementById('related-posts');
+const breadcrumbs = document.getElementById('breadcrumbs');
+const postTitle = document.getElementById('post-title');
+const postMeta = document.getElementById('post-meta');
+const postContent = document.getElementById('post-content');
+const relatedPostsContainer = document.getElementById('related-posts');
 
-  // Fetch and display the post content
-  async function fetchPost() {
-    try {
-      const response = await fetch(
-        `https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts/${postId}?key=${bloggerApiKey}`
-      );
-      const data = await response.json();
+// Fetch and display the post content
+async function fetchPost() {
+  try {
+    const response = await fetch(`${proxyUrl}/posts/${postId}`);
+    const data = await response.json();
 
-      // Populate the post content
-      postTitle.textContent = data.title;
-      postMeta.innerHTML = `By - NEET Study Hub | Time: ${new Date(
-        data.published
-      ).toLocaleDateString()}`;
-      postContent.innerHTML = data.content;
+    // Populate the post content
+    postTitle.textContent = data.title;
+    postMeta.innerHTML = `By - NEET Study Hub | Time: ${new Date(
+      data.published
+    ).toLocaleDateString()}`;
+    postContent.innerHTML = data.content;
 
-      // Set breadcrumbs
-      breadcrumbs.innerHTML = `Home › <a href="blog.html">All Posts</a> › ${data.title}`;
+    // Set breadcrumbs
+    breadcrumbs.innerHTML = `Home › <a href="blog.html">All Posts</a> › ${data.title}`;
 
-      // Fetch and display related posts
-      fetchRelatedPosts();
-    } catch (error) {
-      console.error('Error fetching the post:', error);
-      postContent.innerHTML = `<p>Error loading post. Please try again.</p>`;
-    }
+    // Fetch and display related posts
+    fetchRelatedPosts();
+  } catch (error) {
+    console.error('Error fetching the post:', error);
+    postContent.innerHTML = `<p>Error loading post. Please try again.</p>`;
   }
+}
 
-  // Fetch all posts and display 5 random related posts
-  async function fetchRelatedPosts() {
-    try {
-      const response = await fetch(
-        `https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${bloggerApiKey}&maxResults=500`
-      );
-      const data = await response.json();
+// Fetch all posts and display 5 random related posts, excluding "ncert" and "pyq" labels
+async function fetchRelatedPosts() {
+  try {
+    const response = await fetch(`${proxyUrl}/posts`);
+    const data = await response.json();
 
-      if (data.items && data.items.length > 1) {
-        // Shuffle the posts randomly
-        const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
+    if (data.items && data.items.length > 1) {
+      // Filter posts to exclude those with labels "ncert" or "pyq"
+      const filteredPosts = data.items.filter((post) => {
+        const labels = post.labels || [];
+        return !labels.includes('ncert') && !labels.includes('pyq') && post.id !== postId;
+      });
 
-        // Select 5 posts (excluding the current post)
-        const selectedPosts = shuffledPosts
-          .filter((post) => post.id !== postId) // Exclude the current post
-          .slice(0, 5);
+      // Shuffle and select 5 posts
+      const selectedPosts = filteredPosts.sort(() => 0.5 - Math.random()).slice(0, 5);
 
-        // Render the selected posts
-        const relatedPosts = selectedPosts.map((post) => {
-          const imageUrl =
-            post.images && post.images[0]
-              ? post.images[0].url
-              : extractImageFromContent(post.content);
+      // Render the selected posts
+      const relatedPosts = selectedPosts.map((post) => {
+        const imageUrl =
+          post.images && post.images[0]
+            ? post.images[0].url
+            : extractImageFromContent(post.content);
 
-          return `
-            <div class="related-post-card">
-              <img src="${imageUrl}" alt="${post.title}">
-              <div class="related-card-content">
-                <a href="post.html?postId=${post.id}" target="_self">
-                  <h3>${post.title}</h3>
-                </a>
-              </div>
+        return `
+          <div class="related-post-card">
+            <img src="${imageUrl}" alt="${post.title}">
+            <div class="related-card-content">
+              <a href="post.html?postId=${post.id}" target="_self">
+                <h3>${post.title}</h3>
+              </a>
             </div>
-          `;
-        });
+          </div>
+        `;
+      });
 
-        relatedPostsContainer.innerHTML = relatedPosts.join('');
-      } else {
-        relatedPostsContainer.innerHTML = '<p>No related posts found.</p>';
-      }
-    } catch (error) {
-      console.error('Error fetching related posts:', error);
-      relatedPostsContainer.innerHTML = '<p>Error loading related posts.</p>';
+      relatedPostsContainer.innerHTML = relatedPosts.join('');
+    } else {
+      relatedPostsContainer.innerHTML = '<p>No related posts found.</p>';
     }
+  } catch (error) {
+    console.error('Error fetching related posts:', error);
+    relatedPostsContainer.innerHTML = '<p>Error loading related posts.</p>';
   }
+}
 
-  // Extract the first image from content
-  function extractImageFromContent(content) {
-    const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-    return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
-  }
+// Extract the first image from content
+function extractImageFromContent(content) {
+  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+}
 
-  // Initialize
-  document.addEventListener('DOMContentLoaded', fetchPost);
+// Initialize
+document.addEventListener('DOMContentLoaded', fetchPost);
+
 
   </script>
   <script src="script.js">script.js</script>
