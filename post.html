@@ -745,8 +745,9 @@ async function fetchPost() {
     postContent.innerHTML = data.content;
 
     // Set breadcrumbs
-    breadcrumbs.innerHTML = `Home › <a href="blog.html">All Posts</a> › ${data.title}`;
+breadcrumbs.innerHTML = `<a href="index.html">Home</a> › <a href="blog.html">All Posts</a> › ${data.title}`;
 
+    
     // Fetch and display related posts
     fetchRelatedPosts();
   } catch (error) {
