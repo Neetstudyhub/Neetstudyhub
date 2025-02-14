@@ -392,9 +392,10 @@ function displayPosts() {
       <div class="blog-card">
         <img src="${imageUrl}" alt="${title}">
         <div class="card-content">
-          <h3>${title}</h3>
+          <h3>
+            <a href="post.html?postId=${id}" target="_self" style="text-decoration: none; color: #007bff;">${title}</a>
+          </h3>
           <p>${contentSnippet}...</p>
-          <a href="post.html?postId=${id}" target="_self">Read More</a>
         </div>
       </div>
     `;
@@ -409,6 +410,7 @@ function displayPosts() {
     loadMoreBtn.style.display = 'block';
   }
 }
+
 
 // Add Event Listener for Load More Button
 loadMoreBtn.addEventListener('click', displayPosts);
