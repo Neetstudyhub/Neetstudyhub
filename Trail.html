@@ -4,18 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEET Success Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            display: flex;
+            overflow-x: hidden;
+            color: #333;
         }
+
+        /* Colors */
+        :root {
+            --primary-color: #1C4D99;
+            --secondary-color: #E5F4FF;
+            --accent-color: #153E75;
+            --white: #FFFFFF;
+            --gray: #F5F5F5;
+        }
+
         /* Sidebar */
         .sidebar {
-            background: #1E3A8A;
-            color: white;
+            background: var(--primary-color);
+            color: var(--white);
             width: 250px;
             height: 100vh;
             position: fixed;
@@ -26,90 +39,176 @@
             padding: 20px;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
+
         .sidebar.open {
             transform: translateX(0);
         }
+
+        .sidebar .close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
         .sidebar a {
-            color: white;
+            color: var(--white);
             text-decoration: none;
             margin: 15px 0;
             font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
         }
+
         .sidebar a:hover {
-            text-decoration: underline;
+            color: var(--secondary-color);
         }
+
+        .sidebar .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .social-icons a {
+            color: var(--white);
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+
+        .sidebar .pages {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .sidebar .pages a {
+            color: var(--white);
+            font-size: 16px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar .pages a:hover {
+            color: var(--secondary-color);
+        }
+
         /* Main Content */
         .main-content {
-            margin-left: 250px;
-            width: calc(100% - 250px);
+            padding-left: 250px;
+            transition: padding-left 0.3s ease;
         }
+
         header {
-            background: #1E3A8A;
-            color: white;
+            background: var(--primary-color);
+            color: var(--white);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header nav {
+            display: flex;
+            gap: 15px;
+        }
+
         header nav a {
-            color: white;
+            color: var(--white);
             text-decoration: none;
-            margin: 0 10px;
             font-size: 16px;
+            transition: text-decoration 0.3s ease;
         }
+
         header nav a:hover {
             text-decoration: underline;
         }
+
         .menu-toggle {
             display: none;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
         }
+
         .hero {
             text-align: center;
-            padding: 60px 20px;
-            background: #E5EFFF;
+            padding: 80px 20px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
         }
+
         .hero h1 {
-            font-size: 36px;
+            font-size: 42px;
             margin-bottom: 20px;
         }
+
         .hero p {
             font-size: 18px;
             color: #333;
             margin-bottom: 30px;
         }
+
         .hero button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
-            color: white;
-            background: #1E3A8A;
+            color: var(--white);
+            background: var(--primary-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin: 5px;
+            margin: 10px;
+            transition: background 0.3s ease;
         }
+
         .hero button:hover {
-            background: #153E75;
+            background: var(--accent-color);
         }
+
         .section {
             padding: 40px 20px;
             text-align: center;
+            background: var(--gray);
         }
+
         .section h2 {
             font-size: 28px;
             margin-bottom: 20px;
-            color: #1E3A8A;
+            color: var(--primary-color);
         }
+
         .cards {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
         }
+
         .card {
-            background: white;
+            background: var(--white);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 10px;
@@ -117,81 +216,129 @@
             text-align: left;
             transition: transform 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-10px);
         }
+
         .card h3 {
             font-size: 20px;
             margin-bottom: 10px;
         }
+
         .card p {
             font-size: 16px;
             color: #555;
             margin-bottom: 15px;
         }
+
         .card a {
-            color: #1E3A8A;
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
         }
+
         .card a:hover {
             text-decoration: underline;
         }
+
         footer {
-            background: #1E3A8A;
-            color: white;
+            background: var(--primary-color);
+            color: var(--white);
             text-align: center;
             padding: 20px 10px;
-            margin-top: 40px;
         }
-        footer a {
-            color: #A5D8FF;
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        footer .footer-links a {
+            color: var(--secondary-color);
             text-decoration: none;
+            font-size: 16px;
         }
-        footer a:hover {
+
+        footer .footer-links a:hover {
             text-decoration: underline;
         }
+
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-            .hero p {
-                font-size: 16px;
-            }
-            .cards {
-                flex-direction: column;
-                align-items: center;
-            }
             .sidebar {
                 width: 200px;
             }
+
             .main-content {
-                margin-left: 0;
-                width: 100%;
+                padding-left: 0;
             }
+
+            header nav {
+                display: none;
+            }
+
             .menu-toggle {
                 display: block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                padding-left: 0;
+            }
+
+            header nav {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="sidebar" id="sidebar">
+        <button class="close-btn" id="closeSidebar">&times;</button>
         <h2>Menu</h2>
-        <a href="#">Home</a>
-        <a href="#resources">Study Resources</a>
-        <a href="#tips">Exam Tips</a>
-        <a href="#success">Success Stories</a>
-        <a href="#contact">Contact</a>
+        <a href="#"><i class="fas fa-home"></i> Home</a>
+        <a href="#resources"><i class="fas fa-book"></i> Study Resources</a>
+        <a href="#tips"><i class="fas fa-lightbulb"></i> Exam Tips</a>
+        <a href="#success"><i class="fas fa-trophy"></i> Success Stories</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <div class="pages">
+            <a href="#about">About</a>
+            <a href="#blog">Blog</a>
+            <a href="#login">Login</a>
+        </div>
     </div>
+
     <div class="main-content">
         <header>
             <div class="logo">NEET Success Hub</div>
-            <span class="menu-toggle" id="menuToggle">&#9776;</span>
+            <span class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></span>
             <nav>
-                <a href="#">About</a>
-                <a href="#">Blog</a>
-                <a href="#">Login</a>
+                <a href="#about">About</a>
+                <a href="#blog">Blog</a>
+                <a href="#login">Login</a>
             </nav>
         </header>
 
@@ -230,15 +377,32 @@
         </section>
 
         <footer>
-            <p>&copy; 2025 NEET Success Hub. All rights reserved. | <a href="#">Privacy Policy</a></p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p>&copy; 2025 NEET Success Hub. All rights reserved.</p>
         </footer>
     </div>
+
     <script>
         const menuToggle = document.getElementById('menuToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
         const sidebar = document.getElementById('sidebar');
 
         menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
+            sidebar.classList.add('open');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
         });
     </script>
 </body>
