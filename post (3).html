@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEET Study Hub</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+<style>
+body{ 
+  text-align: left;
+  align-items: left;
+}
+  @media (max-width: 500px) {
+  .container {
+    max-width: 95%;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .breadcrumbs {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+    margin-top: 0px;
+  }
+
+  .breadcrumbs a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: none;
+    color: red;
+  }
+
+  .post-title {
+    font-size: 22px;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+  }
+
+  .post-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .post-meta img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+  }
+
+  .post-content img {
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+
+  .post-content {
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .container1 {
+    max-width: 95%;
+    padding: 10px;
+    margin: 20px auto;
+  }
+
+  .related-posts-heading {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .related-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .related-post-card {
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    gap: 10px;
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .related-post-card img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .related-post-card a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .related-post-card a:hover {
+    color: #007bff;
+  }
+}
+@media (min-width: 501px) and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .breadcrumbs {
+    font-size: 16px;
+    margin-bottom: 7px;
+    color: #555;
+    margin-top: -5px;
+  }
+
+  .breadcrumbs a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: none;
+    color: red;
+  }
+
+  .post-title {
+    font-size: 28px;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+  }
+
+  .post-meta {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .post-meta img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 18px 0;
+  }
+
+  .post-content img {
+    min-width: 90%;
+    max-width: 90%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px auto;
+  }
+
+  .post-content {
+    text-align: left;
+    font-size: 18px;
+  }
+
+  .container1 {
+    max-width: 90%;
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .related-posts-heading {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .related-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+    .related-post-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f7f7f7;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .related-post-card img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .related-post-card a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1000px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 3%;
+    margin-bottom: -4%;
+  }
+
+  .breadcrumbs {
+    font-size: 18px;
+    margin-bottom: 7px;
+    color: #555;
+    margin-top: -8px;
+  }
+
+  .breadcrumbs a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: none;
+    color: red;
+  }
+
+  .post-title {
+    font-size: 32px;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+    display: absolute;
+  }
+
+  .post-meta {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .post-meta img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+  }
+
+  .post-content img {
+    min-width: 80%;
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px auto;
+  }
+
+  .post-content {
+    text-align: left;
+    font-size: 20px;
+  }
+
+  .container1 {
+    max-width: 90%;
+    padding: 15px;
+    margin: 25px auto;
+  }
+
+  .related-posts-heading {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .related-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .related-post-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .related-post-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .related-post-card a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .related-post-card a:hover {
+    color: #007bff;
+  }
+}
+@media (min-width: 1001px) and (max-width: 1200px) {
+  .container {
+    max-width: 80%;
+    padding: 25px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 20px auto;
+  }
+
+  .breadcrumbs {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #555;
+    margin-top: -5px;
+  }
+
+  .breadcrumbs a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: none;
+    color: red;
+  }
+
+  .post-title {
+    font-size: 36px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+  }
+
+  .post-meta {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .post-meta img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+  }
+
+  .post-content img {
+    min-width: 70%;
+    max-width: 70%;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px auto;
+  }
+
+  .post-content {
+    text-align: left;
+    font-size: 22px;
+  }
+
+  .container1 {
+    max-width: 80%;
+    padding: 20px;
+    margin: 30px auto;
+  }
+
+  .related-posts-heading {
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .related-posts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .related-post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-basis: 43%;
+  }
+
+  .related-post-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 7px;
+  }
+
+  .related-post-card a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .related-post-card a:hover {
+    color: #007bff;
+  }
+}
+@media (min-width: 1201px) {
+  .container {
+    max-width: 75%;
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 30px auto;
+  }
+
+  .breadcrumbs {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #555;
+    margin-top: -5px;
+  }
+
+  .breadcrumbs a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: none;
+    color: red;
+  }
+
+  .post-title {
+    font-size: 40px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+  }
+
+  .post-meta {
+    font-size: 22px;
+    color: #666;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .post-meta img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 25px 0;
+  }
+
+  .post-content img {
+    min-width: 60%;
+    max-width: 60%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px auto;
+  }
+
+  .post-content {
+    text-align: left;
+    font-size: 24px;
+  }
+
+  .container1 {
+    max-width: 75%;
+    padding: 25px;
+    margin: 40px auto;
+  }
+
+  .related-posts-heading {
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  .related-posts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 25px;
+  }
+
+  .related-post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: #f7f7f7;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-basis: 43%;
+  }
+
+  .related-post-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 7px;
+  }
+
+  .related-post-card a {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .related-post-card a:hover {
+    color: #007bff;
+  }
+}
+
+  
+  
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">NEET Study Hub</div>
+    <div class="hamburger" id="hamburger">☰</div>
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Subjects</a>
+      <a href="#">Mock Tests</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <button class="sidebar-close" id="closeSidebar">&times;</button>
+  <ul class="sidebar-menu">
+    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+    <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
+    <li><a href="#blogs"><i class="fas fa-blog"></i> Blogs</a></li>
+    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+  </ul>
+</div>
+
+<!-- Sidebar Toggle Tab -->
+<div class="sidebar-tab" id="sidebarTab">
+  <i class="fas fa-bars"></i>
+</div>
+
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs" id="breadcrumbs"></div>
+    <!-- Post Title -->
+    <h1 class="post-title" id="post-title"></h1>
+    <!-- Post Meta -->
+    <div class="post-meta" id="post-meta"></div>
+    <hr style="height:2px">
+    <!-- Post Content -->
+    <div class="post-content" id="post-content"></div>
+  </main>
+
+  <main class="container1">
+    <!-- Related Posts -->
+    <h2 class="related-posts-heading">Related Posts :</h2>
+    <div class="related-posts" id="related-posts"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>NEET Study Hub is your one-stop destination for acing the NEET exam with expert-curated study materials and mock tests.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Subjects</a></li>
+          <li><a href="#">Mock Tests</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  
+  <script>
+  const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev'; // Cloudflare Worker URL
+
+// Get the postId from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('postId');
+
+const breadcrumbs = document.getElementById('breadcrumbs');
+const postTitle = document.getElementById('post-title');
+const postMeta = document.getElementById('post-meta');
+const postContent = document.getElementById('post-content');
+const relatedPostsContainer = document.getElementById('related-posts');
+
+// Fetch and display the post content
+async function fetchPost() {
+  try {
+    // Fetch post data via Cloudflare Worker
+    const response = await fetch(`${cloudflareProxy}?id=${postId}`);
+    const data = await response.json();
+
+    // Populate the post content
+    postTitle.textContent = data.title;
+    postMeta.innerHTML = `By - NEET Study Hub | Time: ${new Date(
+      data.published
+    ).toLocaleDateString()}`;
+    postContent.innerHTML = data.content;
+
+    // Set breadcrumbs
+    breadcrumbs.innerHTML = `Home › <a href="blog.html">All Posts</a> › ${data.title}`;
+
+    // Fetch and display related posts
+    fetchRelatedPosts();
+  } catch (error) {
+    console.error('Error fetching the post:', error);
+    postContent.innerHTML = `<p>Error loading post. Please try again.</p>`;
+  }
+}
+
+// Fetch all posts and display 5 related posts excluding "ncert" and "pyq"
+async function fetchRelatedPosts() {
+  try {
+    // Fetch related posts data via Cloudflare Worker
+    const response = await fetch(`${cloudflareProxy}?maxResults=500`);
+    const data = await response.json();
+
+    if (data.items && data.items.length > 1) {
+      // Shuffle the posts randomly
+      const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
+
+      // Select 5 posts (excluding the current post and posts with labels "ncert" or "pyq")
+      const excludedLabels = ['ncert', 'pyq'];
+      const selectedPosts = shuffledPosts
+        .filter(
+          (post) =>
+            post.id !== postId && // Exclude the current post
+            (!post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))) // Exclude posts with specific labels
+        )
+        .slice(0, 5);
+
+      // Render the selected posts
+      const relatedPosts = selectedPosts.map((post) => {
+        const imageUrl =
+          post.images && post.images[0]
+            ? post.images[0].url
+            : extractImageFromContent(post.content);
+
+        return `
+          <div class="related-post-card">
+            <img src="${imageUrl}" alt="${post.title}">
+            <div class="related-card-content">
+              <a href="post.html?postId=${post.id}" target="_self">
+                <h3>${post.title}</h3>
+              </a>
+            </div>
+          </div>
+        `;
+      });
+
+      relatedPostsContainer.innerHTML = relatedPosts.join('');
+    } else {
+      relatedPostsContainer.innerHTML = '<p>No related posts found.</p>';
+    }
+  } catch (error) {
+    console.error('Error fetching related posts:', error);
+    relatedPostsContainer.innerHTML = '<p>Error loading related posts.</p>';
+  }
+}
+
+// Extract the first image from content
+function extractImageFromContent(content) {
+  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', fetchPost);
+
+
+        
+  </script>
+  <script src="script.js">script.js</script>
+</body>
+</html>
