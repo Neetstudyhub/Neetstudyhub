@@ -105,26 +105,29 @@ body{
     display: inline-block;
   }
 
-  .related-posts {
+   .related-posts {
     display: flex;
-    flex-direction: grid;
-    gap: 17px;
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    justify-content: space-between; /* Ensures even spacing between cards */
+    gap: 13px;
     margin-top: 10px;
-    margin-left: 10px;
-  }
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%; /* Allows it to fit within the viewport */
+}
 
-  .related-post-card {
-    min-width: 130px;
-    flex-direction: center;
-    align-items: center;
-    gap: 0px;
+.related-post-card {
+    flex: 1 1 calc(49% - 20px); /* Each card takes 50% width minus the gap */
+    max-width: calc(49% - 20px); /* Ensures they do not exceed half the row */
     background: #f7f7f7;
     padding: 8px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 190px;
+    height: 19"8px;
     overflow: hidden;
-  }
+    text-align: center;
+}
+
 
   .related-post-card img {
     width: 100%;
@@ -140,6 +143,7 @@ body{
     font-weight: 500;
     overflow: hidden;
     object-fit: contain;
+    text-align: left;
   }
 
   .related-post-card a:hover {
