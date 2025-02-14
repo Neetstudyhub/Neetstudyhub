@@ -40,7 +40,7 @@ body{
 
   .breadcrumbs a {
     text-decoration: none;
-    color: #555;
+    color: #007bff;
   }
 
   .breadcrumbs a:hover {
@@ -745,7 +745,7 @@ async function fetchPost() {
     postContent.innerHTML = data.content;
 
     // Set breadcrumbs
-    breadcrumbs.innerHTML = `Home › <a href="blog.html">All Posts</a> › ${data.title}`;
+    breadcrumbs.innerHTML = <a href="/"> `Home › <a href="blog.html">All Posts</a> › ${data.title}`;
 
     // Fetch and display related posts
     fetchRelatedPosts();
