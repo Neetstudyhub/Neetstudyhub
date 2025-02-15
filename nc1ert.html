@@ -157,6 +157,28 @@
       .cards-section { grid-template-columns: repeat(3, 1fr); }
     }
     
+    /* Additional adjustments for screens wider than 1200px */
+    @media (min-width: 1201px) {
+      .container {
+        padding: 60px 40px;
+      }
+      h1 {
+        font-size: 2.7em;
+      }
+      .card-content h3 {
+        font-size: 1.35em;
+      }
+      .post-description {
+        font-size: 1em;
+      }
+      .published-date {
+        font-size: 1em;
+      }
+      .cards-section {
+        gap: 30px;
+      }
+    }
+    
     /* Load More Button */
     #load-more-btn {
       display: block;
