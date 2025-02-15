@@ -73,7 +73,7 @@
     header .nav-links a:hover {
       text-decoration: underline;
     }
-    /* Hide hamburger on desktop */
+    /* Sidebar toggle (hamburger) only visible on small screens */
     header .hamburger {
       display: none;
     }
@@ -190,7 +190,7 @@
       margin: 4px 0;
     }
     .sidebar-tab {
-      display: none; /* Hidden on desktop by default */
+      display: none; /* Hidden on desktop */
       position: fixed;
       top: 2px;
       right: 0;
@@ -198,7 +198,6 @@
       height: 50px;
       background: var(--primary);
       color: #fff;
-      display: flex;
       justify-content: center;
       align-items: center;
       border-top-left-radius: 25px;
@@ -215,6 +214,8 @@
       color: #fff;
       position: relative;
       overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
     }
     .hero::after {
       content: "";
@@ -261,11 +262,62 @@
       display: block;
     }
 
+    /* Cards Section */
+    .cards-section {
+      padding: 40px 20px;
+      width: 100%;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      box-sizing: border-box;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    .card-icon {
+      font-size: 40px;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    .card h3 {
+      margin: 10px 0;
+      font-size: 1.3em;
+    }
+    .card p {
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
+    .card .btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 0.9em;
+    }
+    .card .btn:hover {
+      background: var(--primary-hover);
+    }
+
     /* Why Choose Us Section */
     .features-section {
       padding: 40px 20px;
       background: var(--accent);
       text-align: center;
+      width: 100%;
+      box-sizing: border-box;
     }
     .features-section h2 {
       margin-bottom: 20px;
@@ -277,7 +329,6 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       width: 100%;
-      max-width: 100%;
       margin: 0;
     }
     .feature-item {
@@ -304,11 +355,13 @@
       color: var(--subtext);
     }
 
-    /* Latest News Section */
+    /* Latest Posts Section */
     .latest-news-section {
       padding: 40px 20px;
       background: #fff;
       text-align: center;
+      width: 100%;
+      box-sizing: border-box;
     }
     .latest-news-section h2 {
       margin-bottom: 20px;
@@ -320,8 +373,8 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
       width: 100%;
-      max-width: 100%;
       margin: 0;
+      box-sizing: border-box;
     }
     .news-item {
       background: #f9f9f9;
@@ -378,60 +431,13 @@
       background: var(--primary-hover);
     }
 
-    /* Cards Section */
-    .cards-section {
-      padding: 40px 20px;
-      width: 100%;
-      max-width: 100%;
-      margin: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    }
-    .card-icon {
-      font-size: 40px;
-      color: var(--primary);
-      margin-bottom: 15px;
-    }
-    .card h3 {
-      margin: 10px 0;
-      font-size: 1.3em;
-    }
-    .card p {
-      font-size: 0.95em;
-      margin-bottom: 20px;
-    }
-    .card .btn {
-      background: var(--primary);
-      color: #fff;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-size: 0.9em;
-    }
-    .card .btn:hover {
-      background: var(--primary-hover);
-    }
-
     /* Newsletter Section */
     .newsletter-section {
       padding: 40px 20px;
       background: var(--accent);
       text-align: center;
+      width: 100%;
+      box-sizing: border-box;
     }
     .newsletter-section h2 {
       margin-bottom: 20px;
@@ -467,87 +473,14 @@
       background: var(--primary-hover);
     }
 
-    /* Daily Random Question Section */
-    .daily-question-section {
-      padding: 40px 20px;
-      background: #fff;
-      text-align: center;
-    }
-    .daily-question-section h2 {
-      margin-bottom: 20px;
-      font-size: 2em;
-      color: var(--primary);
-    }
-    #dailyQuestionContent {
-      margin-top: 20px;
-      display: none;
-      font-size: 1.1em;
-      color: var(--subtext);
-    }
-    #toggleQuestion {
-      background: var(--primary);
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    #toggleQuestion:hover {
-      background: var(--primary-hover);
-    }
-
-    /* About Us Section */
-    .about-section {
-      padding: 40px 20px;
-      background: #fff;
-      text-align: center;
-    }
-    .about-section h2 {
-      margin-bottom: 20px;
-      font-size: 2em;
-      color: var(--primary);
-    }
-    .about-content {
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: 1em;
-      color: var(--subtext);
-    }
-
-    /* Contact Us Section */
-    .contact-section {
-      padding: 40px 20px;
-      background: var(--accent);
-      text-align: center;
-    }
-    .contact-section h2 {
-      margin-bottom: 20px;
-      font-size: 2em;
-      color: var(--primary);
-    }
-    .contact-details {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1em;
-      color: var(--text);
-      text-align: left;
-    }
-    .contact-details p {
-      margin: 10px 0;
-    }
-    .contact-details i {
-      margin-right: 10px;
-      color: var(--primary);
-    }
-
     /* Footer */
     footer {
       background: var(--footer-bg);
       color: var(--footer-text);
       padding: 40px 20px;
       animation: footerBgAnimation 10s infinite alternate;
+      width: 100%;
+      box-sizing: border-box;
     }
     @keyframes footerBgAnimation {
       0% { background-color: var(--footer-bg); }
@@ -559,9 +492,9 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       width: 100%;
-      max-width: 100%;
       margin: 0;
       padding: 40px 20px;
+      box-sizing: border-box;
     }
     .footer-section h3 {
       margin-bottom: 10px;
@@ -618,7 +551,7 @@
 
     /* Responsive Styles */
     @media (min-width: 1200px) {
-      /* For very large screens, allow full width containers */
+      /* For very large screens, use full width */
       .cards-section,
       .features-grid,
       .news-grid,
@@ -628,6 +561,20 @@
         padding: 40px 20px;
       }
     }
+    @media (max-width: 768px) {
+header .hamburger {
+  display: block;
+}
+
+header .nav-links {
+  display: none;
+}
+}
+ @media (min-width: 768px) {
+     .sidebar-tab{
+    display: none; /* Hide sidebar toggle tab on desktop */
+  }
+} 
     @media (max-width: 1024px) {
       .features-grid,
       .news-grid,
@@ -698,7 +645,6 @@
       <li><a href="#"><i class="fas fa-blog"></i> Blog</a></li>
       <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
     </ul>
-    <!-- Sidebar Footer -->
     <div class="sidebar-footer">
       <div class="social-media">
         <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -717,7 +663,7 @@
     </div>
   </div>
   
-  <!-- Sidebar Tab (only visible on small screens) -->
+  <!-- Sidebar Tab (visible on small screens) -->
   <div class="sidebar-tab" id="sidebarTab">
     <i class="fas fa-bars"></i>
   </div>
@@ -729,10 +675,50 @@
       <p>Your ultimate destination for expert NEET preparation. Discover resources, mock tests, and guidance to help you succeed.</p>
       <button class="btn">Get Started</button>
     </div>
-    <!-- Wave SVG -->
     <svg class="hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
       <path fill="#fff" fill-opacity="1" d="M0,256L48,240C96,224,192,192,288,165.3C384,139,480,117,576,128C672,139,768,181,864,181.3C960,181,1056,139,1152,144C1248,149,1344,203,1392,229.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
     </svg>
+  </section>
+  
+  <!-- Cards Section -->
+  <section class="cards-section fade-in">
+    <!-- Example Cards -->
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-atom"></i></div>
+      <h3>Physics</h3>
+      <p>Explore formulas, concepts, and problem-solving techniques in Physics to boost your exam performance.</p>
+      <button class="btn">Learn More</button>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-flask"></i></div>
+      <h3>Chemistry</h3>
+      <p>Dive into chemical reactions, periodic trends, and molecular structures with our detailed resources.</p>
+      <button class="btn">Learn More</button>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-leaf"></i></div>
+      <h3>Biology</h3>
+      <p>Master biology with comprehensive notes, diagrams, and interactive learning modules.</p>
+      <button class="btn">Learn More</button>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-blog"></i></div>
+      <h3>Blog</h3>
+      <p>Stay updated with the latest tips, success stories, and exam strategies shared by our experts.</p>
+      <button class="btn">Read Blog</button>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+      <h3>Mock Tests</h3>
+      <p>Practice with timed mock tests and assess your preparation with detailed performance analytics.</p>
+      <button class="btn">Start Test</button>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+      <h3>Study Tips</h3>
+      <p>Discover expert tips and strategies to optimize your study plan and ace your NEET exam.</p>
+      <button class="btn">Get Tips</button>
+    </div>
   </section>
   
   <!-- Why Choose Us Section -->
@@ -757,59 +743,13 @@
     </div>
   </section>
   
-  <!-- Latest News Section -->
+  <!-- Latest Posts Section -->
   <section class="latest-news-section fade-in">
-    <h2>Latest News</h2>
+    <h2>Latest Posts</h2>
     <div class="news-grid" id="newsGrid">
-      <!-- News items will be dynamically populated here if they have the label "Latest News" -->
+      <!-- News items will be dynamically populated here -->
     </div>
     <button class="see-more-btn" onclick="window.location.href='latestnews.html'">See More</button>
-  </section>
-  
-  <!-- Cards Section -->
-  <section class="cards-section fade-in">
-    <!-- Physics Card -->
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-atom"></i></div>
-      <h3>Physics</h3>
-      <p>Explore formulas, concepts, and problem-solving techniques in Physics to boost your exam performance.</p>
-      <button class="btn">Learn More</button>
-    </div>
-    <!-- Chemistry Card -->
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-flask"></i></div>
-      <h3>Chemistry</h3>
-      <p>Dive into chemical reactions, periodic trends, and molecular structures with our detailed resources.</p>
-      <button class="btn">Learn More</button>
-    </div>
-    <!-- Biology Card -->
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-leaf"></i></div>
-      <h3>Biology</h3>
-      <p>Master biology with comprehensive notes, diagrams, and interactive learning modules.</p>
-      <button class="btn">Learn More</button>
-    </div>
-    <!-- Blog Card -->
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-blog"></i></div>
-      <h3>Blog</h3>
-      <p>Stay updated with the latest tips, success stories, and exam strategies shared by our experts.</p>
-      <button class="btn">Read Blog</button>
-    </div>
-    <!-- Mock Tests Card -->
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-file-alt"></i></div>
-      <h3>Mock Tests</h3>
-      <p>Practice with timed mock tests and assess your preparation with detailed performance analytics.</p>
-      <button class="btn">Start Test</button>
-    </div>
-    <!-- Study Tips Card -->
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
-      <h3>Study Tips</h3>
-      <p>Discover expert tips and strategies to optimize your study plan and ace your NEET exam.</p>
-      <button class="btn">Get Tips</button>
-    </div>
   </section>
   
   <!-- Newsletter Section -->
@@ -875,7 +815,7 @@
     
     const toggleSidebar = () => {
       sidebar.classList.toggle('open');
-      // On small screens, display the toggle button; on desktop, it's hidden via media queries
+      // On small screens, toggle sidebar tab display (desktop: hidden via media query)
       sidebarTab.style.display = sidebar.classList.contains('open') ? 'none' : 'flex';
     };
     
@@ -917,38 +857,75 @@
       }
     });
     
-    // Latest News fetching from Blogger via Cloudflare Worker proxy and filtering by label "Latest News"
-    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+    // Latest Posts fetching from Blogger via Cloudflare Worker proxy and filtering by label "Latest News"
+    let allPosts = [];
+    let displayedPosts = 0;
+    const postsPerPage = 6;
     const newsGrid = document.getElementById('newsGrid');
     
-    fetch(cloudflareProxy)
-      .then(response => response.json())
-      .then(data => {
-        // Filter items that include the label "Latest News"
-        const filteredNews = data.filter(item => item.labels && item.labels.includes("Latest News")).slice(0, 6);
-        newsGrid.innerHTML = "";
-        if (filteredNews.length > 0) {
-          filteredNews.forEach(item => {
-            const newsHTML = `
-              <div class="news-item">
-                <img src="${item.image || 'https://via.placeholder.com/600x400'}" alt="${item.title}" loading="lazy">
-                <div class="news-content">
-                  <h3>${item.title || 'News Title'}</h3>
-                  <p>${item.summary || 'News summary goes here.'}</p>
-                  <a href="post.html?id=${item.id || ''}">Read More</a>
-                </div>
-              </div>
-            `;
-            newsGrid.innerHTML += newsHTML;
-          });
-        } else {
-          newsGrid.innerHTML = "<p>No latest news available at the moment.</p>";
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching news:", error);
-        newsGrid.innerHTML = "<p>Unable to load news at this time.</p>";
+    function fetchBloggerPosts() {
+      const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+      fetch(cloudflareProxy)
+        .then(response => response.json())
+        .then(data => {
+          allPosts = data;
+          displayPosts();
+        })
+        .catch(error => {
+          console.error("Error fetching posts:", error);
+          newsGrid.innerHTML = "<p>Error loading posts.</p>";
+        });
+    }
+    
+    function displayPosts() {
+      const filteredPosts = allPosts.filter(post => post.labels && post.labels.includes("Latest News"));
+      const postsToDisplay = filteredPosts.slice(displayedPosts, displayedPosts + postsPerPage);
+      
+      const postCards = postsToDisplay.map(post => {
+        const id = post.id || "";
+        const title = post.title || "News Title";
+        const imageUrl = post.image || "https://via.placeholder.com/600x400";
+        const published = post.published || "";
+        const contentSnippet = post.contentSnippet || "Summary of the post";
+        
+        const postMeta = `
+          <div class="post-meta">
+            <a href="post.html?postId=${id}" target="_self">Latest Post</a>
+            <span>Mental Ease • ${published}</span>
+          </div>
+        `;
+        
+        const labelMarkup = post.labels ? `<div class="post-labels">${post.labels.join(', ')}</div>` : "";
+        
+        return `
+          <div class="news-item">
+            <a href="post.html?postId=${id}" target="_self">
+              <img src="${imageUrl}" alt="${title}" loading="lazy">
+            </a>
+            <div class="news-content">
+              <h3><a href="post.html?postId=${id}" target="_self">${title}</a></h3>
+              ${postMeta}
+              <p class="post-description">${contentSnippet}...</p>
+              ${labelMarkup}
+            </div>
+          </div>
+        `;
       });
+      
+      newsGrid.innerHTML += postCards.join('');
+      displayedPosts += postsToDisplay.length;
+      
+      if (displayedPosts >= filteredPosts.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block';
+      }
+    }
+    
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    loadMoreBtn.addEventListener('click', displayPosts);
+    
+    document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
     
     // Cookie Consent using localStorage
     const cookieConsent = document.getElementById('cookieConsent');
