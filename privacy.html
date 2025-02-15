@@ -607,7 +607,14 @@
       border-radius: 4px;
     }
 
-    /* Responsive Styles */
+    /* Additional Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .features-grid,
+      .news-grid,
+      .footer-container {
+        gap: 15px;
+      }
+    }
     @media (max-width: 768px) {
       header {
         padding: 10px 15px;
@@ -635,21 +642,14 @@
       .hero p {
         font-size: 1em;
       }
-    
-    header .hamburger {
-  display: block;
-}
-
-header .nav-links {
-  display: none;
-}
-}
- @media (min-width: 768px) {
-     .sidebar-tab{
-    display: none; /* Hide sidebar toggle tab on desktop */
-  }
-}
- }
+      .features-section h2,
+      .latest-news-section h2,
+      .newsletter-section h2,
+      .about-section h2,
+      .contact-section h2 {
+        font-size: 1.8em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -738,7 +738,7 @@ header .nav-links {
   <section class="latest-news-section fade-in">
     <h2>Latest News</h2>
     <div class="news-grid" id="newsGrid">
-      <!-- News items will be dynamically populated here -->
+      <!-- News items will be dynamically populated here if they have the label "Latest News" -->
     </div>
     <button class="see-more-btn" onclick="window.location.href='latestnews.html'">See More</button>
   </section>
