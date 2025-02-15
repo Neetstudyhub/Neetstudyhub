@@ -76,14 +76,14 @@
     header .nav-links a:hover {
       text-decoration: underline;
     }
-    /* Hamburger menu visible on mobile only */
+    /* Hamburger (mobile only) */
     header .hamburger {
       display: none;
       font-size: 1.8em;
       cursor: pointer;
     }
 
-    /* Sidebar (for mobile only) */
+    /* Sidebar (mobile only) */
     .sidebar {
       position: fixed;
       top: 0;
@@ -213,7 +213,7 @@
 
     /* Hero Section with Wave Effect */
     .hero {
-      background: url('https://via.placeholder.com/1500x500?text=Doctor+NEET+Background') no-repeat center/cover;
+      background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgE77UD5SIF1NK1-NLah1M_o44Te59aO-IYEqDKjnEMuz701Txye1Rg258h3dBUCOFI40lU8NnKUIclpL-vzlkOJCuxqxYuBK1N9adtHWuWFusjDGpct1dKNkmQDTNpvDNQF5gwbJzH84CTlvvltAHHQWyrUauhwGNCvrUjLjmi6vocKWNLcIhVIfhiI-XO/s1600/1000031205.jpg') no-repeat center/cover;
       padding: 100px 20px;
       text-align: center;
       color: #fff;
@@ -568,7 +568,6 @@
       }
     }
     @media (min-width: 768px) {
-      /* On desktop, hide hamburger and sidebar */
       header .nav-links {
         display: flex;
       }
@@ -645,7 +644,7 @@
     <div class="hamburger">&#9776;</div>
   </header>
 
-  <!-- Sidebar (visible on mobile only) -->
+  <!-- Sidebar (Mobile Only) -->
   <div class="sidebar" id="sidebar">
     <button class="sidebar-close" id="closeSidebar">&times;</button>
     <ul class="sidebar-menu">
@@ -673,7 +672,7 @@
     </div>
   </div>
 
-  <!-- Sidebar Tab (visible on mobile only) -->
+  <!-- Sidebar Tab (Mobile Only) -->
   <div class="sidebar-tab" id="sidebarTab">
     <i class="fas fa-bars"></i>
   </div>
@@ -817,16 +816,15 @@
   </div>
 
   <script>
-    // Sidebar toggle functionality
+    // Sidebar toggle functionality for mobile
     const sidebar = document.getElementById('sidebar');
     const closeSidebarBtn = document.getElementById('closeSidebar');
     const sidebarTab = document.getElementById('sidebarTab');
     const hamburger = document.querySelector("header .hamburger");
 
-    // Toggle sidebar when hamburger or sidebar tab is clicked
     const toggleSidebar = () => {
       sidebar.classList.toggle('open');
-      // For mobile, toggle the display of the sidebar tab
+      // When sidebar is open on mobile, hide the sidebar tab (hamburger) if necessary
       if (sidebar.classList.contains('open')) {
         sidebarTab.style.display = 'none';
       } else {
@@ -844,38 +842,14 @@
       }
     });
 
-    // Daily Random Question functionality (if used elsewhere)
-    const questions = [
-      "What is the atomic number of Oxygen?",
-      "Who discovered penicillin?",
-      "What is the capital of India?",
-      "What is the chemical formula for water?",
-      "Who is known as the father of modern physics?",
-      "What is the powerhouse of the cell?"
-    ];
-
-    // (Assuming a placeholder element exists if needed)
-    // const dailyQuestionText = document.getElementById('dailyQuestionText');
-    // const toggleQuestionBtn = document.getElementById('toggleQuestion');
-    // const dailyQuestionContent = document.getElementById('dailyQuestionContent');
-    // const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
-    // dailyQuestionText.textContent = randomQuestion;
-    // toggleQuestionBtn.addEventListener('click', () => {
-    //   if (!dailyQuestionContent.style.display || dailyQuestionContent.style.display === "none") {
-    //     dailyQuestionContent.style.display = "block";
-    //     toggleQuestionBtn.textContent = "Hide Daily Question";
-    //   } else {
-    //     dailyQuestionContent.style.display = "none";
-    //     toggleQuestionBtn.textContent = "Show Daily Question";
-    //   }
-    // });
-
     // Latest Posts fetching using Cloudflare Worker
     let allPosts = [];
     let displayedPosts = 0;
     const postsPerPage = 6;
     const newsGrid = document.getElementById('newsGrid');
-    const loadMoreBtn = document.getElementById('loadMoreBtn'); // Note: if you add a loadMoreBtn element
+
+    // Exclude posts if any label matches these words (case-insensitive)
+    const excludeLabels = ["home", "love", "logei", "lsojs"];
 
     function fetchBloggerPosts() {
       const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
@@ -892,7 +866,12 @@
     }
 
     function displayPosts() {
-      const filteredPosts = allPosts.filter(post => post.labels && post.labels.includes("LatestNews"));
+      // Filter posts: include only posts whose labels do NOT contain any of the exclude words
+      const filteredPosts = allPosts.filter(post => {
+        if (!post.labels) return true;
+        return post.labels.every(label => !excludeLabels.includes(label.toLowerCase()));
+      });
+      
       const postsToDisplay = filteredPosts.slice(displayedPosts, displayedPosts + postsPerPage);
       
       const postCards = postsToDisplay.map(post => {
@@ -901,6 +880,7 @@
         const imageUrl = post.image || "https://via.placeholder.com/600x400";
         const published = post.published || "";
         const contentSnippet = post.contentSnippet || "Summary of the post";
+
         const postMeta = `
           <div class="post-meta">
             <a href="post.html?postId=${id}" target="_self">Latest Post</a>
@@ -926,19 +906,7 @@
 
       newsGrid.innerHTML += postCards.join('');
       displayedPosts += postsToDisplay.length;
-      
-      // If there's a "Load More" button, show or hide it based on posts available.
-      if (loadMoreBtn) {
-        if (displayedPosts >= filteredPosts.length) {
-          loadMoreBtn.style.display = 'none';
-        } else {
-          loadMoreBtn.style.display = 'block';
-        }
-      }
     }
-
-    // Uncomment the following if you add a Load More button:
-    // loadMoreBtn.addEventListener('click', displayPosts);
 
     document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
 
