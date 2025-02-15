@@ -52,6 +52,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      width: 100%;
+      box-sizing: border-box;
       transition: padding 0.3s ease;
     }
     header .logo {
@@ -59,6 +61,7 @@
       font-weight: bold;
       transition: font-size 0.3s ease;
     }
+    /* Navigation links visible on desktop only */
     header .nav-links {
       display: flex;
       gap: 20px;
@@ -73,12 +76,14 @@
     header .nav-links a:hover {
       text-decoration: underline;
     }
-    /* Sidebar toggle (hamburger) only visible on small screens */
+    /* Hamburger menu visible on mobile only */
     header .hamburger {
       display: none;
+      font-size: 1.8em;
+      cursor: pointer;
     }
 
-    /* Sidebar */
+    /* Sidebar (for mobile only) */
     .sidebar {
       position: fixed;
       top: 0;
@@ -330,6 +335,7 @@
       gap: 20px;
       width: 100%;
       margin: 0;
+      box-sizing: border-box;
     }
     .feature-item {
       background: #fff;
@@ -550,8 +556,29 @@
     }
 
     /* Responsive Styles */
+    @media (max-width: 768px) {
+      header .nav-links {
+        display: none;
+      }
+      header .hamburger {
+        display: block;
+      }
+      .sidebar-tab {
+        display: flex;
+      }
+    }
+    @media (min-width: 768px) {
+      /* On desktop, hide hamburger and sidebar */
+      header .nav-links {
+        display: flex;
+      }
+      header .hamburger,
+      .sidebar,
+      .sidebar-tab {
+        display: none;
+      }
+    }
     @media (min-width: 1200px) {
-      /* For very large screens, use full width */
       .cards-section,
       .features-grid,
       .news-grid,
@@ -561,20 +588,6 @@
         padding: 40px 20px;
       }
     }
-    @media (max-width: 768px) {
-header .hamburger {
-  display: block;
-}
-
-header .nav-links {
-  display: none;
-}
-}
- @media (min-width: 768px) {
-     .sidebar-tab{
-    display: none; /* Hide sidebar toggle tab on desktop */
-  }
-} 
     @media (max-width: 1024px) {
       .features-grid,
       .news-grid,
@@ -591,9 +604,6 @@ header .nav-links {
       }
       header .nav-links a {
         font-size: 1em;
-      }
-      .sidebar-tab {
-        display: flex;
       }
       .social-media a {
         width: 35px;
@@ -615,8 +625,7 @@ header .nav-links {
       .features-section h2,
       .latest-news-section h2,
       .newsletter-section h2,
-      .about-section h2,
-      .contact-section h2 {
+      .footer-section h3 {
         font-size: 1.8em;
       }
     }
@@ -633,9 +642,10 @@ header .nav-links {
       <a href="#">Mock Tests</a>
       <a href="#">Contact</a>
     </nav>
+    <div class="hamburger">&#9776;</div>
   </header>
-  
-  <!-- Sidebar -->
+
+  <!-- Sidebar (visible on mobile only) -->
   <div class="sidebar" id="sidebar">
     <button class="sidebar-close" id="closeSidebar">&times;</button>
     <ul class="sidebar-menu">
@@ -662,12 +672,12 @@ header .nav-links {
       </div>
     </div>
   </div>
-  
-  <!-- Sidebar Tab (visible on small screens) -->
+
+  <!-- Sidebar Tab (visible on mobile only) -->
   <div class="sidebar-tab" id="sidebarTab">
     <i class="fas fa-bars"></i>
   </div>
-  
+
   <!-- Hero Section with Wave Effect -->
   <section class="hero fade-in">
     <div class="hero-content">
@@ -679,10 +689,9 @@ header .nav-links {
       <path fill="#fff" fill-opacity="1" d="M0,256L48,240C96,224,192,192,288,165.3C384,139,480,117,576,128C672,139,768,181,864,181.3C960,181,1056,139,1152,144C1248,149,1344,203,1392,229.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
     </svg>
   </section>
-  
+
   <!-- Cards Section -->
   <section class="cards-section fade-in">
-    <!-- Example Cards -->
     <div class="card">
       <div class="card-icon"><i class="fas fa-atom"></i></div>
       <h3>Physics</h3>
@@ -720,7 +729,7 @@ header .nav-links {
       <button class="btn">Get Tips</button>
     </div>
   </section>
-  
+
   <!-- Why Choose Us Section -->
   <section class="features-section fade-in">
     <h2>Why Choose Us?</h2>
@@ -742,16 +751,16 @@ header .nav-links {
       </div>
     </div>
   </section>
-  
+
   <!-- Latest Posts Section -->
   <section class="latest-news-section fade-in">
     <h2>Latest Posts</h2>
     <div class="news-grid" id="newsGrid">
-      <!-- News items will be dynamically populated here -->
+      <!-- Latest posts will be dynamically populated here -->
     </div>
     <button class="see-more-btn" onclick="window.location.href='latestnews.html'">See More</button>
   </section>
-  
+
   <!-- Newsletter Section -->
   <section class="newsletter-section fade-in">
     <h2>Subscribe to Our Newsletter</h2>
@@ -761,7 +770,7 @@ header .nav-links {
       <button type="submit">Subscribe</button>
     </form>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="footer-container">
@@ -800,37 +809,42 @@ header .nav-links {
       <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
     </div>
   </footer>
-  
+
   <!-- Cookie Consent Banner -->
   <div id="cookieConsent">
     <p style="margin: 0;">This website uses cookies to ensure you get the best experience. <a href="#">Learn more</a></p>
     <button id="acceptCookies">Accept</button>
   </div>
-  
+
   <script>
     // Sidebar toggle functionality
     const sidebar = document.getElementById('sidebar');
     const closeSidebarBtn = document.getElementById('closeSidebar');
     const sidebarTab = document.getElementById('sidebarTab');
-    
+    const hamburger = document.querySelector("header .hamburger");
+
+    // Toggle sidebar when hamburger or sidebar tab is clicked
     const toggleSidebar = () => {
       sidebar.classList.toggle('open');
-      // On small screens, toggle sidebar tab display (desktop: hidden via media query)
-      sidebarTab.style.display = sidebar.classList.contains('open') ? 'none' : 'flex';
+      // For mobile, toggle the display of the sidebar tab
+      if (sidebar.classList.contains('open')) {
+        sidebarTab.style.display = 'none';
+      } else {
+        sidebarTab.style.display = 'flex';
+      }
     };
-    
+
+    hamburger.addEventListener('click', toggleSidebar);
     sidebarTab.addEventListener('click', toggleSidebar);
     closeSidebarBtn.addEventListener('click', toggleSidebar);
-    
+
     document.addEventListener('click', function(e) {
-      if (sidebar.classList.contains('open')) {
-        if (!sidebar.contains(e.target) && !sidebarTab.contains(e.target)) {
-          toggleSidebar();
-        }
+      if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !sidebarTab.contains(e.target) && !hamburger.contains(e.target)) {
+        toggleSidebar();
       }
     });
-    
-    // Daily Random Question functionality
+
+    // Daily Random Question functionality (if used elsewhere)
     const questions = [
       "What is the atomic number of Oxygen?",
       "Who discovered penicillin?",
@@ -839,30 +853,30 @@ header .nav-links {
       "Who is known as the father of modern physics?",
       "What is the powerhouse of the cell?"
     ];
-    
-    const dailyQuestionText = document.getElementById('dailyQuestionText');
-    const toggleQuestionBtn = document.getElementById('toggleQuestion');
-    const dailyQuestionContent = document.getElementById('dailyQuestionContent');
-    
-    const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
-    dailyQuestionText.textContent = randomQuestion;
-    
-    toggleQuestionBtn.addEventListener('click', () => {
-      if (dailyQuestionContent.style.display === "none" || dailyQuestionContent.style.display === "") {
-        dailyQuestionContent.style.display = "block";
-        toggleQuestionBtn.textContent = "Hide Daily Question";
-      } else {
-        dailyQuestionContent.style.display = "none";
-        toggleQuestionBtn.textContent = "Show Daily Question";
-      }
-    });
-    
-    // Latest Posts fetching from Blogger via Cloudflare Worker proxy and filtering by label "Latest News"
+
+    // (Assuming a placeholder element exists if needed)
+    // const dailyQuestionText = document.getElementById('dailyQuestionText');
+    // const toggleQuestionBtn = document.getElementById('toggleQuestion');
+    // const dailyQuestionContent = document.getElementById('dailyQuestionContent');
+    // const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+    // dailyQuestionText.textContent = randomQuestion;
+    // toggleQuestionBtn.addEventListener('click', () => {
+    //   if (!dailyQuestionContent.style.display || dailyQuestionContent.style.display === "none") {
+    //     dailyQuestionContent.style.display = "block";
+    //     toggleQuestionBtn.textContent = "Hide Daily Question";
+    //   } else {
+    //     dailyQuestionContent.style.display = "none";
+    //     toggleQuestionBtn.textContent = "Show Daily Question";
+    //   }
+    // });
+
+    // Latest Posts fetching using Cloudflare Worker
     let allPosts = [];
     let displayedPosts = 0;
     const postsPerPage = 6;
     const newsGrid = document.getElementById('newsGrid');
-    
+    const loadMoreBtn = document.getElementById('loadMoreBtn'); // Note: if you add a loadMoreBtn element
+
     function fetchBloggerPosts() {
       const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
       fetch(cloudflareProxy)
@@ -876,7 +890,7 @@ header .nav-links {
           newsGrid.innerHTML = "<p>Error loading posts.</p>";
         });
     }
-    
+
     function displayPosts() {
       const filteredPosts = allPosts.filter(post => post.labels && post.labels.includes("Latest News"));
       const postsToDisplay = filteredPosts.slice(displayedPosts, displayedPosts + postsPerPage);
@@ -887,16 +901,14 @@ header .nav-links {
         const imageUrl = post.image || "https://via.placeholder.com/600x400";
         const published = post.published || "";
         const contentSnippet = post.contentSnippet || "Summary of the post";
-        
         const postMeta = `
           <div class="post-meta">
             <a href="post.html?postId=${id}" target="_self">Latest Post</a>
             <span>Mental Ease • ${published}</span>
           </div>
         `;
-        
         const labelMarkup = post.labels ? `<div class="post-labels">${post.labels.join(', ')}</div>` : "";
-        
+
         return `
           <div class="news-item">
             <a href="post.html?postId=${id}" target="_self">
@@ -911,30 +923,33 @@ header .nav-links {
           </div>
         `;
       });
-      
+
       newsGrid.innerHTML += postCards.join('');
       displayedPosts += postsToDisplay.length;
       
-      if (displayedPosts >= filteredPosts.length) {
-        loadMoreBtn.style.display = 'none';
-      } else {
-        loadMoreBtn.style.display = 'block';
+      // If there's a "Load More" button, show or hide it based on posts available.
+      if (loadMoreBtn) {
+        if (displayedPosts >= filteredPosts.length) {
+          loadMoreBtn.style.display = 'none';
+        } else {
+          loadMoreBtn.style.display = 'block';
+        }
       }
     }
-    
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    loadMoreBtn.addEventListener('click', displayPosts);
-    
+
+    // Uncomment the following if you add a Load More button:
+    // loadMoreBtn.addEventListener('click', displayPosts);
+
     document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
-    
+
     // Cookie Consent using localStorage
     const cookieConsent = document.getElementById('cookieConsent');
     const acceptCookies = document.getElementById('acceptCookies');
-    
+
     if (!localStorage.getItem("cookieConsentAccepted")) {
       cookieConsent.style.display = "block";
     }
-    
+
     acceptCookies.addEventListener("click", function() {
       localStorage.setItem("cookieConsentAccepted", "true");
       cookieConsent.style.display = "none";
