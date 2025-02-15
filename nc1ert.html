@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEET Study Hub - Blog</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, p {
+      margin: 0 0 15px;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Blog Container */
+    #blog-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    /* Blog Card */
+    .blog-card {
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      /* Default: Desktop (3 per row) */
+      flex: 1 1 calc(33.333% - 20px);
+      max-width: calc(33.333% - 20px);
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    .blog-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card-content h3 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 10px;
+    }
+    .post-meta img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .post-description {
+      font-size: 1em;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .post-labels {
+      margin-top: 10px;
+    }
+    .post-labels .label {
+      display: inline-block;
+      background: #1b76dc;
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 0.8em;
+      margin-right: 5px;
+    }
+    
+    /* Load More Button */
+    #load-more-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #1b76dc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s ease;
+    }
+    #load-more-btn:hover {
+      background: #166bb3;
+    }
+    
+    /* Skeleton Loader */
+    #skeletonLoader {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .skeleton {
+      background: #ddd;
+      border-radius: 5px;
+      flex: 1 1 calc(33.333% - 20px);
+      min-width: 280px;
+      height: 250px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    
+    /* Responsive Adjustments */
+    /* Mobile: 1 post per row */
+    @media (max-width: 480px) {
+      .blog-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+      .skeleton {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+    /* Laptop/Tablet: 2 posts per row */
+    @media (min-width: 481px) and (max-width: 1024px) {
+      .blog-card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+      }
+      .skeleton {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NEET Study Hub - Blog</h1>
+    <!-- Skeleton Loader (displayed while fetching posts) -->
+    <div id="skeletonLoader">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+    <!-- Blog Container where posts will be appended -->
+    <div id="blog-container"></div>
+    <!-- Load More Button -->
+    <button id="load-more-btn" style="display: none;">Load More</button>
+  </div>
+  
+  <script>
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Cloudflare Worker URL
+    const maxResults = 100;
+    const postsPerBatch = 6;
+
+    let allPosts = [];
+    let displayedPosts = 0;
+
+    const blogContainer = document.getElementById('blog-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const skeletonLoader = document.getElementById('skeletonLoader');
+
+    // Format date to "Month Day, Year" (e.g., February 11, 2025)
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString(undefined, options);
+    }
+
+    // Fetch Posts using the Cloudflare Proxy
+    async function fetchBloggerPosts() {
+      try {
+        // Fetch data via Cloudflare Proxy
+        const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
+        const data = await response.json();
+        
+        if (!data.items || data.items.length === 0) {
+          throw new Error('No posts found.');
+        }
+        
+        // Exclude posts with labels "ncert" and "pyq"
+        const excludedLabels = ['ncert', 'pyq'];
+        const filteredPosts = data.items.filter(
+          (post) =>
+            !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
+        );
+        
+        if (filteredPosts.length === 0) {
+          throw new Error('No valid posts found after filtering.');
+        }
+        
+        // Process Posts and include published date and description snippet
+        allPosts = await Promise.all(
+          filteredPosts.map(async (post) => {
+            const { id, title, content, labels, published } = post;
+            const imageUrl =
+              post.images && post.images[0]
+                ? post.images[0].url
+                : extractImageFromContent(content);
+            const formattedDate = published ? formatDate(published) : 'Unknown Date';
+            const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
+            
+            return {
+              id,
+              title,
+              labels: labels || [],
+              imageUrl,
+              published: formattedDate,
+              contentSnippet
+            };
+          })
+        );
+        
+        // Hide skeleton loader once posts are ready
+        skeletonLoader.style.display = 'none';
+        
+        // Show/Hide Load More Button Based on Post Count
+        if (allPosts.length > postsPerBatch) {
+          loadMoreBtn.style.display = 'block';
+        } else {
+          loadMoreBtn.style.display = 'none';
+        }
+        
+        displayPosts();
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        skeletonLoader.style.display = 'none';
+        blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
+      }
+    }
+
+    // Extract the first image from content
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+    }
+
+    // Display Posts in Batches
+    function displayPosts() {
+      const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
+      
+      const postCards = postsToDisplay.map((post) => {
+        const { id, title, labels, imageUrl, published, contentSnippet } = post;
+        
+        // Format labels if available
+        const labelMarkup = labels && labels.length > 0 ?
+          `<div class="post-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>` :
+          '';
+        
+        // Post meta information (user logo and published date)
+        const postMeta = `
+          <div class="post-meta">
+            <a href="post.html?postId=${id}" target="_self">
+              <img src="user-logo.png" alt="User Logo" />
+            </a>
+            <span>Mental Ease • ${published}</span>
+          </div>
+        `;
+        
+        return `
+          <div class="blog-card">
+            <a href="post.html?postId=${id}" target="_self">
+              <img src="${imageUrl}" alt="${title}" />
+            </a>
+            <div class="card-content">
+              <h3>
+                <a href="post.html?postId=${id}" target="_self">${title}</a>
+              </h3>
+              ${postMeta}
+              <p class="post-description">${contentSnippet}...</p>
+              ${labelMarkup}
+            </div>
+          </div>
+        `;
+      });
+      
+      blogContainer.innerHTML += postCards.join('');
+      displayedPosts += postsToDisplay.length;
+      
+      if (displayedPosts >= allPosts.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block';
+      }
+    }
+
+    // Add Event Listener for Load More Button
+    loadMoreBtn.addEventListener('click', displayPosts);
+
+    // Initialize on DOM Content Loaded
+    document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
+  </script>
+</body>
+</html>
