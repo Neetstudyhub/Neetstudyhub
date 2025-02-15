@@ -23,6 +23,7 @@
     h1 {
       text-align: center;
       margin-bottom: 30px;
+      font-size: 2.5em;
     }
     a {
       text-decoration: none;
@@ -36,6 +37,7 @@
       gap: 20px;
       box-sizing: border-box;
     }
+    
     /* Card Styles */
     .card {
       background: #fff;
@@ -97,20 +99,62 @@
       font-size: 0.8em;
       margin-right: 5px;
     }
-    .btn {
-      background: #1b76dc;
-      color: #fff;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-size: 0.9em;
-      text-transform: uppercase;
-      align-self: start;
+    
+    /* Responsive Text and Label Sizes */
+    /* Mobile (max-width: 480px) */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2em;
+      }
+      .card-content h3 {
+        font-size: 1.1em;
+      }
+      .card p {
+        font-size: 0.9em;
+      }
+      .post-meta {
+        font-size: 0.8em;
+      }
+      .post-labels .label {
+        font-size: 0.7em;
+        padding: 2px 6px;
+      }
     }
-    .btn:hover {
-      background: #166bb3;
+    /* Tablet/Laptop (481px to 1024px) */
+    @media (min-width: 481px) and (max-width: 1024px) {
+      h1 {
+        font-size: 2.3em;
+      }
+      .card-content h3 {
+        font-size: 1.2em;
+      }
+      .card p {
+        font-size: 0.92em;
+      }
+      .post-meta {
+        font-size: 0.85em;
+      }
+      .post-labels .label {
+        font-size: 0.75em;
+      }
+    }
+    /* Desktop (1025px and above) */
+    @media (min-width: 1025px) {
+      h1 {
+        font-size: 2.5em;
+      }
+      .card-content h3 {
+        font-size: 1.3em;
+      }
+      .card p {
+        font-size: 0.95em;
+      }
+      .post-meta {
+        font-size: 0.9em;
+      }
+      .post-labels .label {
+        font-size: 0.8em;
+      }
     }
     
     /* Responsive Grid Adjustments */
@@ -311,7 +355,6 @@
               ${postMeta}
               <p class="post-description">${contentSnippet}...</p>
               ${labelMarkup}
-              <button class="btn" onclick="location.href='post.html?postId=${id}'">Read More</button>
             </div>
           </div>
         `;
