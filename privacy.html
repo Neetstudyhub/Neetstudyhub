@@ -892,7 +892,7 @@
     }
 
     function displayPosts() {
-      const filteredPosts = allPosts.filter(post => post.labels && post.labels.includes("Latest News"));
+      const filteredPosts = allPosts.filter(post => post.labels && post.labels.includes("LatestNews"));
       const postsToDisplay = filteredPosts.slice(displayedPosts, displayedPosts + postsPerPage);
       
       const postCards = postsToDisplay.map(post => {
