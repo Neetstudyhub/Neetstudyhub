@@ -6,180 +6,151 @@
   <title>NEET Study Hub</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
-
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
+  <!-- External CSS (if any) -->
   <link rel="stylesheet" href="styles.css">
   <style>
-  
-/* General Styling */
-main {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 15px;
-}
+    /* General Styling */
+    main {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
 
-/* Card Container */
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-  margin: 5px;
-}
+    /* Card Container */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 5px;
+    }
 
-/* Blog Card Styling */
-.blog-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.blog-card a{
-  padding-top: -7px;
-  color:#333;
-}
-.blog-card a:hover {
-  color: #7CB9E8;
-}
-    
-.blog-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-@media (min-width: 769px) {
-  .section-heading{
-    font-size: 23px;
-  }
-  .blog-card img {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-  object-fit: cover;
-  }
-}
-.blog-card .card-content {
-  padding: 15px;
-}
+    /* Blog Card Styling */
+    .blog-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .blog-card a {
+      color: #333;
+      text-decoration: none;
+    }
+    .blog-card a:hover {
+      color: #7CB9E8;
+    }
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    @media (min-width: 769px) {
+      .section-heading {
+        font-size: 23px;
+      }
+      .blog-card img {
+        height: auto;
+        max-height: 400px;
+      }
+    }
+    .blog-card .card-content {
+      padding: 15px;
+    }
+    .blog-card h3 {
+      margin: 0;
+    }
 
-.blog-card h3 {
-  
-}
+    /* Labels Styling */
+    .post-labels {
+      margin-top: 10px;
+    }
+    .label {
+      display: inline-block;
+      background-color: #e0e7ff;
+      color: #3742fa;
+      font-size: 0.85rem;
+      padding: 5px 10px;
+      margin: 2px;
+      border-radius: 15px;
+    }
 
-.blog-card p {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 15px;
-}
+    /* Load More Button Styling */
+    .load-more-btn {
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: block;
+      transition: background-color 0.3s;
+    }
+    .load-more-btn:hover {
+      background-color: #0056b3;
+    }
 
-.blog-card a{
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-  
-  
-}
-.blog-card a:hover {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #7CB9E8;
-}
-
-.blog-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Load More Button Styling */
-.load-more-btn {
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: block;
-  transition: background-color 0.3s;
-}
-
-.load-more-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Skeleton Loader */
-.skeleton-loader {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-}
-
-.skeleton-card {
-  display: flex;
-  flex-direction: column;
-  background: #f0f0f0;
-  border-radius: 10px;
-  padding: 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.skeleton-image {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.skeleton-text {
-  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-  margin: 10px 15px;
-}
-
-.skeleton-title {
-  width: 70%;
-  height: 20px;
-}
-
-.skeleton-snippet {
-  width: 90%;
-  height: 14px;
-  margin-top: 5px;
-}
-
-.skeleton-button {
-  width: 50%;
-  height: 18px;
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  
-  100% {
-    background-position: -200% 0;
-  }
-}
-/* Hide Load More Button During Loading */
-.load-more-btn.loading {
-  display: none;
-}
-
-
-  
+    /* Skeleton Loader */
+    .skeleton-loader {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    .skeleton-card {
+      display: flex;
+      flex-direction: column;
+      background: #f0f0f0;
+      border-radius: 10px;
+      padding: 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .skeleton-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .skeleton-text {
+      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+      margin: 10px 15px;
+    }
+    .skeleton-title {
+      width: 70%;
+      height: 20px;
+    }
+    .skeleton-snippet {
+      width: 90%;
+      height: 14px;
+      margin-top: 5px;
+    }
+    .skeleton-button {
+      width: 50%;
+      height: 18px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+    /* Hide Load More Button During Loading */
+    .load-more-btn.loading {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -196,86 +167,77 @@ main {
     </nav>
   </header>
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <button class="sidebar-close" id="closeSidebar">&times;</button>
-  <ul class="sidebar-menu">
-    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-    <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
-    <li><a href="#blogs"><i class="fas fa-blog"></i> Blogs</a></li>
-    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-  </ul>
-</div>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebar">&times;</button>
+    <ul class="sidebar-menu">
+      <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
+      <li><a href="#blogs"><i class="fas fa-blog"></i> Blogs</a></li>
+      <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+  </div>
 
-<!-- Sidebar Toggle Tab -->
-<div class="sidebar-tab" id="sidebarTab">
-  <i class="fas fa-bars"></i>
-</div>
-
-
+  <!-- Sidebar Toggle Tab -->
+  <div class="sidebar-tab" id="sidebarTab">
+    <i class="fas fa-bars"></i>
+  </div>
 
   <!-- Main Content -->
-
-
-<main class="main-content">
-<section class="blog-section">
-  <h1 class="section-heading">Latest Blogs</h1>
-<div id="blog-container" class="card-container">
-  <!-- Skeleton loader -->
-<!-- Skeleton Loader -->
-<div class="skeleton-loader" id="skeletonLoader">
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-    <div class="skeleton-text skeleton-snippet"></div>
-    <div class="skeleton-text skeleton-button"></div>
-  </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
+  <main class="main-content">
+    <section class="blog-section">
+      <h1 class="section-heading">Latest Blogs</h1>
+      <div id="blog-container" class="card-container">
+        <!-- Skeleton Loader -->
+        <div class="skeleton-loader" id="skeletonLoader">
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-snippet"></div>
+            <div class="skeleton-text skeleton-button"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-snippet"></div>
+            <div class="skeleton-text skeleton-button"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-snippet"></div>
+            <div class="skeleton-text skeleton-button"></div>
+          </div>
+        </div>
       </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-      </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-      </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-      </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-      </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-      </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-    <div class="skeleton-text skeleton-snippet"></div>
-    <div class="skeleton-text skeleton-button"></div>
-  </div>
-  <div class="skeleton-card">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-text skeleton-title"></div>
-    <div class="skeleton-text skeleton-snippet"></div>
-    <div class="skeleton-text skeleton-button"></div>
-  </div>
-</div>
-
-</div>
-<button id="load-more-btn" class="load-more-btn" >Load More</button>
-
-    <!-- Blog cards will be dynamically inserted here -->
-  </div>
-</section>
-</main>
+      <button id="load-more-btn" class="load-more-btn">Load More</button>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
@@ -308,124 +270,123 @@ main {
     </div>
   </footer>
 
-  <script src="script.js"></script>
   <script>
-    
-// Blogger API Configuration
-const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Cloudflare Worker URL
-const maxResults = 100;
-const postsPerBatch = 12;
+    // Blogger API Configuration
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Cloudflare Worker URL
+    const maxResults = 100;
+    const postsPerBatch = 12;
 
-let allPosts = [];
-let displayedPosts = 0;
+    let allPosts = [];
+    let displayedPosts = 0;
 
-const blogContainer = document.getElementById('blog-container');
-const loadMoreBtn = document.getElementById('load-more-btn');
-const skeletonLoader = document.querySelector('.skeleton-loader');
+    const blogContainer = document.getElementById('blog-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const skeletonLoader = document.getElementById('skeletonLoader');
 
-// Fetch Posts using the Cloudflare Proxy
-async function fetchBloggerPosts() {
-  try {
-    // Fetch data via Cloudflare Proxy
-    const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
-    const data = await response.json();
+    // Fetch Posts using the Cloudflare Proxy
+    async function fetchBloggerPosts() {
+      try {
+        // Fetch data via Cloudflare Proxy
+        const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
+        const data = await response.json();
 
-    if (!data.items || data.items.length === 0) {
-      throw new Error('No posts found.');
+        if (!data.items || data.items.length === 0) {
+          throw new Error('No posts found.');
+        }
+
+        // Exclude posts with labels "ncert" and "pyq"
+        const excludedLabels = ['ncert', 'pyq'];
+        const filteredPosts = data.items.filter(
+          (post) =>
+            !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
+        );
+
+        if (filteredPosts.length === 0) {
+          throw new Error('No valid posts found after filtering.');
+        }
+
+        // Process Posts
+        allPosts = await Promise.all(
+          filteredPosts.map(async (post) => {
+            const { id, title, content, labels } = post;
+            const imageUrl =
+              post.images && post.images[0]
+                ? post.images[0].url
+                : extractImageFromContent(content);
+
+            return {
+              id,
+              title,
+              labels: labels || [],
+              imageUrl,
+            };
+          })
+        );
+
+        // Hide skeleton loader once posts are ready
+        skeletonLoader.style.display = 'none';
+
+        // Show/Hide Load More Button Based on Post Count
+        if (allPosts.length > postsPerBatch) {
+          loadMoreBtn.style.display = 'block';
+        } else {
+          loadMoreBtn.style.display = 'none';
+        }
+
+        displayPosts();
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        skeletonLoader.style.display = 'none';
+        blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
+      }
     }
 
-    // Exclude posts with labels "ncert" and "pyq"
-    const excludedLabels = ['ncert', 'pyq'];
-    const filteredPosts = data.items.filter(
-      (post) =>
-        !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
-    );
-
-    if (filteredPosts.length === 0) {
-      throw new Error('No valid posts found after filtering.');
+    // Extract the first image from content
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
     }
 
-    // Process Posts
-    allPosts = await Promise.all(
-      filteredPosts.map(async (post) => {
-        const { id, title, content } = post;
-        const imageUrl =
-          post.images && post.images[0]
-            ? post.images[0].url
-            : extractImageFromContent(content);
+    // Display Posts in Batches
+    function displayPosts() {
+      const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
 
-        return {
-          id,
-          title,
-          contentSnippet: content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120),
-          imageUrl,
-        };
-      })
-    );
+      const postCards = postsToDisplay.map((post) => {
+        const { id, title, labels, imageUrl } = post;
 
-    skeletonLoader.style.display = 'none'; // Hide skeleton
+        // Format labels if available
+        const labelMarkup = labels && labels.length > 0
+          ? `<div class="post-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>`
+          : '';
 
-    // Show/Hide Load More Button Based on Post Count
-    if (allPosts.length > postsPerBatch) {
-      loadMoreBtn.style.display = 'block';
-    } else {
-      loadMoreBtn.style.display = 'none';
+        return `
+          <div class="blog-card">
+            <img src="${imageUrl}" alt="${title}">
+            <div class="card-content">
+              <h3>
+                <a href="post.html?postId=${id}" target="_self">${title}</a>
+              </h3>
+              ${labelMarkup}
+            </div>
+          </div>
+        `;
+      });
+
+      blogContainer.innerHTML += postCards.join('');
+      displayedPosts += postsToDisplay.length;
+
+      if (displayedPosts >= allPosts.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block';
+      }
     }
 
-    displayPosts();
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    skeletonLoader.style.display = 'none';
-    blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
-  }
-}
+    // Add Event Listener for Load More Button
+    loadMoreBtn.addEventListener('click', displayPosts);
 
-// Extract the first image from content
-function extractImageFromContent(content) {
-  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
-}
-
-// Display Posts in Batches
-function displayPosts() {
-  const postsToDisplay = allPosts.slice(
-    displayedPosts,
-    displayedPosts + postsPerBatch
-  );
-
-  const postCards = postsToDisplay.map((post) => {
-    const { id, title, contentSnippet, imageUrl } = post;
-
-    return `
-      <div class="blog-card">
-        <img src="${imageUrl}" alt="${title}">
-        <div class="card-content">
-          <h3>
-            <a href="post.html?postId=${id}" target="_self" style="text-decoration: none; color: #007bff;">${title}</a>
-          </h3>
-          <p>${contentSnippet}...</p>
-        </div>
-      </div>
-    `;
-  });
-
-  blogContainer.innerHTML += postCards.join('');
-  displayedPosts += postsToDisplay.length;
-
-  if (displayedPosts >= allPosts.length) {
-    loadMoreBtn.style.display = 'none';
-  } else {
-    loadMoreBtn.style.display = 'block';
-  }
-}
-
-
-// Add Event Listener for Load More Button
-loadMoreBtn.addEventListener('click', displayPosts);
-
-// Initialize
-document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
-
+    // Initialize on DOM Content Loaded
+    document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
   </script>
 </body>
 </html>
