@@ -38,7 +38,7 @@
       box-sizing: border-box;
     }
     
-    /* Card Styles */
+    /* Card Styles – uniform height enforced via flexbox */
     .card {
       background: #fff;
       border-radius: 8px;
@@ -47,14 +47,27 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
-    .card img {
+    /* Image Container with fixed aspect ratio (16:9) */
+    .card-image {
+      position: relative;
       width: 100%;
-      display: block;
+      padding-top: 56.25%; /* 16:9 ratio */
+      overflow: hidden;
+      background: #ccc;
+    }
+    .card-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .card-content {
       padding: 15px;
@@ -63,34 +76,11 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .card-content h3 {
-      font-family: 'Roboto Slab', serif;
-      font-size: 1.3em;
-      margin: 10px 0;
+    /* Top Labels: displays the labels at the top above the title */
+    .top-labels {
+      margin-bottom: 8px;
     }
-    .post-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9em;
-      color: #777;
-      margin-bottom: 10px;
-    }
-    .post-meta img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-    }
-    .card p {
-      font-size: 0.95em;
-      line-height: 1.5;
-      margin-bottom: 15px;
-      flex: 1;
-    }
-    .post-labels {
-      margin-bottom: 15px;
-    }
-    .post-labels .label {
+    .top-labels .label {
       display: inline-block;
       background: #1b76dc;
       color: #fff;
@@ -99,82 +89,72 @@
       font-size: 0.8em;
       margin-right: 5px;
     }
+    .card-content h3 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.3em;
+      margin: 10px 0;
+    }
+    /* Description styling – truncated to a uniform length in JS */
+    .post-description {
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      flex: 1;
+    }
+    /* Bottom Meta: date logo and published date */
+    .bottom-meta {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .date-logo img {
+      width: 20px;
+      height: auto;
+      margin-right: 5px;
+    }
+    .published-date {
+      font-size: 0.9em;
+      color: #777;
+    }
     
     /* Responsive Text and Label Sizes */
     /* Mobile (max-width: 480px) */
     @media (max-width: 480px) {
-      h1 {
-        font-size: 2em;
-      }
-      .card-content h3 {
-        font-size: 1.1em;
-      }
-      .card p {
-        font-size: 0.9em;
-      }
-      .post-meta {
-        font-size: 0.8em;
-      }
-      .post-labels .label {
-        font-size: 0.7em;
-        padding: 2px 6px;
-      }
+      h1 { font-size: 2em; }
+      .card-content h3 { font-size: 1.1em; }
+      .post-description { font-size: 0.9em; }
+      .published-date { font-size: 0.8em; }
+      .top-labels .label { font-size: 0.7em; padding: 2px 6px; }
     }
     /* Tablet/Laptop (481px to 1024px) */
     @media (min-width: 481px) and (max-width: 1024px) {
-      h1 {
-        font-size: 2.3em;
-      }
-      .card-content h3 {
-        font-size: 1.2em;
-      }
-      .card p {
-        font-size: 0.92em;
-      }
-      .post-meta {
-        font-size: 0.85em;
-      }
-      .post-labels .label {
-        font-size: 0.75em;
-      }
+      h1 { font-size: 2.3em; }
+      .card-content h3 { font-size: 1.2em; }
+      .post-description { font-size: 0.92em; }
+      .published-date { font-size: 0.85em; }
+      .top-labels .label { font-size: 0.75em; }
     }
     /* Desktop (1025px and above) */
     @media (min-width: 1025px) {
-      h1 {
-        font-size: 2.5em;
-      }
-      .card-content h3 {
-        font-size: 1.3em;
-      }
-      .card p {
-        font-size: 0.95em;
-      }
-      .post-meta {
-        font-size: 0.9em;
-      }
-      .post-labels .label {
-        font-size: 0.8em;
-      }
+      h1 { font-size: 2.5em; }
+      .card-content h3 { font-size: 1.3em; }
+      .post-description { font-size: 0.95em; }
+      .published-date { font-size: 0.9em; }
+      .top-labels .label { font-size: 0.8em; }
     }
     
     /* Responsive Grid Adjustments */
     /* Mobile: 1 card per row */
     @media (max-width: 480px) {
-      .cards-section {
-        grid-template-columns: 1fr;
-      }
+      .cards-section { grid-template-columns: 1fr; }
     }
     /* Laptop/Tablet: 2 cards per row */
     @media (min-width: 481px) and (max-width: 1024px) {
-      .cards-section {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .cards-section { grid-template-columns: repeat(2, 1fr); }
     }
     /* Desktop: 3 cards per row */
     @media (min-width: 1025px) {
-      .cards-section {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .cards-section { grid-template-columns: repeat(3, 1fr); }
     }
     
     /* Load More Button */
@@ -194,37 +174,86 @@
       background: #166bb3;
     }
     
-    /* Skeleton Loader for Posts */
-    #skeletonLoader {
+    /* YouTube-Style Skeleton Loader */
+    .skeleton-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
+      flex-direction: column;
+      height: 100%;
     }
-    .skeleton {
-      background: #ddd;
-      border-radius: 5px;
-      flex: 1 1 calc(33.333% - 20px);
-      min-width: 250px;
-      height: 250px;
-      animation: pulse 1.5s infinite;
+    .skeleton-image {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 ratio */
+      background: #e0e0e0;
+      overflow: hidden;
     }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+    .skeleton-shimmer {
+      position: absolute;
+      top: 0;
+      left: -150px;
+      height: 100%;
+      width: 150px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 1.5s infinite;
     }
+    @keyframes shimmer {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+    .skeleton-content {
+      padding: 15px;
+    }
+    .skeleton-line {
+      height: 12px;
+      background: #e0e0e0;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .skeleton-line.short { width: 40%; }
+    .skeleton-line.medium { width: 70%; }
+    .skeleton-line.long { width: 90%; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>NEET Study Hub - Blog</h1>
     
-    <!-- Skeleton Loader (Shown while posts are fetched) -->
-    <div id="skeletonLoader">
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
+    <!-- Skeleton Loader (Shown while posts are being fetched) -->
+    <div id="skeletonLoader" class="cards-section">
+      <div class="skeleton-card">
+        <div class="skeleton-image">
+          <div class="skeleton-shimmer"></div>
+        </div>
+        <div class="skeleton-content">
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-image">
+          <div class="skeleton-shimmer"></div>
+        </div>
+        <div class="skeleton-content">
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-image">
+          <div class="skeleton-shimmer"></div>
+        </div>
+        <div class="skeleton-content">
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
     </div>
     
     <!-- Blog Cards Container -->
@@ -256,7 +285,6 @@
     // Fetch Posts using the Cloudflare Proxy
     async function fetchBloggerPosts() {
       try {
-        // Fetch data via Cloudflare Proxy
         const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
         const data = await response.json();
         
@@ -275,7 +303,7 @@
           throw new Error('No valid posts found after filtering.');
         }
         
-        // Process posts: extract image, format date, and create snippet
+        // Process posts: extract image, format date, create snippet
         allPosts = await Promise.all(
           filteredPosts.map(async (post) => {
             const { id, title, content, labels, published } = post;
@@ -285,7 +313,6 @@
                 : extractImageFromContent(content);
             const formattedDate = published ? formatDate(published) : 'Unknown Date';
             const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
-            
             return {
               id,
               title,
@@ -299,14 +326,7 @@
         
         // Hide skeleton loader once posts are ready
         skeletonLoader.style.display = 'none';
-        
-        // Show/Hide Load More Button based on post count
-        if (allPosts.length > postsPerBatch) {
-          loadMoreBtn.style.display = 'block';
-        } else {
-          loadMoreBtn.style.display = 'none';
-        }
-        
+        loadMoreBtn.style.display = allPosts.length > postsPerBatch ? 'block' : 'none';
         displayPosts();
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -318,43 +338,41 @@
     // Extract the first image from content
     function extractImageFromContent(content) {
       const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
     }
 
     // Display posts in batches
     function displayPosts() {
       const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
-      
       const postCards = postsToDisplay.map((post) => {
         const { id, title, labels, imageUrl, published, contentSnippet } = post;
-        
-        // Format labels if available
+        // Format labels markup to display at the top
         const labelMarkup = labels && labels.length > 0
-          ? `<div class="post-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>`
+          ? `<div class="top-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>`
           : '';
-        
-        // Post meta (author image and published date)
+        // Bottom meta with date logo and published date
         const postMeta = `
-          <div class="post-meta">
-            <a href="post.html?postId=${id}" target="_self">
-              <img src="user-logo.png" alt="User Logo" />
-            </a>
-            <span>Mental Ease • ${published}</span>
+          <div class="bottom-meta">
+            <div class="date-logo">
+              <img src="date-logo.png" alt="Date Logo" />
+            </div>
+            <span class="published-date">Mental Ease • ${published}</span>
           </div>
         `;
-        
         return `
           <div class="card">
             <a href="post.html?postId=${id}" target="_self">
-              <img src="${imageUrl}" alt="${title}" />
+              <div class="card-image">
+                <img src="${imageUrl}" alt="${title}" />
+              </div>
             </a>
             <div class="card-content">
+              ${labelMarkup}
               <h3>
                 <a href="post.html?postId=${id}" target="_self">${title}</a>
               </h3>
-              ${postMeta}
               <p class="post-description">${contentSnippet}...</p>
-              ${labelMarkup}
+              ${postMeta}
             </div>
           </div>
         `;
@@ -362,18 +380,10 @@
       
       blogContainer.innerHTML += postCards.join('');
       displayedPosts += postsToDisplay.length;
-      
-      if (displayedPosts >= allPosts.length) {
-        loadMoreBtn.style.display = 'none';
-      } else {
-        loadMoreBtn.style.display = 'block';
-      }
+      loadMoreBtn.style.display = displayedPosts >= allPosts.length ? 'none' : 'block';
     }
 
-    // Add event listener for the "Load More" button
     loadMoreBtn.addEventListener('click', displayPosts);
-
-    // Initialize fetching posts when the DOM is fully loaded
     document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
   </script>
 </body>
