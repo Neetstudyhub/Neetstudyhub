@@ -24,8 +24,7 @@
     }
 
     /* Global Styles */
-    body { 
-      width:100%;
+    body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background-color: var(--light-bg);
@@ -273,7 +272,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     .feature-item {
@@ -608,7 +607,18 @@
       border-radius: 4px;
     }
 
-    /* Additional Responsive Breakpoints */
+    /* Responsive Styles */
+    @media (min-width: 1200px) {
+      /* For very large screens, allow full width */
+      .cards-section,
+      .features-grid,
+      .news-grid,
+      .footer-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 40px 20px;
+      }
+    }
     @media (max-width: 1024px) {
       .features-grid,
       .news-grid,
@@ -739,7 +749,7 @@
   <section class="latest-news-section fade-in">
     <h2>Latest News</h2>
     <div class="news-grid" id="newsGrid">
-      <!-- News items will be dynamically populated here if they have the label "Latest News" -->
+      <!-- News items will be dynamically populated here -->
     </div>
     <button class="see-more-btn" onclick="window.location.href='latestnews.html'">See More</button>
   </section>
@@ -822,7 +832,7 @@
         <h3>Contact Info</h3>
         <p><i class="fas fa-map-marker-alt"></i> 123 NEET Avenue, Medical City, India</p>
         <p><i class="fas fa-phone"></i> +91 98765 43210</p>
-        <p><i class="fas fa-envelope"></i> </p>
+        <p><i class="fas fa-envelope"></i> support@neetstudyhub.com</p>
       </div>
       <div class="footer-section">
         <h3>Follow Us</h3>
