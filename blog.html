@@ -77,6 +77,13 @@
       margin-right: 8px;
     }
 
+    /* Post Description */
+    .post-description {
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
     /* Labels Styling */
     .post-labels {
       margin-top: 10px;
@@ -333,7 +340,7 @@
           throw new Error('No valid posts found after filtering.');
         }
 
-        // Process Posts and include published date
+        // Process Posts and include published date and description snippet
         allPosts = await Promise.all(
           filteredPosts.map(async (post) => {
             const { id, title, content, labels, published } = post;
@@ -342,6 +349,7 @@
                 ? post.images[0].url
                 : extractImageFromContent(content);
             const formattedDate = published ? formatDate(published) : 'Unknown Date';
+            const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
 
             return {
               id,
@@ -349,6 +357,7 @@
               labels: labels || [],
               imageUrl,
               published: formattedDate,
+              contentSnippet
             };
           })
         );
@@ -382,7 +391,7 @@
       const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
 
       const postCards = postsToDisplay.map((post) => {
-        const { id, title, labels, imageUrl, published } = post;
+        const { id, title, labels, imageUrl, published, contentSnippet } = post;
 
         // Format labels if available
         const labelMarkup = labels && labels.length > 0
@@ -409,6 +418,7 @@
                 <a href="post.html?postId=${id}" target="_self">${title}</a>
               </h3>
               ${postMeta}
+              <p class="post-description">${contentSnippet}...</p>
               ${labelMarkup}
             </div>
           </div>
