@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NEET Study Hub</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
   <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
   <!-- External CSS (if any) -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <style>
     /* General Styling */
     main {
@@ -39,7 +39,7 @@
       text-decoration: none;
     }
     .blog-card a:hover {
-      color: #7CB9E8;
+      color: #7cb9e8;
     }
     .blog-card img {
       width: 100%;
@@ -62,6 +62,21 @@
       margin: 0;
     }
 
+    /* Post Meta Styling */
+    .post-meta {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    .post-meta img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
     /* Labels Styling */
     .post-labels {
       margin-top: 10px;
@@ -70,10 +85,16 @@
       display: inline-block;
       background-color: #e0e7ff;
       color: #3742fa;
-      font-size: 0.85rem;
-      padding: 5px 10px;
+      font-size: 0.75rem;
+      padding: 3px 8px;
       margin: 2px;
       border-radius: 15px;
+    }
+    @media (min-width: 768px) {
+      .label {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+      }
     }
 
     /* Load More Button Styling */
@@ -283,6 +304,13 @@
     const loadMoreBtn = document.getElementById('load-more-btn');
     const skeletonLoader = document.getElementById('skeletonLoader');
 
+    // Format date to "Month Day, Year" (e.g., February 11, 2025)
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString(undefined, options);
+    }
+
     // Fetch Posts using the Cloudflare Proxy
     async function fetchBloggerPosts() {
       try {
@@ -305,20 +333,22 @@
           throw new Error('No valid posts found after filtering.');
         }
 
-        // Process Posts
+        // Process Posts and include published date
         allPosts = await Promise.all(
           filteredPosts.map(async (post) => {
-            const { id, title, content, labels } = post;
+            const { id, title, content, labels, published } = post;
             const imageUrl =
               post.images && post.images[0]
                 ? post.images[0].url
                 : extractImageFromContent(content);
+            const formattedDate = published ? formatDate(published) : 'Unknown Date';
 
             return {
               id,
               title,
               labels: labels || [],
               imageUrl,
+              published: formattedDate,
             };
           })
         );
@@ -352,20 +382,33 @@
       const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
 
       const postCards = postsToDisplay.map((post) => {
-        const { id, title, labels, imageUrl } = post;
+        const { id, title, labels, imageUrl, published } = post;
 
         // Format labels if available
         const labelMarkup = labels && labels.length > 0
           ? `<div class="post-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>`
           : '';
 
+        // Post meta information (user logo and published date)
+        const postMeta = `
+          <div class="post-meta">
+            <a href="post.html?postId=${id}" target="_self">
+              <img src="user-logo.png" alt="User Logo" />
+            </a>
+            <span>Mental Ease • ${published}</span>
+          </div>
+        `;
+
         return `
           <div class="blog-card">
-            <img src="${imageUrl}" alt="${title}">
+            <a href="post.html?postId=${id}" target="_self">
+              <img src="${imageUrl}" alt="${title}" />
+            </a>
             <div class="card-content">
               <h3>
                 <a href="post.html?postId=${id}" target="_self">${title}</a>
               </h3>
+              ${postMeta}
               ${labelMarkup}
             </div>
           </div>
