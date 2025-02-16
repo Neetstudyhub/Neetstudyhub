@@ -1,217 +1,450 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCERT Resource Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1e3a8a; /* Blue */
-            --secondary: #1e293b; /* Black */
-            --text: #1e293b; /* Text Black */
-            --bg: #ffffff; /* White */
-            --border: #e5e7eb; /* Light Gray */
-            --highlight: #3b82f6; /* Light Blue */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: var(--bg);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: var(--primary);
-            padding: 1.5rem;
-            color: var(--bg);
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
-        .scroll-buttons {
-            display: flex;
-            gap: 0.5rem;
-            padding: 1rem;
-            overflow-x: auto;
-            background: var(--bg);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            white-space: nowrap;
-        }
-
-        .scroll-button {
-            padding: 0.75rem 1.5rem;
-            background: var(--primary);
-            color: var(--bg);
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .scroll-button:hover {
-            background: var(--highlight);
-        }
-
-        .heading {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--text);
-            margin: 1rem 0;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .pdf-card {
-            background: var(--bg);
-            border-radius: 0.75rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
-
-        .pdf-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .card-content {
-            padding: 1.5rem;
-        }
-
-        .doc-title {
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        .download-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--primary);
-            color: var(--bg);
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .download-btn:hover {
-            background: var(--highlight);
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            font-size: 1.2rem;
-            padding: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .card-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEET Study Hub - Blog</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+    .latest-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Cards Section (Grid Layout) */
+    .latest-cards-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      box-sizing: border-box;
+    }
+    
+    /* Card Styles – uniform height enforced via flexbox, increased border radius */
+    .latest-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .latest-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    /* Image Container with fixed aspect ratio (16:9) and increased border radius on top */
+    .latest-card-image {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 ratio */
+      overflow: hidden;
+      background: #ccc;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .latest-card-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .latest-card-content {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    /* Top Labels: displays the labels at the top above the title */
+    .latest-top-labels {
+      margin-bottom: 8px;
+    }
+    .latest-top-labels .latest-label {
+      display: inline-block;
+      background: #1b76dc;
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 0.8em;
+      margin-right: 5px;
+    }
+    .latest-card-content h3 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.3em;
+      margin: 10px 0;
+    }
+    /* Description styling – truncated to a uniform length in JS */
+    .latest-post-description {
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      flex: 1;
+    }
+    /* Bottom Meta: date logo and published date */
+    .latest-bottom-meta {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .latest-date-logo img {
+      width: 20px;
+      height: auto;
+      margin-right: 5px;
+      border-radius: 50%;
+    }
+    .latest-published-date {
+      font-size: 0.9em;
+      color: #777;
+    }
+    
+    /* Responsive Text and Label Sizes */
+    /* Mobile (max-width: 480px) */
+    @media (max-width: 480px) {
+      h1 { font-size: 2em; }
+      .latest-card-content h3 { font-size: 1.1em; }
+      .latest-post-description { font-size: 0.9em; }
+      .latest-published-date { font-size: 0.8em; }
+      .latest-top-labels .latest-label { font-size: 0.7em; padding: 2px 6px; }
+    }
+    /* Tablet/Laptop (481px to 1024px) */
+    @media (min-width: 481px) and (max-width: 1024px) {
+      h1 { font-size: 2.3em; }
+      .latest-card-content h3 { font-size: 1.2em; }
+      .latest-post-description { font-size: 0.92em; }
+      .latest-published-date { font-size: 0.85em; }
+      .latest-top-labels .latest-label { font-size: 0.75em; }
+    }
+    /* Desktop (1025px and above) */
+    @media (min-width: 1025px) {
+      h1 { font-size: 2.5em; }
+      .latest-card-content h3 { font-size: 1.3em; }
+      .latest-post-description { font-size: 0.95em; }
+      .latest-published-date { font-size: 0.9em; }
+      .latest-top-labels .latest-label { font-size: 0.8em; }
+    }
+    
+    /* Responsive Grid Adjustments */
+    /* Mobile: 1 card per row */
+    @media (max-width: 480px) {
+      .latest-cards-section { grid-template-columns: 1fr; }
+    }
+    /* Laptop/Tablet: 2 cards per row */
+    @media (min-width: 481px) and (max-width: 1024px) {
+      .latest-cards-section { grid-template-columns: repeat(2, 1fr); }
+    }
+    /* Desktop: 3 cards per row */
+    @media (min-width: 1025px) {
+      .latest-cards-section { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    /* Additional adjustments for screens wider than 1200px */
+    @media (min-width: 1201px) {
+      .latest-container {
+        padding: 60px 40px;
+      }
+      h1 {
+        font-size: 2.7em;
+      }
+      .latest-card-content h3 {
+        font-size: 1.35em;
+      }
+      .latest-post-description {
+        font-size: 1em;
+      }
+      .latest-published-date {
+        font-size: 1em;
+      }
+      .latest-cards-section {
+        gap: 30px;
+      }
+    }
+    
+    /* Load More Button */
+    #load-more-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #1b76dc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s ease;
+    }
+    #load-more-btn:hover {
+      background: #166bb3;
+    }
+    
+    /* YouTube-Style Skeleton Loader */
+    .latest-skeleton-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .latest-skeleton-image {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #e0e0e0;
+      overflow: hidden;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .latest-skeleton-shimmer {
+      position: absolute;
+      top: 0;
+      left: -150px;
+      height: 100%;
+      width: 150px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: latest-shimmer 1.5s infinite;
+    }
+    @keyframes latest-shimmer {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+    .latest-skeleton-content {
+      padding: 15px;
+    }
+    .latest-skeleton-line {
+      height: 12px;
+      background: #e0e0e0;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .latest-skeleton-line.short { width: 40%; }
+    .latest-skeleton-line.medium { width: 70%; }
+    .latest-skeleton-line.long { width: 90%; }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">NCERT Resource Hub</div>
-    </header>
-
-    <div class="scroll-buttons">
-        <a href="class6.html" class="scroll-button">Class 6</a>
-        <a href="class7.html" class="scroll-button">Class 7</a>
-        <a href="class8.html" class="scroll-button">Class 8</a>
-        <a href="class9.html" class="scroll-button">Class 9</a>
-        <a href="class10.html" class="scroll-button">Class 10</a>
-        <a href="class11.html" class="scroll-button">Class 11</a>
+  <div class="latest-container">
+    <h1>NEET Study Hub - Blog</h1>
+    
+    <!-- Filter Button: toggles showing posts with label "latest news" (case-insensitive) -->
+    <button id="filter-button">Show posts with label "Latest News"</button>
+    
+    <!-- Skeleton Loader (Shown while posts are being fetched) -->
+    <div id="skeletonLoader" class="latest-cards-section">
+      <div class="latest-skeleton-card">
+        <div class="latest-skeleton-image">
+          <div class="latest-skeleton-shimmer"></div>
+        </div>
+        <div class="latest-skeleton-content">
+          <div class="latest-skeleton-line long"></div>
+          <div class="latest-skeleton-line medium"></div>
+          <div class="latest-skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="latest-skeleton-card">
+        <div class="latest-skeleton-image">
+          <div class="latest-skeleton-shimmer"></div>
+        </div>
+        <div class="latest-skeleton-content">
+          <div class="latest-skeleton-line long"></div>
+          <div class="latest-skeleton-line medium"></div>
+          <div class="latest-skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="latest-skeleton-card">
+        <div class="latest-skeleton-image">
+          <div class="latest-skeleton-shimmer"></div>
+        </div>
+        <div class="latest-skeleton-content">
+          <div class="latest-skeleton-line long"></div>
+          <div class="latest-skeleton-line medium"></div>
+          <div class="latest-skeleton-line short"></div>
+        </div>
+      </div>
     </div>
+    
+    <!-- Blog Cards Container -->
+    <div id="blog-container" class="latest-cards-section"></div>
+    
+    <!-- Load More Button -->
+    <button id="load-more-btn" style="display: none;">Load More</button>
+  </div>
+  
+  <script>
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Cloudflare Worker URL
+    const maxResults = 100;
+    const postsPerBatch = 6;
 
-    <h1 class="heading">Explore All Resources</h1>
+    let allPosts = [];
+    let displayedPosts = 0;
+    let filterActive = false; // flag for filter mode
 
-    <div id="cardContainer" class="card-grid"></div>
+    const blogContainer = document.getElementById('blog-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const skeletonLoader = document.getElementById('skeletonLoader');
+    const filterButton = document.getElementById('filter-button');
 
-    <script>
-        const API_URL = "https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/"; // Cloudflare API
+    // Format date to "Month Day, Year" (e.g., February 11, 2025)
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString(undefined, options);
+    }
 
-        async function fetchPosts() {
-            try {
-                const response = await fetch(`${API_URL}?label=pdfclass`);
-                const data = await response.json();
-
-                const posts = data.items || [];
-                const cardContainer = document.getElementById("cardContainer");
-                cardContainer.innerHTML = "";
-
-                if (posts.length === 0) {
-                    cardContainer.innerHTML = "<p class='error'>No posts found for the label 'pdfclass'.</p>";
-                    return;
-                }
-
-                posts.forEach(post => {
-                    const title = post.title || "Untitled Post";
-                    const thumbnail = post.image || "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4FXtUrHHNEVfV1gKmLwrEpTd-eJpe5uvYhvxLPIMfrtNR5WF909tI3XiMb0-DJY5jer8jt5aQNsFcSJDHRzg9QwjevTH6q4SR_5_h1vDtseMVf3dUhxwnqJPEERflJc-Is7gJazPJLDLBmKJ51ZwyV2-4piE9w2JUjkamyvlrZugFn2Mqn7y6z-pnbhdn/s639/1000030327.png";
-                    const content = post.content || "";
-                    const downloadLink = content.match(/class="download-button" href="([^"]+)"/)?.[1] || "#";
-
-                    const card = `
-                        <div class="pdf-card">
-                            <img src="${thumbnail}" alt="${title}" class="card-image">
-                            <div class="card-content">
-                                <h3 class="doc-title">${title}</h3>
-                                <a href="${downloadLink}" target="_blank" class="download-btn">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                    `;
-                    cardContainer.innerHTML += card;
-                });
-            } catch (error) {
-                document.getElementById("cardContainer").innerHTML = "<p class='error'>Error fetching posts. Please try again later.</p>";
-            }
+    // Fetch Posts using the Cloudflare Proxy
+    async function fetchBloggerPosts() {
+      try {
+        const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
+        const data = await response.json();
+        
+        if (!data.items || data.items.length === 0) {
+          throw new Error('No posts found.');
         }
+        
+        // Exclude posts with labels "ncert" and "pyq"
+        const excludedLabels = ['ncert', 'pyq'];
+        const filteredData = data.items.filter(
+          (post) =>
+            !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
+        );
+        
+        if (filteredData.length === 0) {
+          throw new Error('No valid posts found after filtering.');
+        }
+        
+        // Process posts: extract image, format date, create snippet
+        allPosts = await Promise.all(
+          filteredData.map(async (post) => {
+            const { id, title, content, labels, published } = post;
+            const imageUrl =
+              post.images && post.images[0]
+                ? post.images[0].url
+                : extractImageFromContent(content);
+            const formattedDate = published ? formatDate(published) : 'Unknown Date';
+            const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
+            return {
+              id,
+              title,
+              labels: labels || [],
+              imageUrl,
+              published: formattedDate,
+              contentSnippet
+            };
+          })
+        );
+        
+        skeletonLoader.style.display = 'none';
+        loadMoreBtn.style.display = allPosts.length > postsPerBatch ? 'block' : 'none';
+        displayPosts();
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        skeletonLoader.style.display = 'none';
+        blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
+      }
+    }
 
-        // Fetch posts on page load
-        fetchPosts();
-    </script>
+    // Extract the first image from content
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
+    }
+
+    // Return posts that include label "latest news" (case-insensitive)
+    function getFilteredPosts() {
+      return allPosts.filter(post =>
+        post.labels.some(label => label.toLowerCase() === 'latest news')
+      );
+    }
+
+    // Display posts in batches using a given posts array (defaults to allPosts)
+    function displayPosts(postsArray = allPosts) {
+      const postsToDisplay = postsArray.slice(displayedPosts, displayedPosts + postsPerBatch);
+      const postCards = postsToDisplay.map((post) => {
+        const { id, title, labels, imageUrl, published, contentSnippet } = post;
+        const labelMarkup = labels && labels.length > 0
+          ? `<div class="latest-top-labels">${labels.map(label => `<span class="latest-label">${label}</span>`).join(' ')}</div>`
+          : '';
+        const postMeta = `
+          <div class="latest-bottom-meta">
+            <div class="latest-date-logo">
+              <img src="date-logo.png" alt="Date Logo" />
+            </div>
+            <span class="latest-published-date">Mental Ease • ${published}</span>
+          </div>
+        `;
+        return `
+          <div class="latest-card">
+            <a href="post.html?postId=${id}" target="_self">
+              <div class="latest-card-image">
+                <img src="${imageUrl}" alt="${title}" />
+              </div>
+            </a>
+            <div class="latest-card-content">
+              ${labelMarkup}
+              <h3>
+                <a href="post.html?postId=${id}" target="_self">${title}</a>
+              </h3>
+              <p class="latest-post-description">${contentSnippet}...</p>
+              ${postMeta}
+            </div>
+          </div>
+        `;
+      });
+      
+      blogContainer.innerHTML += postCards.join('');
+      displayedPosts += postsToDisplay.length;
+      const currentArray = filterActive ? getFilteredPosts() : allPosts;
+      loadMoreBtn.style.display = displayedPosts >= currentArray.length ? 'none' : 'block';
+    }
+
+    // Toggle filter: show only posts with label "latest news" (case-insensitive) or show all posts
+    function toggleFilter() {
+      displayedPosts = 0;
+      blogContainer.innerHTML = "";
+      if (!filterActive) {
+        const filteredPosts = getFilteredPosts();
+        filterButton.textContent = 'Show All Posts';
+        filterActive = true;
+        displayPosts(filteredPosts);
+      } else {
+        filterButton.textContent = 'Show posts with label "Latest News"';
+        filterActive = false;
+        displayPosts(allPosts);
+      }
+    }
+
+    filterButton.addEventListener('click', toggleFilter);
+    loadMoreBtn.addEventListener('click', () => {
+      if (filterActive) {
+        displayPosts(getFilteredPosts());
+      } else {
+        displayPosts();
+      }
+    });
+    document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
+  </script>
 </body>
 </html>
