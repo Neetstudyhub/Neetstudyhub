@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif; /* Default font for the website */
@@ -13,7 +13,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #0066cc;
+  background-color: #0066CC;
   color: white;
   position: sticky;
   top: 0;
@@ -51,9 +51,9 @@ header .hamburger {
     /* Sidebar Container */
 .sidebar {
   position: fixed;
-  top: 0;
-  left: -300px; /* Initially hidden */
-  width: 300px;
+  top: 0px;
+  left: -320px; /* Initially hidden */
+  width: 210px;
   height: 100%;
   background: #ffffff; /* White background */
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
@@ -65,28 +65,50 @@ header .hamburger {
 .sidebar.open {
   left: 0;
 }
-
+/*sidebar flex */
+.flexy{
+  display: flex;
+  
+}
+.homesearch-bar{
+  position: absolute;
+  top: 10px;
+  left: 0;
+  font-size: 18px;
+  font-weight: bolder;
+  color: #0066cc;
+  background: none;
+  border: none;
+  transition: color 0.3s ease;
+  margin-bottom: -20px;
+  
+  padding-left: 16px;
+  
+  
+}
 /* Sidebar Menu */
 .sidebar-menu {
   list-style: none;
-  padding: 20px;
-  margin: 0;
+  padding-top: 40px;
+  margin-left: -30px;
+  
 }
 
 .sidebar-menu li {
-  margin: 15px 0;
+  margin: 5px 0;
 }
 
 .sidebar-menu li a {
   text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 540;
   color: #333333; /* Dark text color */
   padding: 10px 15px;
   display: flex; /* Flex for icon + text */
   align-items: center;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
+  
 }
 
 .sidebar-menu li a i {
@@ -111,6 +133,7 @@ header .hamburger {
   border: none;
   cursor: pointer;
   transition: color 0.3s ease;
+  margin-bottom: -20px;
 }
 
 .sidebar-close:hover {
@@ -140,78 +163,439 @@ header .hamburger {
 .sidebar-tab:hover {
   background-color: none; /* Darker hover effect */
 }
+/* sidebar footer */
 
+ .sidebar-footer {
+      position: absolute;
+      margin-top: auto;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      padding-top: -7px;
+      bottom: 10px;
+    }
+    .social-media {
+      text-align: left;
+      padding: 8px 0;
+      margin-bottom: -11px;
+    }
+    .social-media a {
+      display: inline-block;
+      color: var(--primary);
+      text-align: left;
+      margin: 0 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .social-media a:hover {
+     
+      color: #0066cc;
+    }
+    .social-media a.x-icon {
+      font-weight: bold;
+    }
+    .pages-links {
+      text-align: left;
+      padding: 5px;
+      background-color: none;
+      margin-left:6px;
+    }
+    .pages-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 3px;
+     
+      transition: color 0.3s ease;
+    }
+    .pages-links a:hover {
+      color: #0066cc;
+    }
+    .pages-row {
+      margin: 3px 0;
+    }
+    /* Hero Section */
+    .hero {
+  position: relative;
+  width: 100%;
+  height: 400px;  /* Reduced height to minimize extra top space */
+  background: linear-gradient(45deg, #1b76dc, #000); /* Dark gradient background */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+/* Container for Animated Squares */
+.moving-squares {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Animated Square Styling */
+.moving-square {
+  position: absolute;
+  bottom: -50px;
+  background-color: rgba(255, 255, 255, 0.15); /* Subtle white tint */
+  transform: rotate(45deg);
+  animation: moveUp 8s infinite;
+}
+
+/* Different sizes, positions, and delays for variety */
+.moving-square:nth-child(1) {
+  left: 10%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 0s;
+}
+.moving-square:nth-child(2) {
+  left: 30%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 2s;
+}
+.moving-square:nth-child(3) {
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+.moving-square:nth-child(4) {
+  left: 70%;
+  width: 35px;
+  height: 35px;
+  animation-delay: 1s;
+}
+.moving-square:nth-child(5) {
+  left: 90%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 3s;
+}
+
+/* Keyframes for upward movement */
+@keyframes moveUp {
+  0% {
+    transform: translateY(0) rotate(45deg) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-500px) rotate(45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Hero Content Styling */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  padding: 20px;
+  color: #fff; /* White text for contrast on dark background */
+}
+
+/* Headline using Roboto Slab */
+.hero h1 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 2.8em;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Paragraph Styling */
+.hero p {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Styling */
+.btn {
+  background: #1b76dc; /* Blue background */
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.btn:hover {
+  background: #166bb3;
+  transform: translateY(-3px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2em;
+  }
+  .hero p {
+    font-size: 1em;
+  }
+  .hero-content {
+    padding: 10px;
+  }
+}
+
+    
+/* Why Choose Us Section */
+.features-section {
+  padding: 40px 20px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.features-section h2 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: var(--primary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.feature-item {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.feature-item i {
+  font-size: 36px;
+  color: #1B76DC;
+  margin-bottom: 10px;
+}
+
+.feature-item h3 {
+  margin: 10px 0;
+  font-size: 1.2em;
+  word-wrap: break-word;
+}
+
+.feature-item p {
+  font-size: 0.95em;
+  color: var(--subtext);
+  word-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+    
+        /* Latest Posts Section */
+  
+    
+        /* Cards Section */
+  .cards-section {
+  padding: 40px 20px;
+  width: 100%;
+  margin-top: -30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+  font-size: 40px;
+  color: #1b76dc;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 1.3em;
+  word-wrap: break-word;
+}
+
+.card p {
+  font-size: 0.95em;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+}
+
+.card .btn {
+  background: #1b76dc;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9em;
+}
+
+.card .btn:hover {
+  background: #166bb3;
+  /* A slightly darker shade for hover effect */
+}
+
+
+/* Define default color variables if not already defined */
+:root {
+  --footer-bg: #000;           /* Black background */
+  --footer-text: #fff;         /* White text */
+  --footer-link: #1b76dc;       /* Blue links */
+  --primary-hover: #1565c0;     /* Darker blue hover */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cards-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-section {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+    /* Newsletter Section */
+    .newsletter-section {
+      padding: 40px 20px;
+      background: var(--accent);
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .newsletter-section h2 {
+      margin-bottom: 20px;
+      font-size: 2em;
+      color: var(--primary);
+    }
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .newsletter-form input[type="email"] {
+      padding: 10px;
+      font-size: 1em;
+      flex: 1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .newsletter-form button {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .newsletter-form button:hover {
+      background: var(--primary-hover);
+    }
+
+    
+    
 @media (min-width: 767px) {
   .sidebar-tab {
     display: none; /* Hide sidebar toggle tab on desktop */
   }
 }
-
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 40px 20px;
-  background-color: #e8f5ff; /* Light blue background for contrast */
-  border-bottom: 2px solid #0066cc;
-}
-
-.hero h1 {
-  font-family: 'Roboto Slab', serif; /* Special font for Hero Section */
-  font-size: 2.5em;
-  color: #0066cc;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  font-size: 1.2em;
-  color: #333;
-}
-
-/* Content Section */
-.content {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-top: 20px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.card h2 {
-  margin-top: 0;
-}
-
-/* Responsive Styles */
 @media (max-width: 768px) {
   header .hamburger {
     display: block;
   }
-
+  
   header .nav-links {
     display: none;
   }
-
+  
   aside {
     width: 200px;
   }
-
+  
   aside.open {
     left: 0;
   }
 }
+
+/* footer */
+
+
 /* Footer */
 footer {
-  background-color: #333;
-  color: white;
+  background-color: white; /* White background */
+  color: black; /* Black text color */
   padding: 20px 10px;
   margin-top: 20px;
 }
 
+/* Top Section Container */
 .footer-container {
   display: flex;
   flex-wrap: wrap;
@@ -219,23 +603,29 @@ footer {
   gap: 20px;
   max-width: 1200px;
   margin: auto;
+  padding: 0 20px; /* Prevent content from touching edges */
 }
 
+/* Each Column Section */
 .footer-section {
   flex: 1;
   min-width: 250px;
 }
 
+/* Headings */
 .footer-section h3 {
   font-size: 1.2em;
   margin-bottom: 10px;
-  color: #ffcc00; /* Accent color for headings */
+  color: #0066cc; /* Blue headings */
 }
 
-.footer-section p {
+/* About Us text & Quick Links text */
+.footer-section p,
+.footer-section ul {
   line-height: 1.6;
 }
 
+/* Quick Links List */
 .footer-section ul {
   list-style: none;
   padding: 0;
@@ -246,171 +636,107 @@ footer {
 }
 
 .footer-section ul li a {
-  color: white;
+  color: black;
   text-decoration: none;
   transition: color 0.3s;
+  display: flex;
+  align-items: center; /* Align icons with text */
+}
+
+.footer-section ul li a i {
+  margin-right: 8px;
+  font-size: 0.9em;
+  color: #0066cc; /* Icon color */
 }
 
 .footer-section ul li a:hover {
-  color: #ffcc00; /* Hover effect */
+  color: blue;
+}
+
+/* Social Links (Follow Us Column) */
+.social-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
 }
 
 .social-links a {
   display: inline-block;
-  margin-right: 10px;
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
+  font-size: 1.2em;
+  transition: transform 0.3s;
 }
+
+/* Official brand colors */
+.social-links a.facebook { color: #3b5998; }
+.social-links a.twitter  { color: #1da1f2; }
+.social-links a.instagram { color: #e1306c; }
+.social-links a.linkedin { color: #0077b5; }
 
 .social-links a:hover {
-  color: #ffcc00;
+  transform: scale(1.1);
 }
 
+/* Tagline under social media (desktop only) */
+.social-tagline {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
+  display: none; /* Hidden by default */
+}
+
+/* Footer Bottom Area */
 .footer-bottom {
-  text-align: center;
-  margin-top: 20px;
-  border-top: 1px solid #444;
+  border-top: 1px solid #ccc;
   padding-top: 10px;
   font-size: 0.9em;
-  color: #ccc;
-}
-
-/* Featured Resources Section */
-.resources-container {
-  text-align: center; /* Centers the heading */
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: 1fr; /* Default: 1 card per row for mobile */
-  gap: 20px;
-  margin: 20px auto; /* Centers cards under the heading */
-  max-width: 1200px; /* Prevents cards from stretching too far */
-}
-
-/* Responsive Grid Layout */
-@media (min-width: 768px) {
-  .card-container {
-    grid-template-columns: repeat(2, 1fr); /* Two cards per row for tablets */
-    gap: 30px; /* Adds more space between cards */
-  }
-}
-
-@media (min-width: 1024px) {
-  .card-container {
-    grid-template-columns: repeat(3, 1fr); /* Three cards per row for desktops */
-  }
-}
-
-
-/* Section Title Styling */
-.section-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
-  color: #0066cc;
-}
-
-/* Card Styles */
-/* Card Icon Styling */
-.card-icon {
-  font-size: 40px; /* Size of the icon */
-  color: #0066cc; /* Primary theme color */
-  margin-bottom: 15px;
+  color: #666;
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-/* Card Styling for Icons */
-.card {
-  text-align: center;
-  background: #f9f9f9;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* In desktop view, place bottom content side-by-side */
+@media (min-width: 769px) {
+  .footer-section{
+    font-size: 14px;
+  }
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  /* Show tagline under social media in desktop */
+  .social-tagline {
+    display: block;
+  }
+  .quick-link1{
+    
+  padding-left: 40px;
+  }
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 15px;
+  }
+  .footer-section {
+    margin-bottom: 20px;
+  }
 }
-
-.card h3 {
-  font-size: 1.5em;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 1em;
-  color: #555;
-  line-height: 1.6;
-}
-
-.card img {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 15px;
-}
-
-.card-btn {
-  display: inline-block;
-  margin-top: 10px;
-  background-color: #0066cc;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-weight: bold;
+  
+/* Footer bottom page links styling */
+.footer-pages a {
+  color: #666;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  margin-left: 15px;
+  transition: color 0.3s;
 }
 
-.card-btn:hover {
-  background-color: #004da3;
-}
-/* Button Styles */
-.primary-btn, .card-btn {
-  background-color: #0066cc;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.primary-btn:hover, .card-btn:hover {
-  background-color: #004da3;
-}
-
-/* Card Icons */
-
-
-/* Additional Content Features */
-.features-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
-}
-
-.feature-item {
-  flex: 1 1 300px;
-  text-align: center;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  transition: box-shadow 0.3s ease;
-}
-
-.feature-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.footer-pages a:hover {
+  color: blue;
 }
