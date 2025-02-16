@@ -356,7 +356,7 @@
           })
         );
 
-        // Hide skeleton loader once posts are ready
+        // Hide skeleton loader once posts are ready and display initial posts
         skeletonLoader.style.display = "none";
         loadMoreBtn.style.display = latestPosts.length > postsPerBatch ? "block" : "none";
         displayPosts();
@@ -367,7 +367,7 @@
       }
     }
 
-    // Display posts in batches
+    // Display posts in batches (first 6 posts only)
     function displayPosts() {
       const postsToDisplay = latestPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
       const postCards = postsToDisplay.map((post) => {
@@ -407,11 +407,12 @@
       
       blogContainer.innerHTML += postCards.join("");
       displayedPosts += postsToDisplay.length;
-      loadMoreBtn.style.display = displayedPosts >= latestPosts.length ? "none" : "block";
     }
 
-    // Event listener for "Load More" button
-    loadMoreBtn.addEventListener("click", displayPosts);
+    // When the "Load More" button is clicked, redirect to latestpost.html
+    loadMoreBtn.addEventListener("click", function() {
+      window.location.href = "latestpost.html";
+    });
 
     // Initialize fetching of posts once the document loads
     document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
