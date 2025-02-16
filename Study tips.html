@@ -360,7 +360,7 @@
 
 <div class="latestpost-bg">
   <div class="container">
-    <h1>Latest Blogs</h1>
+    <h1>Neet Study Tips</h1>
     
     <!-- Skeleton Loader (Shown while posts are being fetched) -->
     <div id="skeletonLoader" class="cards-section">
@@ -500,7 +500,7 @@
         // Filter posts to include only those with the "blog" label
         const filteredPosts = data.items.filter(
           (post) =>
-          post.labels && post.labels.some((label) => label.toLowerCase() === "blog")
+          post.labels && post.labels.some((label) => label.toLowerCase() === "study tips")
         );
         
         if (filteredPosts.length === 0) {
