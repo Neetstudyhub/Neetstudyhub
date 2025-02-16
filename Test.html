@@ -484,16 +484,11 @@
 
 
   <script>
-    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Cloudflare Worker URL
+               const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
     const maxResults = 100;
     const postsPerBatch = 6;
 
-    let allPosts = [];
-    let displayedPosts = 0;
-
     const blogContainer = document.getElementById('blog-container');
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    const skeletonLoader = document.getElementById('skeletonLoader');
 
     // Format date to "Month Day, Year" (e.g., February 11, 2025)
     function formatDate(dateStr) {
@@ -512,45 +507,39 @@
           throw new Error('No posts found.');
         }
         
-        // Exclude posts with labels "ncert" and "pyq"
-        const excludedLabels = ['ncert', 'pyq'];
-        const filteredPosts = data.items.filter(
+        // Filter posts with the label "latest news" (case-insensitive)
+        const latestNewsPosts = data.items.filter(
           (post) =>
-            !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
+            post.labels &&
+            post.labels.some((label) => label.toLowerCase() === 'latest news')
         );
         
-        if (filteredPosts.length === 0) {
-          throw new Error('No valid posts found after filtering.');
+        if (latestNewsPosts.length === 0) {
+          throw new Error('No posts with label "latest news" found.');
         }
         
         // Process posts: extract image, format date, create snippet
-        allPosts = await Promise.all(
-          filteredPosts.map(async (post) => {
-            const { id, title, content, labels, published } = post;
-            const imageUrl =
-              post.images && post.images[0]
-                ? post.images[0].url
-                : extractImageFromContent(content);
-            const formattedDate = published ? formatDate(published) : 'Unknown Date';
-            const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
-            return {
-              id,
-              title,
-              labels: labels || [],
-              imageUrl,
-              published: formattedDate,
-              contentSnippet
-            };
-          })
-        );
+        const posts = latestNewsPosts.map((post) => {
+          const { id, title, content, labels, published } = post;
+          const imageUrl =
+            post.images && post.images[0]
+              ? post.images[0].url
+              : extractImageFromContent(content);
+          const formattedDate = published ? formatDate(published) : 'Unknown Date';
+          const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
+          return {
+            id,
+            title,
+            labels: labels || [],
+            imageUrl,
+            published: formattedDate,
+            contentSnippet
+          };
+        });
         
-        // Hide skeleton loader once posts are ready
-        skeletonLoader.style.display = 'none';
-        loadMoreBtn.style.display = allPosts.length > postsPerBatch ? 'block' : 'none';
-        displayPosts();
+        displayPosts(posts);
       } catch (error) {
         console.error('Error fetching posts:', error);
-        skeletonLoader.style.display = 'none';
         blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
       }
     }
@@ -561,51 +550,41 @@
       return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
     }
 
-    // Display posts in batches
-    function displayPosts() {
-      const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
-      const postCards = postsToDisplay.map((post) => {
+    // Display posts
+    function displayPosts(posts) {
+      const postCards = posts.map((post) => {
         const { id, title, labels, imageUrl, published, contentSnippet } = post;
-        // Format labels markup to display at the top
         const labelMarkup = labels && labels.length > 0
-          ? `<div class="top-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>`
+          ? `<div class="latest-top-labels">${labels.map(label => `<span class="latest-label">${label}</span>`).join(' ')}</div>`
           : '';
-        // Bottom meta with date logo and published date
-        const postMeta = `
-          <div class="bottom-meta">
-            <div class="date-logo">
-              <img src="date-logo.png" alt="Date Logo" />
-            </div>
-            <span class="published-date">Mental Ease • ${published}</span>
-          </div>
-        `;
         return `
-          <div class="card">
+          <div class="latest-card">
             <a href="post.html?postId=${id}" target="_self">
-              <div class="card-image">
+              <div class="latest-card-image">
                 <img src="${imageUrl}" alt="${title}" />
               </div>
             </a>
-            <div class="card-content">
+            <div class="latest-card-content">
               ${labelMarkup}
               <h3>
                 <a href="post.html?postId=${id}" target="_self">${title}</a>
               </h3>
-              <p class="post-description">${contentSnippet}...</p>
-              ${postMeta}
+              <p class="latest-post-description">${contentSnippet}...</p>
+              <div class="latest-bottom-meta">
+                <div class="latest-date-logo">
+                  <img src="date-logo.png" alt="Date Logo" />
+                </div>
+                <span class="latest-published-date">Published on ${published}</span>
+              </div>
             </div>
           </div>
         `;
       });
-      
-      blogContainer.innerHTML += postCards.join('');
-      displayedPosts += postsToDisplay.length;
-      loadMoreBtn.style.display = displayedPosts >= allPosts.length ? 'none' : 'block';
+      blogContainer.innerHTML = postCards.join('');
     }
 
-    loadMoreBtn.addEventListener('click', displayPosts);
     document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
-  </script>
+       </script>
   <script src="script.js">script1.js</script>
 </body>
 </html>
