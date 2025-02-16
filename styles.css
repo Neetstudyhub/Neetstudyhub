@@ -740,3 +740,32 @@ footer {
 .footer-pages a:hover {
   color: blue;
 }
+    .btn1{
+      background: #1b76dc;
+  color: #fff;
+  padding: 8px 16px;
+  margin-top: 25px;
+  
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9em;
+  position: absolute;
+  left: 36%;
+    }
+    @media (min-width: 768px){
+      
+      .btn1{
+        left: 42%;
+      }
+    }
+    
+    .heading-latest1 {
+  font-size: 30px;
+  
+  margin-top: 80px;
+  font-weight: 501;
+  text-align: center;
+  margin-bottom: 20px;
+}
