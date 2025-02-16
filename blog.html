@@ -1,445 +1,610 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEET Study Hub</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
-  <!-- External CSS (if any) -->
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* General Styling */
-    main {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+  <head>
+    
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
+  <title></title>
+    <style>
+    .container {
       max-width: 1200px;
-      margin: 20px auto;
-      padding: 0 15px;
+      margin: 0 auto;
+      margin-top: -80px:
+      padding: 40px 20px;
     }
-
-    /* Card Container */
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      margin: 5px;
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
     }
-
-    /* Blog Card Styling */
-    .blog-card {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .blog-card a {
-      color: #333;
+    a {
       text-decoration: none;
+      color: inherit;
     }
-    .blog-card a:hover {
-      color: #7cb9e8;
-    }
-    .blog-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    @media (min-width: 769px) {
-      .section-heading {
-        font-size: 23px;
-      }
-      .blog-card img {
-        height: auto;
-        max-height: 400px;
-      }
-    }
-    .blog-card .card-content {
-      padding: 15px;
-    }
-    .blog-card h3 {
-      margin: 0;
-    }
-
-    /* Post Meta Styling */
-    .post-meta {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      color: #777;
-    }
-    .post-meta img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-
-    /* Post Description */
-    .post-description {
-      margin: 10px 0;
-      font-size: 0.95rem;
-      color: #555;
-    }
-
-    /* Labels Styling */
-    .post-labels {
-      margin-top: 10px;
-    }
-    .label {
-      display: inline-block;
-      background-color: #e0e7ff;
-      color: #3742fa;
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      margin: 2px;
-      border-radius: 15px;
-    }
-    @media (min-width: 768px) {
-      .label {
-        font-size: 0.85rem;
-        padding: 5px 10px;
-      }
-    }
-
-    /* Load More Button Styling */
-    .load-more-btn {
-      margin: 20px auto;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      display: block;
-      transition: background-color 0.3s;
-    }
-    .load-more-btn:hover {
-      background-color: #0056b3;
-    }
-
-    /* Skeleton Loader */
-    .skeleton-loader {
+    
+    /* Cards Section (Grid Layout) */
+    .cards-section {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      box-sizing: border-box;
     }
-    .skeleton-card {
+    
+    /* Card Styles – uniform height enforced via flexbox, increased border radius */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
-      background: #f0f0f0;
-      border-radius: 10px;
-      padding: 0;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      height: 100%;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    /* Image Container with fixed aspect ratio (16:9) and increased border radius on top */
+    .card-image {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 ratio */
       overflow: hidden;
+      background: #ccc;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .card-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    /* Top Labels */
+    .top-labels {
+      margin-bottom: 8px;
+    }
+    .top-labels .label {
+      display: inline-block;
+      background: #1b76dc;
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 0.8em;
+      margin-right: 5px;
+    }
+    .card-content h3 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.3em;
+      margin: 10px 0;
+    }
+    /* Description styling */
+    .post-description {
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      flex: 1;
+    }
+    /* Bottom Meta */
+    .bottom-meta {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .date-logo img {
+      width: 20px;
+      height: auto;
+      margin-right: 5px;
+      border-radius: 50%;
+    }
+    .published-date {
+      font-size: 0.9em;
+      color: #777;
+    }
+    
+    /* Responsive Text and Label Sizes */
+    @media (max-width: 480px) {
+      h1 { font-size: 2em; }
+      .card-content h3 { font-size: 1.1em; }
+      .post-description { font-size: 0.9em; }
+      .published-date { font-size: 0.8em; }
+      .top-labels .label { font-size: 0.7em; padding: 2px 6px; }
+    }
+    @media (min-width: 481px) and (max-width: 1024px) {
+      h1 { font-size: 2.3em; }
+      .card-content h3 { font-size: 1.2em; }
+      .post-description { font-size: 0.92em; }
+      .published-date { font-size: 0.85em; }
+      .top-labels .label { font-size: 0.75em; }
+    }
+    @media (min-width: 1025px) {
+      h1 { font-size: 2.5em; }
+      .card-content h3 { font-size: 1.3em; }
+      .post-description { font-size: 0.95em; }
+      .published-date { font-size: 0.9em; }
+      .top-labels .label { font-size: 0.8em; }
+    }
+    
+    /* Responsive Grid Adjustments */
+    @media (max-width: 480px) {
+      .cards-section { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 481px) and (max-width: 1024px) {
+      .cards-section { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1025px) {
+      .cards-section { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 1201px) {
+      .container { padding: 60px 40px; }
+      h1 { font-size: 2.7em; }
+      .card-content h3 { font-size: 1.35em; }
+      .post-description { font-size: 1em; }
+      .published-date { font-size: 1em; }
+      .cards-section { gap: 30px; }
+    }
+    
+    /* Enhanced Load More Button */
+    #load-more-btn {
+      display: block;
+      margin: 30px auto;
+    margin-bottom: -60px;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #1b76dc, #166bb3);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #load-more-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+    #load-more-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #load-more-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    /* Spinner for loading animation */
+    .spinner {
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* End Message */
+    #end-message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: -60px;
+    }
+    
+    /* YouTube-Style Skeleton Loader */
+    .skeleton-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     .skeleton-image {
+      position: relative;
       width: 100%;
-      height: 200px;
-      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-      background-size: 200% 100%;
+      padding-top: 56.25%; /* 16:9 ratio */
+      background: #e0e0e0;
+      overflow: hidden;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .skeleton-shimmer {
+      position: absolute;
+      top: 0;
+      left: -150px;
+      height: 100%;
+      width: 150px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       animation: shimmer 1.5s infinite;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
-    .skeleton-text {
-      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 4px;
-      margin: 10px 15px;
-    }
-    .skeleton-title {
-      width: 70%;
-      height: 20px;
-    }
-    .skeleton-snippet {
-      width: 90%;
-      height: 14px;
-      margin-top: 5px;
-    }
-    .skeleton-button {
-      width: 50%;
-      height: 18px;
-      margin-top: 10px;
-      margin-bottom: 15px;
     }
     @keyframes shimmer {
-      0% {
-        background-position: 200% 0;
-      }
-      100% {
-        background-position: -200% 0;
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+    .skeleton-content {
+      padding: 15px;
+    }
+    .skeleton-line {
+      height: 12px;
+      background: #e0e0e0;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .skeleton-line.short { width: 40%; }
+    .skeleton-line.medium { width: 70%; }
+    .skeleton-line.long { width: 90%; }
+    
+    .latestpost-bg{
+      padding: 12px;
+    }
+    .heading-latest{
+      display: flex;
+      font-size: 25px;
+      margin-left: 10px;
+      margin-bottom: 15px;
+      font-weight: bolder;
+      margin-top: -30px;
+      
+    }
+    
+    .btn1{
+      background: #1b76dc;
+  color: #fff;
+  padding: 8px 16px;
+  margin-top: 25px;
+  
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9em;
+  position: absolute;
+  left: 36%;
+    }
+    @media (min-width: 768px){
+      
+      .btn1{
+        left: 42%;
       }
     }
-    /* Hide Load More Button During Loading */
-    .load-more-btn.loading {
-      display: none;
-    }
+    
+    .heading-latest1 {
+  font-size: 30px;
+  
+  margin-top: 80px;
+  font-weight: 501;
+  text-align: center;
+  margin-bottom: 20px;
+}
   </style>
 </head>
+
 <body>
-  <!-- Header with Navbar -->
+    <!-- Header with Navbar -->
   <header>
     <div class="logo">NEET Study Hub</div>
     <div class="hamburger" id="hamburger">☰</div>
     <nav class="nav-links">
       <a href="#">Home</a>
-      <a href="#">About</a>
+      <a href="privacy.html">About</a>
       <a href="#">Subjects</a>
       <a href="#">Mock Tests</a>
-      <a href="#">Contact</a>
+      <a href="blog.html">Contact</a>
     </nav>
   </header>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <button class="sidebar-close" id="closeSidebar">&times;</button>
-    <ul class="sidebar-menu">
-      <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-      <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
-      <li><a href="#blogs"><i class="fas fa-blog"></i> Blogs</a></li>
-      <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-    </ul>
-  </div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+ <div class="sideflexy">
+   
 
-  <!-- Sidebar Toggle Tab -->
-  <div class="sidebar-tab" id="sidebarTab">
-    <i class="fas fa-bars"></i>
+ <div class="homesearch-bar">
+  Neet Study Hub 
+</div>
+  <button class="sidebar-close" id="closeSidebar">&times;</button>
   </div>
+  <ul class="sidebar-menu">
+    
+    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="privacy.html"><i class="fas fa-info-circle"></i> About</a></li>
+    <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
+    <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
+    <li><a href="Test.html"><i class="fas fa-envelope"></i> Contact</a></li>
+  </ul>
+  <div class="sidebar-footer">
+  <div class="social-media">
+    <a href="#" title="Facebook">
+      <i class="fab fa-facebook-f"></i></a>
+    <a href="#" title="X" class="x-icon">X</a>
+    <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+  </div>
+  <div class="pages-links pages-row">
+    <a href="#">Privacy Policy</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact Us</a>
+    <a href="#">Sitemap</a>
+    
+  </div>
+</div>
+</div>
+<!-- Sidebar Toggle Tab -->
+<div class="sidebar-tab" id="sidebarTab">
+  <i class="fas fa-bars"></i>
+</div>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <section class="blog-section">
-      <h1 class="section-heading">Latest Blogs</h1>
-      <div id="blog-container" class="card-container">
-        <!-- Skeleton Loader -->
-        <div class="skeleton-loader" id="skeletonLoader">
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-snippet"></div>
-            <div class="skeleton-text skeleton-button"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-snippet"></div>
-            <div class="skeleton-text skeleton-button"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-snippet"></div>
-            <div class="skeleton-text skeleton-button"></div>
-          </div>
+
+<div class="latestpost-bg">
+  <div class="container">
+    <h1>Neet Latest Updates </h1>
+    
+    <!-- Skeleton Loader (Shown while posts are being fetched) -->
+    <div id="skeletonLoader" class="cards-section">
+      <div class="skeleton-card">
+        <div class="skeleton-image">
+          <div class="skeleton-shimmer"></div>
+        </div>
+        <div class="skeleton-content">
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
         </div>
       </div>
-      <button id="load-more-btn" class="load-more-btn">Load More</button>
-    </section>
-  </main>
+      <div class="skeleton-card">
+        <div class="skeleton-image">
+          <div class="skeleton-shimmer"></div>
+        </div>
+        <div class="skeleton-content">
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-image">
+          <div class="skeleton-shimmer"></div>
+        </div>
+        <div class="skeleton-content">
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Blog Cards Container -->
+    <div id="blog-container" class="cards-section"></div>
+    
+    <!-- Load More Button -->
+    <button id="load-more-btn" style="display: none;">Load More</button>
+    <!-- End Message -->
+    <p id="end-message" style="display: none;">That's all!</p>
+  </div>
+  
+  </div>
+  
+  
+  
 
   <!-- Footer -->
   <footer>
     <div class="footer-container">
+      <!-- About Us Column (Left) -->
       <div class="footer-section">
-        <h3>About Us</h3>
-        <p>NEET Study Hub is your one-stop destination for acing the NEET exam with expert-curated study materials and mock tests.</p>
+        <h3>Neet Study Hub</h3>
+        <p>
+          Neet Study Hub is your trusted resource for exam preparation. We offer previous year questions (PYQ's), NCERT PDFs, informative blogs, and mock tests to help you succeed.
+        </p>
       </div>
-      <div class="footer-section">
+      <!-- Quick Links Column (Center) -->
+      <div class="footer-section quick-link1">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Subjects</a></li>
-          <li><a href="#">Mock Tests</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+          <li><a href="#"><i class="fas fa-book-open"></i>PYQ's</a></li>
+          <li><a href="#"><i class="fas fa-file-pdf"></i>NCERT PDF</a></li>
+          <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
+          <li><a href="#"><i class="fas fa-chalkboard-teacher"></i>Mock Test</a></li>
         </ul>
       </div>
+      <!-- Follow Us Column (Right) -->
       <div class="footer-section">
         <h3>Follow Us</h3>
         <div class="social-links">
-          <a href="#">Facebook</a>
-          <a href="#">Instagram</a>
-          <a href="#">Twitter</a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
         </div>
+        <!-- Tagline visible in desktop mode -->
+        <p class="social-tagline">Get updated by following on social media</p>
       </div>
     </div>
+    <!-- Footer Bottom Area -->
     <div class="footer-bottom">
-      <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
+      <div class="footer-copy">
+        © 2025 Neet Study Hub. All rights reserved.
+      </div>
+      <div class="footer-pages">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Terms</a>
+        <a href="#">Disclaimer</a>
+      </div>
     </div>
   </footer>
-  <script src="script.js"></script>
+
+
+</body>
+<script src="script.js">script1.js</script>
   <script>
-    // Blogger API Configuration
-    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Cloudflare Worker URL
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
     const maxResults = 100;
-    const postsPerBatch = 12;
-
-    let allPosts = [];
-    let displayedPosts = 0;
-
+    const postsPerBatch = 6;
+    
+    let latestPosts = []; // Stores posts with the "latest" label
+    let displayedPosts = 0; // Tracks how many posts have been shown
+    
     const blogContainer = document.getElementById('blog-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
     const skeletonLoader = document.getElementById('skeletonLoader');
-
+    const endMessage = document.getElementById('end-message');
+    
     // Format date to "Month Day, Year" (e.g., February 11, 2025)
     function formatDate(dateStr) {
       const date = new Date(dateStr);
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return date.toLocaleDateString(undefined, options);
     }
-
-    // Fetch Posts using the Cloudflare Proxy
+    
+    // Extract the first image from content
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
+    }
+    
+    // Fetch posts using the Cloudflare Proxy and filter by "latest" label
     async function fetchBloggerPosts() {
       try {
-        // Fetch data via Cloudflare Proxy
         const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
         const data = await response.json();
-
+        
         if (!data.items || data.items.length === 0) {
-          throw new Error('No posts found.');
+          throw new Error("No posts found.");
         }
-
-        // Exclude posts with labels "ncert" and "pyq"
-        const excludedLabels = ['ncert', 'pyq'];
+        
+        // Filter posts to include only those with the "blog" label
         const filteredPosts = data.items.filter(
           (post) =>
-            !post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))
+          post.labels && post.labels.some((label) => label.toLowerCase() === "blog")
         );
-
+        
         if (filteredPosts.length === 0) {
-          throw new Error('No valid posts found after filtering.');
+          throw new Error("No posts with the 'latest' label found.");
         }
-
-        // Process Posts and include published date and description snippet
-        allPosts = await Promise.all(
+        
+        // Process posts: extract image, format date, and create a content snippet
+        latestPosts = await Promise.all(
           filteredPosts.map(async (post) => {
             const { id, title, content, labels, published } = post;
             const imageUrl =
-              post.images && post.images[0]
-                ? post.images[0].url
-                : extractImageFromContent(content);
-            const formattedDate = published ? formatDate(published) : 'Unknown Date';
-            const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, '').substring(0, 120);
-
+              post.images && post.images[0] ?
+              post.images[0].url :
+              extractImageFromContent(content);
+            const formattedDate = published ? formatDate(published) : "Unknown Date";
+            const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120);
             return {
               id,
               title,
               labels: labels || [],
               imageUrl,
               published: formattedDate,
-              contentSnippet
+              contentSnippet,
             };
           })
         );
-
-        // Hide skeleton loader once posts are ready
-        skeletonLoader.style.display = 'none';
-
-        // Show/Hide Load More Button Based on Post Count
-        if (allPosts.length > postsPerBatch) {
-          loadMoreBtn.style.display = 'block';
-        } else {
-          loadMoreBtn.style.display = 'none';
-        }
-
+        
+        // Hide skeleton loader and show initial posts
+        skeletonLoader.style.display = "none";
+        loadMoreBtn.style.display = latestPosts.length > postsPerBatch ? "block" : "none";
         displayPosts();
       } catch (error) {
-        console.error('Error fetching posts:', error);
-        skeletonLoader.style.display = 'none';
+        console.error("Error fetching posts:", error);
+        skeletonLoader.style.display = "none";
         blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
       }
     }
-
-    // Extract the first image from content
-    function extractImageFromContent(content) {
-      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
-    }
-
-    // Display Posts in Batches
+    
+    // Display posts in batches
     function displayPosts() {
-      const postsToDisplay = allPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
-
+      const postsToDisplay = latestPosts.slice(displayedPosts, displayedPosts + postsPerBatch);
       const postCards = postsToDisplay.map((post) => {
         const { id, title, labels, imageUrl, published, contentSnippet } = post;
-
-        // Format labels if available
-        const labelMarkup = labels && labels.length > 0
-          ? `<div class="post-labels">${labels.map(label => `<span class="label">${label}</span>`).join(' ')}</div>`
-          : '';
-
-        // Post meta information (user logo and published date)
+        // Format labels markup to display at the top
+        const labelMarkup =
+          labels && labels.length > 0 ?
+          `<div class="top-labels">${labels.map((label) => `<span class="label">${label}</span>`).join(" ")}</div>` :
+          "";
+        // Bottom meta with date logo and published date
         const postMeta = `
-          <div class="post-meta">
-            <a href="post.html?postId=${id}" target="_self">
-              <img src="user-logo.png" alt="User Logo" />
-            </a>
-            <span>Mental Ease • ${published}</span>
+          <div class="bottom-meta">
+            <div class="date-logo">
+              <img src="date-logo.png" alt="Date Logo" />
+            </div>
+            <span class="published-date">Mental Ease • ${published}</span>
           </div>
         `;
-
         return `
-          <div class="blog-card">
+          <div class="card">
             <a href="post.html?postId=${id}" target="_self">
-              <img src="${imageUrl}" alt="${title}" />
+              <div class="card-image">
+                <img src="${imageUrl}" alt="${title}" />
+              </div>
             </a>
             <div class="card-content">
+              ${labelMarkup}
               <h3>
                 <a href="post.html?postId=${id}" target="_self">${title}</a>
               </h3>
-              ${postMeta}
               <p class="post-description">${contentSnippet}...</p>
-              ${labelMarkup}
+              ${postMeta}
             </div>
           </div>
         `;
       });
-
-      blogContainer.innerHTML += postCards.join('');
+      
+      blogContainer.innerHTML += postCards.join("");
       displayedPosts += postsToDisplay.length;
-
-      if (displayedPosts >= allPosts.length) {
-        loadMoreBtn.style.display = 'none';
+      
+      // Check if all posts have been displayed
+      if (displayedPosts >= latestPosts.length) {
+        loadMoreBtn.style.display = "none";
+        endMessage.style.display = "block";
       } else {
-        loadMoreBtn.style.display = 'block';
+        loadMoreBtn.style.display = "block";
       }
     }
-
-    // Add Event Listener for Load More Button
-    loadMoreBtn.addEventListener('click', displayPosts);
-
-    // Initialize on DOM Content Loaded
-    document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
+    
+    // Handle "Load More" click with a loading animation
+    function loadMorePosts() {
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.innerHTML = '<span class="spinner"></span> Loading...';
+      // Simulate a short delay for loading animation
+      setTimeout(() => {
+        displayPosts();
+        loadMoreBtn.innerHTML = "Load More";
+        loadMoreBtn.disabled = false;
+      }, 500);
+    }
+    
+    // Event listener for "Load More" button
+    loadMoreBtn.addEventListener("click", loadMorePosts);
+    
+    // Initialize fetching of posts once the document loads
+    document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
   </script>
-</body>
 </html>
