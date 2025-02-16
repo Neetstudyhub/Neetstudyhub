@@ -1,15 +1,10 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
-  <head>
-    
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
-  <title>Neet Study Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEET Study Hub - Blog</title>
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     /* Global Styles */
@@ -20,7 +15,7 @@
       background: #f4f4f4;
       color: #333;
     }
-    .container {
+    .latest-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 40px 20px;
@@ -36,7 +31,7 @@
     }
     
     /* Cards Section (Grid Layout) */
-    .cards-section {
+    .latest-cards-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
@@ -44,9 +39,9 @@
     }
     
     /* Card Styles – uniform height enforced via flexbox, increased border radius */
-    .card {
+    .latest-card {
       background: #fff;
-      border-radius: 12px; /* increased border radius */
+      border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -54,12 +49,12 @@
       flex-direction: column;
       height: 100%;
     }
-    .card:hover {
+    .latest-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
     /* Image Container with fixed aspect ratio (16:9) and increased border radius on top */
-    .card-image {
+    .latest-card-image {
       position: relative;
       width: 100%;
       padding-top: 56.25%; /* 16:9 ratio */
@@ -68,7 +63,7 @@
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
     }
-    .card-image img {
+    .latest-card-image img {
       position: absolute;
       top: 0;
       left: 0;
@@ -76,7 +71,7 @@
       height: 100%;
       object-fit: cover;
     }
-    .card-content {
+    .latest-card-content {
       padding: 15px;
       flex: 1;
       display: flex;
@@ -84,10 +79,10 @@
       justify-content: space-between;
     }
     /* Top Labels: displays the labels at the top above the title */
-    .top-labels {
+    .latest-top-labels {
       margin-bottom: 8px;
     }
-    .top-labels .label {
+    .latest-top-labels .latest-label {
       display: inline-block;
       background: #1b76dc;
       color: #fff;
@@ -96,397 +91,47 @@
       font-size: 0.8em;
       margin-right: 5px;
     }
-    .card-content h3 {
+    .latest-card-content h3 {
       font-family: 'Roboto Slab', serif;
       font-size: 1.3em;
       margin: 10px 0;
     }
     /* Description styling – truncated to a uniform length in JS */
-    .post-description {
+    .latest-post-description {
       font-size: 0.95em;
       line-height: 1.5;
       margin-bottom: 15px;
       flex: 1;
     }
     /* Bottom Meta: date logo and published date */
-    .bottom-meta {
+    .latest-bottom-meta {
       display: flex;
       align-items: center;
       margin-top: 10px;
     }
-    .date-logo img {
+    .latest-date-logo img {
       width: 20px;
       height: auto;
       margin-right: 5px;
       border-radius: 50%;
     }
-    .published-date {
+    .latest-published-date {
       font-size: 0.9em;
       color: #777;
     }
-    
-    /* Responsive Text and Label Sizes */
-    /* Mobile (max-width: 480px) */
-    @media (max-width: 480px) {
-      h1 { font-size: 2em; }
-      .card-content h3 { font-size: 1.1em; }
-      .post-description { font-size: 0.9em; }
-      .published-date { font-size: 0.8em; }
-      .top-labels .label { font-size: 0.7em; padding: 2px 6px; }
-    }
-    /* Tablet/Laptop (481px to 1024px) */
-    @media (min-width: 481px) and (max-width: 1024px) {
-      h1 { font-size: 2.3em; }
-      .card-content h3 { font-size: 1.2em; }
-      .post-description { font-size: 0.92em; }
-      .published-date { font-size: 0.85em; }
-      .top-labels .label { font-size: 0.75em; }
-    }
-    /* Desktop (1025px and above) */
-    @media (min-width: 1025px) {
-      h1 { font-size: 2.5em; }
-      .card-content h3 { font-size: 1.3em; }
-      .post-description { font-size: 0.95em; }
-      .published-date { font-size: 0.9em; }
-      .top-labels .label { font-size: 0.8em; }
-    }
-    
-    /* Responsive Grid Adjustments */
-    /* Mobile: 1 card per row */
-    @media (max-width: 480px) {
-      .cards-section { grid-template-columns: 1fr; }
-    }
-    /* Laptop/Tablet: 2 cards per row */
-    @media (min-width: 481px) and (max-width: 1024px) {
-      .cards-section { grid-template-columns: repeat(2, 1fr); }
-    }
-    /* Desktop: 3 cards per row */
-    @media (min-width: 1025px) {
-      .cards-section { grid-template-columns: repeat(3, 1fr); }
-    }
-    
-    /* Additional adjustments for screens wider than 1200px */
-    @media (min-width: 1201px) {
-      .container {
-        padding: 60px 40px;
-      }
-      h1 {
-        font-size: 2.7em;
-      }
-      .card-content h3 {
-        font-size: 1.35em;
-      }
-      .post-description {
-        font-size: 1em;
-      }
-      .published-date {
-        font-size: 1em;
-      }
-      .cards-section {
-        gap: 30px;
-      }
-    }
-    
-    /* Load More Button */
-    #load-more-btn {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      background: #1b76dc;
-      color: #fff;
-      border: none;
-      border-radius: 8px; /* increased border radius */
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s ease;
-    }
-    #load-more-btn:hover {
-      background: #166bb3;
-    }
-    
-    /* YouTube-Style Skeleton Loader */
-    .skeleton-card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .skeleton-image {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 ratio */
-      background: #e0e0e0;
-      overflow: hidden;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
-    .skeleton-shimmer {
-      position: absolute;
-      top: 0;
-      left: -150px;
-      height: 100%;
-      width: 150px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shimmer 1.5s infinite;
-    }
-    @keyframes shimmer {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(100%); }
-    }
-    .skeleton-content {
-      padding: 15px;
-    }
-    .skeleton-line {
-      height: 12px;
-      background: #e0e0e0;
-      margin-bottom: 10px;
-      border-radius: 4px;
-    }
-    .skeleton-line.short { width: 40%; }
-    .skeleton-line.medium { width: 70%; }
-    .skeleton-line.long { width: 90%; }
   </style>
 </head>
 <body>
-      <!-- Header with Navbar -->
-    <header>
-      <div class="logo">NEET Study Hub</div>
-      <div class="hamburger" id="hamburger">☰</div>
-      <nav class="nav-links">
-        <a href="#">Home</a>
-        <a href="privacy.html">About</a>
-        <a href="#">Subjects</a>
-        <a href="#">Mock Tests</a>
-        <a href="blog.html">Contact</a>
-      </nav>
-    </header>
-    
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <div class="sideflexy">
-        
-        
-        <div class="homesearch-bar">
-          Neet Study Hub
-        </div>
-        <button class="sidebar-close" id="closeSidebar">&times;</button>
-      </div>
-      <ul class="sidebar-menu">
-        
-        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="privacy.html"><i class="fas fa-info-circle"></i> About</a></li>
-        <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
-        <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
-        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-      </ul>
-      <div class="sidebar-footer">
-        <div class="social-media">
-          <a href="#" title="Facebook">
-            <i class="fab fa-facebook-f"></i></a>
-          <a href="#" title="X" class="x-icon">X</a>
-          <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-        </div>
-        <div class="pages-links pages-row">
-          <a href="#">Privacy Policy</a>
-          <a href="#">About Us</a>
-          <a href="#">Contact Us</a>
-          <a href="#">Sitemap</a>
-          
-        </div>
-      </div>
-    </div>
-    <!-- Sidebar Toggle Tab -->
-    <div class="sidebar-tab" id="sidebarTab">
-      <i class="fas fa-bars"></i>
-    </div>
-    
-    <!-- Hero Section with Wave Effect -->
-    <div class="hero">
-      <div class="moving-squares">
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-        <div class="moving-square"></div>
-      </div>
-      <div class="hero-content">
-        <h1>Welcome to NEET Study Hub</h1>
-        <p>Your ultimate guide to NEET preparation. Unlock your potential with expert resources, tips, and strategies.</p>
-        <button class="btn">Get Started</button>
-      </div>
-    </div>
-    
-    
-    
-    <!-- Why Choose Us Section -->
-    <section class="features-section fade-in">
-      <h2>Why Choose Us?</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <i class="fas fa-user-check"></i>
-          <h3>Personalized Plans</h3>
-          <p>Customized study plans tailored to your strengths and weaknesses.</p>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-clock"></i>
-          <h3>Flexible Schedule</h3>
-          <p>Plan your studies around your daily routine with ease and efficiency.</p>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-graduation-cap"></i>
-          <h3>Expert Guidance</h3>
-          <p>Learn from experienced educators and top scorers in NEET.</p>
-        </div>
-      </div>
-    </section>
-    
-  
-  <div class="container">
+  <div class="latest-container">
     <h1>NEET Study Hub - Blog</h1>
     
-    <!-- Skeleton Loader (Shown while posts are being fetched) -->
-    <div id="skeletonLoader" class="cards-section">
-      <div class="skeleton-card">
-        <div class="skeleton-image">
-          <div class="skeleton-shimmer"></div>
-        </div>
-        <div class="skeleton-content">
-          <div class="skeleton-line long"></div>
-          <div class="skeleton-line medium"></div>
-          <div class="skeleton-line short"></div>
-        </div>
-      </div>
-      <div class="skeleton-card">
-        <div class="skeleton-image">
-          <div class="skeleton-shimmer"></div>
-        </div>
-        <div class="skeleton-content">
-          <div class="skeleton-line long"></div>
-          <div class="skeleton-line medium"></div>
-          <div class="skeleton-line short"></div>
-        </div>
-      </div>
-      <div class="skeleton-card">
-        <div class="skeleton-image">
-          <div class="skeleton-shimmer"></div>
-        </div>
-        <div class="skeleton-content">
-          <div class="skeleton-line long"></div>
-          <div class="skeleton-line medium"></div>
-          <div class="skeleton-line short"></div>
-        </div>
-      </div>
-    </div>
-    
     <!-- Blog Cards Container -->
-    <div id="blog-container" class="cards-section"></div>
-    
-    <!-- Load More Button -->
-      <button id="load-more-btn" style="display: none;">Load More</button>
-<button class="btn1"> See All News</button>
+    <div id="blog-container" class="latest-cards-section"></div>
   </div>
   
-      <div class="heading-latest1">We Also provide: </div>
-  <!-- Cards Section -->
-  <section class="home-cards-section fade-in">
-      
-    <div class="home-card">
-      <div class="home-card-icon"><i class="fas fa-atom"></i></div>
-      <h3>Physics</h3>
-      <p>Explore formulas, concepts, and problem-solving techniques in Physics to boost your exam performance.</p>
-      <button class="btn">Learn More</button>
-    </div>
-    <div class="home-card">
-      <div class="home-card-icon"><i class="fas fa-flask"></i></div>
-      <h3>Chemistry</h3>
-      <p>Dive into chemical reactions, periodic trends, and molecular structures with our detailed resources.</p>
-      <button class="btn">Learn More</button>
-    </div>
-    <div class="home-card">
-      <div class="home-card-icon"><i class="fas fa-leaf"></i></div>
-      <h3>Biology</h3>
-      <p>Master biology with  notes, diagrams, and l learning modules.</p>
-      <button class="btn">Learn More</button>
-    </div>
-    <div class="home-card">
-      <div class="home-card-icon"><i class="fas fa-blog"></i></div>
-      <h3>Blog</h3>
-      <p>Stay updated with the latest tips, success stories, and exam strategies shared by our experts.</p>
-      <button class="btn">Read Blog</button>
-    </div>
-    <div class="home-card">
-      <div class="home-card-icon"><i class="fas fa-file-alt"></i></div>
-      <h3>Mock Tests</h3>
-      <p>Practice with timed mock tests and assess your preparation with detailed performance analytics.</p>
-      <button class="btn">Start Test</button>
-    </div>
-    <div class="home-card">
-      <div class="home-card-icon"><i class="fas fa-lightbulb"></i></div>
-      <h3>Study Tips</h3>
-      <p>Discover expert tips and strategies to optimize your study plan and ace your NEET exam.</p>
-      <button class="btn">Get Tips</button>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-container">
-      <!-- About Us Column (Left) -->
-      <div class="footer-section">
-        <h3>Neet Study Hub</h3>
-        <p>
-          Neet Study Hub is your trusted resource for exam preparation. We offer previous year questions (PYQ's), NCERT PDFs, informative blogs, and mock tests to help you succeed.
-        </p>
-      </div>
-      <!-- Quick Links Column (Center) -->
-      <div class="footer-section quick-link1">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-          <li><a href="#"><i class="fas fa-book-open"></i>PYQ's</a></li>
-          <li><a href="#"><i class="fas fa-file-pdf"></i>NCERT PDF</a></li>
-          <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
-          <li><a href="#"><i class="fas fa-chalkboard-teacher"></i>Mock Test</a></li>
-        </ul>
-      </div>
-      <!-- Follow Us Column (Right) -->
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-links">
-          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <!-- Tagline visible in desktop mode -->
-        <p class="social-tagline">Get updated by following on social media</p>
-      </div>
-    </div>
-    <!-- Footer Bottom Area -->
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        © 2025 Neet Study Hub. All rights reserved.
-      </div>
-      <div class="footer-pages">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Terms</a>
-        <a href="#">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-
   <script>
-               const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
-    const maxResults = 1;
-  
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+    const maxResults = 100;
 
     const blogContainer = document.getElementById('blog-container');
 
@@ -584,7 +229,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', fetchBloggerPosts);
-       </script>
-  <script src="script.js">script1.js</script>
+  </script>
 </body>
 </html>
