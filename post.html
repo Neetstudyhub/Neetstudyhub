@@ -370,12 +370,14 @@ body{
   }
 .flexy1{
   display: flex;
+  align-items: flex-start;
 }
   .container1 {
-    max-width: 26%;
+    max-width: 27%;
     padding: 15px;
     margin: auto;
-    margin-top: -190px;
+    position: sticky;       /* Makes sidebar stick within viewport while scrolling */
+  top: 20px;
     
     
   }
@@ -399,7 +401,9 @@ body{
 }
 
 .related-post-card {
-  align-items: center;
+  display: flex;
+flex-direction: column;
+align-items: center;""
   gap: 18px;
   background: white;
   padding: 15px;
