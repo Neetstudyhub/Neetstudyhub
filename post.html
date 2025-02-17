@@ -1,674 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEET Study Hub</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... | NEET Study Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{
-  
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif,
+:root {
+    --primary-color: #2d3436;
+    --accent-color: #0984e3;
+    --text-color: #2d3436;
+    --light-text: #636e72;
+    --background: #f9fafb;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
 }
-@media (max-width: 500px){
-  .container {
-    max-width: 90%;
-    padding: 15px;
-    
-    
-  }
-  .container2 {
-    margin: 11px;
-    margin-top: 0px;
-    max-width: 90%;
-    padding: 13px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    min-height: 500px;
-  }
-  .breadcrumbs {
-    font-size: 12px;
-    margin-bottom: 5px;
-    color: #555;
-    margin-top: 0px;
-  }
 
-  .breadcrumbs a {
-    text-decoration: none;
-    color: #007bff;
-  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-  .breadcrumbs a:hover {
-    text-decoration: none;
-    color: blue;
-  }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--background);
+}
 
-  .post-title {
-    font-size: 24px;
-    margin: 5px 0;
-    font-weight: 600;
-    color: #222;
-    text-align: left;
-  }
+/* Post container */
+.post-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
 
-  .post-meta {
-    font-size: 12px;
-    color: #666;
-    margin-left: 6px;
+/* Breadcrumb */
+.breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.breadcrumb ul {
+    list-style: none;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-
-  .post-meta img {
-    width: 25px;
-    height: 25px;
-    object-fit: contain;
-    border-radius: 50%;
-  }
-
- 
-  .post-content img {
-    min-width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin: 10px 0;
-  }
-
-  .post-content {
-    text-align: left;
-    font-size: 14.7px;
-    padding:5px;
-    line-height: 25.8px;
-  }
-
-  .container1 {
-    max-width: 95%;
-    padding: 10px;
-    margin: 20px auto;
-  }
-
-  .related-posts-heading {
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: -11px;
-    margin-left: 10px;
-    padding-bottom: 3px;
-    border-bottom: 3px solid #2E3135;
-    display: inline-block;
-  }
-
- .related-posts {
-    display: flex;
-    flex-wrap: wrap; /* Allows wrapping to the next row */
-    justify-content: space-between; /* Ensures even spacing between cards */
-    gap: 13px;
-    margin-top: 4px;
-    margin-left: 4px;
-    margin-right: 4px;
-    max-width: 100%; /* Allows it to fit within the viewport */
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.related-post-card {
-    flex: 1 1 calc(49% - 20px); /* Each card takes 50% width minus the gap */
-    max-width: calc(49% - 20px); /* Ensures they do not exceed half the row */
-    background: #f7f7f7;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 198px;
-    overflow: hidden;
-    text-align: center;
-}
-
-
-  .related-post-card img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 3px;
-  }
-
-  .related-post-card a {
-    text-decoration: none;
-    color: #333;
-    font-size: 12px;
-    font-weight: 500;
-    overflow: hidden;
-    object-fit: contain;
-    text-align: left;
-  }
-
-  .related-post-card a:hover {
-    color: #007bff;
-  }
-.related-post-card:hover{
-  transform: scale(1.03);
-}
-}
-@media (min-width:501px) and (max-width: 768px){
-  .container {
-   max-width: 90%;
-    padding: 15px;
-    
-    
-  }
-  .container2 {
-    margin: 11px;
-    margin-top: 0px;
-    max-width: 90%;
-    padding: 13px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    min-height: 500px;
-  }
-  .breadcrumbs {
-    font-size: 12px;
-    margin-bottom: 5px;
-    color: #555;
-    margin-top: 0px;
-  }
-
-  .breadcrumbs a {
-    text-decoration: none;
-    color: #007bff;
-  }
-
-  .breadcrumbs a:hover {
-    text-decoration: none;
-    color: blue;
-  }
-
-  .post-title {
-    font-size: 30px;
-    margin: 5px 0;
-    font-weight: 600;
-    color: #222;
-    text-align: left;
-  }
-
-  .post-meta {
-    font-size: 12px;
-    color: #666;
-    margin-left: 6px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-
-  .post-meta img {
-    width: 25px;
-    height: 25px;
-    object-fit: contain;
-    border-radius: 50%;
-  }
-
- 
-  .post-content img {
-    min-width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin: 10px 0;
-  }
-
-  .post-content {
-    text-align: left;
-    font-size: 14.7px;
-    padding:5px;
-    line-height: 25.8px;
-  }
-
-  .container1 {
-    max-width: 95%;
-    padding: 10px;
-    margin: 20px auto;
-  }
-
-  .related-posts-heading {
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: -11px;
-    margin-left: 10px;
-    padding-bottom: 3px;
-    border-bottom: 3px solid #2E3135;
-    display: inline-block;
-  }
-
- .related-posts {
-    display: flex;
-    flex-wrap: wrap; /* Allows wrapping to the next row */
-    justify-content: space-between; /* Ensures even spacing between cards */
-    gap: 13px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%; /* Allows it to fit within the viewport */
-}
-
-.related-post-card {
-    flex: 1 1 calc(49% - 20px); /* Each card takes 50% width minus the gap */
-    max-width: calc(49% - 20px); /* Ensures they do not exceed half the row */
-    background: #f7f7f7;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 208px;
-    overflow: hidden;
-    text-align: center;
-}
-
-
-  .related-post-card img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 3px;
-  }
-
-  .related-post-card a {
-    text-decoration: none;
-    color: #333;
-    font-size: 12px;
-    font-weight: 500;
-    overflow: hidden;
-    object-fit: contain;
-    text-align: left;
-  }
-
-  .related-post-card a:hover {
-    color: #007bff;
-  }
-.related-post-card:hover{
-  transform: scale(1.03);
-}
-}
-@media (min-width: 769px) {
-  .container {
-    max-width: 65%;
-    padding: 12px;
-    margin: 27px;
-    margin-bottom: -5%;
-  }
-
-.container2 {
-  max-width: 72%;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin:27px;
-  margin-top: 30px;
-}
-  .breadcrumbs {
-    font-size: 20px;
-    margin-bottom: 7px;
-    color: #555;
-    margin-top: -8px;
-  }
-
-  .breadcrumbs a {
-    text-decoration: none;
-    color: #007bff;
-  }
-
-  .breadcrumbs a:hover {
-    text-decoration: none;
-    color: red;
-  }
-
-  .post-title {
-    font-size: 30px;
-    margin: 5px;
-    margin-right: 50px;
-    font-weight: bold;
-    color: #222;
-    text-align: left;
-    max-width:100%;
-  }
-
-  .post-meta {
-    font-size: 19px;
-    color: #666;
-    margin-bottom: 15px;
+.breadcrumb li {
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .post-meta img {
-    width: 35px;
-    height: 35px;
-    object-fit: contain;
-    border-radius: 50%;
-  }
-
- 
-
-  .post-content img {
-    min-width: 70%;
-    max-width: 93%;
-    height: 20%;
-    border-radius: 8px;
-    margin: 20px 20px 20px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .post-content {
-    text-align: left;
-    font-size: 8px;
-    padding:5px;
-    line-height: 22.8px;
-  }
-.flexy1{
-  display: flex;
+    font-size: 0.9rem;
+    color: var(--light-text);
 }
-  .container1 {
-    max-width: 26%;
-    padding: 15px;
-    margin: auto;
-    margin-top: -190px;
-    position: sticky; 
-    
-    
-  }
 
-.related-posts-heading {
-  font-size: 20px;
+.breadcrumb li:not(:last-child)::after {
+    content: "/";
+    margin-left: 0.5rem;
+    color: #cbd5e0;
+}
+
+.breadcrumb a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-color);
+}
+
+/* Post Header */
+.post-header {
+    margin-bottom: 3rem;
+}
+
+.post-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-color);
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
     font-weight: 600;
-    margin-bottom: 13px;
-  margin-left: -20px; 
-    border-bottom: 3px solid #2E3135;
-    display: inline-block;
-  
+    color: var(--primary-color);
+}
+
+.post-date {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* Post Content */
+.post-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 2rem;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.post-content h2 {
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    color: var(--primary-color);
+}
+
+.post-content h3 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    color: var(--primary-color);
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content blockquote {
+    border-left: 4px solid var(--accent-color);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(9, 132, 227, 0.05);
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Related Posts */
+.sidebar-wrapper {
+    position: relative;
 }
 
 .related-posts {
-  display: flex;
-  flex-direction: column;
-  gap: 19px;
-  margin-top: 15px;
-  margin-left: -20px; /* Remove the negative margin */
+    background: transparent;
+    padding: 1rem 0;
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) transparent;
 }
 
-.related-post-card {
-  align-items: center;
-  gap: 18px;
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+.related-posts::-webkit-scrollbar {
+    width: 4px;
 }
 
-.related-post-card img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
+.related-posts::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.related-post-card a {
-  text-decoration: none;
-  color: #333;
-  text-align: left;
-  font-size: 17px;
-  font-weight: 600;
+.related-posts::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 2px;
 }
 
-.related-post-card a:hover {
-  color: #007bff;
+.related-posts h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
 }
 
+.related-posts-grid {
+    display: grid;
+    gap: 1.5rem;
 }
-  @media (min-width: 1020px){
-    .post-title {
-    font-size: 32px;
-    margin: 5px;
-    margin-right: 142px;
-    font-weight: bold;
-    color: #222;
-    text-align: left;
-    display: inline block;
-    max-width:100%;
+
+.related-post {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+}
+
+.related-post:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+.related-post img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.related-post h3 {
+    padding: 1rem 1rem 0.5rem;
+}
+
+.related-post p {
+    padding: 0 1rem 1rem;
+    color: var(--light-text);
+}
+
+/* Loading states */
+.loading {
+    padding: 2rem;
+    text-align: center;
+    color: var(--light-text);
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-message h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.error-message a {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: var(--transition);
+}
+
+.error-message a:hover {
+    background: var(--primary-color);
+}
+
+/* Desktop Layout */
+@media (min-width: 1070px) {
+    .post-container {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 3rem;
     }
-  }
+}
+
+/* Medium screens */
+@media (min-width: 769px) and (max-width: 1069px) {
+    .post-container {
+        display: grid;
+        grid-template-columns: 1fr 250px;
+        gap: 1.5rem;
+    }
+
+    .post-content {
+        padding: 2rem;
+    }
+
+    .related-post img {
+        height: 140px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .post-container {
+        display: block;
+        padding: 1rem;
+    }
+    
+    .post-title {
+        font-size: 2rem;
+    }
+    
+    .related-posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .related-posts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .related-post img {
+        height: 160px;
+    }
+}
+  
 </style>
 </head>
 <body>
-    <!-- Header with Navbar -->
-    <header>
-      <div class="logo">NEET Study Hub</div>
-      <div class="hamburger" id="hamburger">☰</div>
-      <nav class="nav-links">
-        <a href="#">Home</a>
-        <a href="privacy.html">About</a>
-        <a href="#">Subjects</a>
-        <a href="#">Mock Tests</a>
-        <a href="blog.html">Contact</a>
-      </nav>
-    </header>
-    
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <div class="sideflexy">
-        
-        
-        <div class="homesearch-bar">
-          Neet Study Hub
-        </div>
-        <button class="sidebar-close" id="closeSidebar">&times;</button>
-      </div>
-      <ul class="sidebar-menu">
-        
-        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="privacy.html"><i class="fas fa-info-circle"></i> About</a></li>
-        <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
-        <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
-        <li><a href="Test.html"><i class="fas fa-envelope"></i> Contact</a></li>
-      </ul>
-      <div class="sidebar-footer">
-        <div class="social-media">
-          <a href="#" title="Facebook">
-            <i class="fab fa-facebook-f"></i></a>
-          <a href="#" title="X" class="x-icon">X</a>
-          <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-        </div>
-        <div class="pages-links pages-row">
-          <a href="#">Privacy Policy</a>
-          <a href="#">About Us</a>
-          <a href="#">Contact Us</a>
-          <a href="#">Sitemap</a>
-          
-        </div>
-      </div>
-    </div>
-    <!-- Sidebar Toggle Tab -->
-    <div class="sidebar-tab" id="sidebarTab">
-      <i class="fas fa-bars"></i>
-    </div>
+    <main class="post-container">
+        <div class="main-content">
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/blog.html">All Posts</a></li>
+                    <li>Loading...</li>
+                </ul>
+            </nav>
 
+            <header class="post-header">
+                <h1 class="post-title">Loading...</h1>
+                <div class="post-meta">
+                    <div class="author">
+                        <img src="author-avatar.jpg" alt="NEET Study Hub" class="author-avatar">
+                        <div class="author-info">
+                            <span class="author-name">NEET Study Hub</span>
+                            <span class="post-date"><i class="far fa-calendar-alt"></i> Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
-  <!-- Main Content -->
-  <main class="container">
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs" id="breadcrumbs"></div>
-    <!-- Post Title -->
-    <h1 class="post-title" id="post-title"></h1>
-    <!-- Post Meta -->
-    <div class="post-meta" id="post-meta"></div>
-    
-          </main>
-        <div class="flexy1">
-    <main class="container2">
-    <!-- Post Content -->
-    <div class="post-content" id="post-content"></div>
-  </main>
-
-  <main class="container1">
-    <!-- Related Posts -->
-      <h2 class="related-posts-heading"><span1> You might like </span1> <span1 style="font-weight: 300;"> > </span1> </h2>
-    <div class="related-posts" id="related-posts"></div>
-  </main>
+            <article class="post">
+                <div class="post-content">
+                    <div class="loading">Loading post content...</div>
+                </div>
+            </article>
         </div>
-  <!-- Footer -->
-  <footer>
-    <div class="footer-container">
-      <!-- About Us Column (Left) -->
-      <div class="footer-section">
-        <h3>Neet Study Hub</h3>
-        <p>
-          Neet Study Hub is your trusted resource for exam preparation. We offer previous year questions (PYQ's), NCERT PDFs, informative blogs, and mock tests to help you succeed.
-        </p>
-      </div>
-      <!-- Quick Links Column (Center) -->
-      <div class="footer-section quick-link1">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-          <li><a href="#"><i class="fas fa-book-open"></i>PYQ's</a></li>
-          <li><a href="#"><i class="fas fa-file-pdf"></i>NCERT PDF</a></li>
-          <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
-          <li><a href="#"><i class="fas fa-chalkboard-teacher"></i>Mock Test</a></li>
-        </ul>
-      </div>
-      <!-- Follow Us Column (Right) -->
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-links">
-          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <!-- Tagline visible in desktop mode -->
-        <p class="social-tagline">Get updated by following on social media</p>
-      </div>
-    </div>
-    <!-- Footer Bottom Area -->
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        © 2025 Neet Study Hub. All rights reserved.
-      </div>
-      <div class="footer-pages">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Terms</a>
-        <a href="#">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
 
-  <!-- JavaScript -->
-  
-  <script>
-  const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev'; // Cloudflare Worker URL
+        <div class="sidebar-wrapper">
+            <section class="related-posts">
+                <h2><i class="fas fa-bookmark"></i> Related Posts</h2>
+                <div class="related-posts-grid">
+                    <div class="loading">Loading related posts...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev';
 
 // Get the postId from the URL
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('postId');
 
-const breadcrumbs = document.getElementById('breadcrumbs');
-const postTitle = document.getElementById('post-title');
-const postMeta = document.getElementById('post-meta');
-const postContent = document.getElementById('post-content');
-const relatedPostsContainer = document.getElementById('related-posts');
-
-// Fetch and display the post content
+// Function to fetch and display the post content
 async function fetchPost() {
-  try {
-    // Fetch post data via Cloudflare Worker
-    const response = await fetch(`${cloudflareProxy}?id=${postId}`);
-    const data = await response.json();
+    try {
+        // Show loading state
+        document.querySelector('.post-title').textContent = 'Loading...';
+        document.querySelector('.post-content').innerHTML = '<div class="loading">Loading post content...</div>';
 
-    // Populate the post content
-    postTitle.textContent = data.title;
-    postMeta.innerHTML = `By - NEET Study Hub | Time: ${new Date(
-      data.published
-    ).toLocaleDateString()}`;
-    postContent.innerHTML = data.content;
+        // Fetch post data via Cloudflare Worker
+        const response = await fetch(`${cloudflareProxy}?id=${postId}`);
+        const data = await response.json();
 
-    // Set breadcrumbs
-breadcrumbs.innerHTML = `<a href="index.html">Home</a> › <a href="blog.html">All Posts</a>`;
+        if (!data || !data.title) {
+            throw new Error('Post not found');
+        }
 
-    
-    // Fetch and display related posts
-    fetchRelatedPosts();
-  } catch (error) {
-    console.error('Error fetching the post:', error);
-    postContent.innerHTML = `<p>Error loading post. Please try again.</p>`;
-  }
-}
+        // Update document title
+        document.title = `${data.title} | NEET Study Hub`;
 
-// Fetch all posts and display 5 related posts excluding "ncert" and "pyq"
-async function fetchRelatedPosts() {
-  try {
-    // Fetch related posts data via Cloudflare Worker
-    const response = await fetch(`${cloudflareProxy}?maxResults=500`);
-    const data = await response.json();
-
-    if (data.items && data.items.length > 1) {
-      // Shuffle the posts randomly
-      const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
-
-      // Select 5 posts (excluding the current post and posts with labels "ncert" or "pyq")
-      const excludedLabels = ['ncert', 'pyq'];
-      const selectedPosts = shuffledPosts
-        .filter(
-          (post) =>
-            post.id !== postId && // Exclude the current post
-            (!post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))) // Exclude posts with specific labels
-        )
-        .slice(0, 5);
-
-      // Render the selected posts
-      const relatedPosts = selectedPosts.map((post) => {
-        const imageUrl =
-          post.images && post.images[0]
-            ? post.images[0].url
-            : extractImageFromContent(post.content);
-
-        return `
-          <div class="related-post-card">
-            <img src="${imageUrl}" alt="${post.title}">
-            <div class="related-card-content">
-              <a href="post.html?postId=${post.id}" target="_self">
-                <h3>${post.title}</h3>
-              </a>
-            </div>
-          </div>
+        // Update breadcrumbs
+        document.querySelector('.breadcrumb ul').innerHTML = `
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/blog.html">All Posts</a></li>
+            <li>${data.title}</li>
         `;
-      });
 
-      relatedPostsContainer.innerHTML = relatedPosts.join('');
-    } else {
-      relatedPostsContainer.innerHTML = '<p>No related posts found.</p>';
+        // Update post header
+        document.querySelector('.post-title').textContent = data.title;
+        document.querySelector('.post-date').innerHTML = `
+            <i class="far fa-calendar-alt"></i> ${new Date(data.published).toLocaleDateString()}
+        `;
+        document.querySelector('.author-name').textContent = 'NEET Study Hub';
+
+        // Update post content
+        document.querySelector('.post-content').innerHTML = data.content;
+
+        // Fetch and display related posts
+        fetchRelatedPosts();
+    } catch (error) {
+        console.error('Error fetching the post:', error);
+        document.querySelector('.post-content').innerHTML = `
+            <div class="error-message">
+                <h2>Error Loading Post</h2>
+                <p>Sorry, the requested post could not be loaded. Please try again later.</p>
+                <a href="/blog.html">Return to Blog</a>
+            </div>
+        `;
     }
-  } catch (error) {
-    console.error('Error fetching related posts:', error);
-    relatedPostsContainer.innerHTML = '<p>Error loading related posts.</p>';
-  }
 }
 
-// Extract the first image from content
+// Function to fetch and display related posts
+async function fetchRelatedPosts() {
+    try {
+        const response = await fetch(`${cloudflareProxy}?maxResults=500`);
+        const data = await response.json();
+
+        if (data.items && data.items.length > 1) {
+            // Shuffle the posts randomly
+            const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
+
+            // Select 5 posts (excluding current post and posts with labels "ncert" or "pyq")
+            const excludedLabels = ['ncert', 'pyq'];
+            const selectedPosts = shuffledPosts
+                .filter(post => 
+                    post.id !== postId && 
+                    (!post.labels || !post.labels.some(label => 
+                        excludedLabels.includes(label.toLowerCase())
+                    ))
+                )
+                .slice(0, 5);
+
+            // Render related posts
+            const relatedPostsGrid = document.querySelector('.related-posts-grid');
+            relatedPostsGrid.innerHTML = selectedPosts.map(post => {
+                const imageUrl = extractImageFromContent(post.content);
+                return `
+                    <article class="related-post">
+                        <img src="${imageUrl}" alt="${post.title}">
+                        <h3><a href="post.html?postId=${post.id}">${post.title}</a></h3>
+                        <p><i class="far fa-clock"></i> ${getReadingTime(post.content)} min read</p>
+                    </article>
+                `;
+            }).join('');
+        } else {
+            document.querySelector('.related-posts-grid').innerHTML = '<p>No related posts found.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching related posts:', error);
+        document.querySelector('.related-posts-grid').innerHTML = '<p>Error loading related posts.</p>';
+    }
+}
+
+// Helper function to extract first image from content
 function extractImageFromContent(content) {
-  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+    const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+    return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
 }
 
-// Initialize
+// Helper function to calculate reading time
+function getReadingTime(content) {
+    const wordsPerMinute = 200;
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    const text = tempDiv.textContent || tempDiv.innerText;
+    const wordCount = text.trim().split(/\s+/).length;
+    return Math.ceil(wordCount / wordsPerMinute);
+}
+
+// Initialize when document is ready
 document.addEventListener('DOMContentLoaded', fetchPost);
-
-
-        
-  </script>
-  <script src="script.js">script.js</script>
+      
+    </script>
 </body>
 </html>
