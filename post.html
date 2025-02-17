@@ -7,9 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-      
-      :root {
+<style>
+  :root {
     --primary-color: #2d3436;
     --accent-color: #0984e3;
     --text-color: #2d3436;
@@ -550,8 +549,252 @@ html {
     .related-post-card a {
         font-size: 0.8rem;
     }
+}/* Update all selectors with mypost prefix */
+.mypost-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
 }
-    </style>
+
+.mypost-breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.mypost-breadcrumb ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Continue updating all other selectors similarly */
+.mypost-title {
+    font-size: var(--h1-size);
+}
+
+.mypost-content h2, .mypost-related-posts h2 {
+    font-size: var(--h2-size);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 13px;
+        margin: 4px;
+        max-width: 100%;
+        position: static;
+        padding: 0;
+    }
+
+    .mypost-related-post-card {
+        flex: 1 1 calc(49% - 20px);
+        max-width: calc(49% - 20px);
+        /* ... rest of the styles ... */
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        /* ... rest of the styles ... */
+    }
+
+    .mypost-related-post-card {
+        align-items: center;
+        background: white;
+        /* ... rest of the styles ... */
+    }
+}/* Update all selectors with mypost prefix */
+.mypost-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.mypost-breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.mypost-breadcrumb ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Continue updating all other selectors similarly */
+.mypost-title {
+    font-size: var(--h1-size);
+}
+
+.mypost-content h2, .mypost-related-posts h2 {
+    font-size: var(--h2-size);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 13px;
+        margin: 4px;
+        max-width: 100%;
+        position: static;
+        padding: 0;
+    }
+
+    .mypost-related-post-card {
+        flex: 1 1 calc(49% - 20px);
+        max-width: calc(49% - 20px);
+        /* ... rest of the styles ... */
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        /* ... rest of the styles ... */
+    }
+
+    .mypost-related-post-card {
+        align-items: center;
+        background: white;
+        /* ... rest of the styles ... */
+    }
+}/* Update all selectors with mypost prefix */
+.mypost-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.mypost-breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.mypost-breadcrumb ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Continue updating all other selectors similarly */
+.mypost-title {
+    font-size: var(--h1-size);
+}
+
+.mypost-content h2, .mypost-related-posts h2 {
+    font-size: var(--h2-size);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 13px;
+        margin: 4px;
+        max-width: 100%;
+        position: static;
+        padding: 0;
+    }
+
+    .mypost-related-post-card {
+        flex: 1 1 calc(49% - 20px);
+        max-width: calc(49% - 20px);
+        /* ... rest of the styles ... */
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        /* ... rest of the styles ... */
+    }
+
+    .mypost-related-post-card {
+        align-items: center;
+        background: white;
+        /* ... rest of the styles ... */
+    }
+}/* Update all selectors with mypost prefix */
+.mypost-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.mypost-breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.mypost-breadcrumb ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Continue updating all other selectors similarly */
+.mypost-title {
+    font-size: var(--h1-size);
+}
+
+.mypost-content h2, .mypost-related-posts h2 {
+    font-size: var(--h2-size);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 13px;
+        margin: 4px;
+        max-width: 100%;
+        position: static;
+        padding: 0;
+    }
+
+    .mypost-related-post-card {
+        flex: 1 1 calc(49% - 20px);
+        max-width: calc(49% - 20px);
+        /* ... rest of the styles ... */
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .mypost-related-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        /* ... rest of the styles ... */
+    }
+
+    .mypost-related-post-card {
+        align-items: center;
+        background: white;
+        /* ... rest of the styles ... */
+    }
+}
+</style>
 </head>
 <body>
       <!-- Header with Navbar -->
@@ -605,9 +848,6 @@ html {
     <div class="sidebar-tab" id="sidebarTab">
       <i class="fas fa-bars"></i>
     </div>
-    
-    
-    <!-- Main Content -->
     <main class="post-container">
         <div class="main-content">
             <nav class="breadcrumb">
@@ -647,8 +887,8 @@ html {
             </section>
         </div>
     </main>
-    
-      <footer>
+      <!-- Footer -->
+  <footer>
     <div class="footer-container">
       <!-- About Us Column (Left) -->
       <div class="footer-section">
@@ -694,8 +934,61 @@ html {
       </div>
     </div>
   </footer>
+  
+  <!-- JavaScript -->
+    <script src="post.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... | NEET Study Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="mypost-body">
+    <main class="mypost-container">
+        <div class="mypost-main-content">
+            <nav class="mypost-breadcrumb">
+                <ul>
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/blog.html">All Posts</a></li>
+                    <li>Loading...</li>
+                </ul>
+            </nav>
+
+            <header class="mypost-header">
+                <h1 class="mypost-title">Loading...</h1>
+                <div class="mypost-meta">
+                    <div class="mypost-author">
+                        <img src="author-avatar.jpg" alt="NEET Study Hub" class="mypost-author-avatar">
+                        <div class="mypost-author-info">
+                            <span class="mypost-author-name">NEET Study Hub</span>
+                            <span class="mypost-date"><i class="far fa-calendar-alt"></i> Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <article class="mypost-article">
+                <div class="mypost-content">
+                    <div class="mypost-loading">Loading post content...</div>
+                </div>
+            </article>
+        </div>
+
+        <div class="mypost-sidebar-wrapper">
+            <section class="mypost-related-posts">
+                <h2><i class="fas fa-bookmark"></i> Related Posts</h2>
+                <div class="mypost-related-posts-grid">
+                    <div class="mypost-loading">Loading related posts...</div>
+                </div>
+            </section>
+        </div>
+    </main>
     <script>
-      
       const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev';
 
 // Get the postId from the URL
@@ -815,6 +1108,53 @@ relatedPostsGrid.innerHTML = selectedPosts.map(post => {
   const imageUrl = extractImageFromContent(post.content);
   return `
         <div class="related-post-card">
+            <img src="${imageUrl}" alt="${post.title}">
+            <a href="post.html?postId=${post.id}">${post.title}</a>
+        </div>
+    `;
+}) // Update the selectors in the fetchPost function
+document.querySelector('.mypost-title').textContent = 'Loading...';
+document.querySelector('.mypost-content').innerHTML = '<div class="mypost-loading">Loading post content...</div>';
+
+// Update the breadcrumb selector
+document.querySelector('.mypost-breadcrumb ul').innerHTML = `...`;
+
+// Update other selectors
+document.querySelector('.mypost-title').textContent = data.title;
+document.querySelector('.mypost-date').innerHTML = `...`;
+document.querySelector('.mypost-author-name').textContent = 'NEET Study Hub';
+document.querySelector('.mypost-content').innerHTML = data.content;
+
+// Update the related posts grid selector
+const relatedPostsGrid = document.querySelector('.mypost-related-posts-grid');
+relatedPostsGrid.innerHTML = selectedPosts.map(post => {
+  const imageUrl = extractImageFromContent(post.content);
+  return `
+        <div class="mypost-related-post-card">
+            <img src="${imageUrl}" alt="${post.title}">
+            <a href="post.html?postId=${post.id}">${post.title}</a>
+        </div>
+    `;
+}).join('');
+// Update the selectors in the fetchPost function
+document.querySelector('.mypost-title').textContent = 'Loading...';
+document.querySelector('.mypost-content').innerHTML = '<div class="mypost-loading">Loading post content...</div>';
+
+// Update the breadcrumb selector
+document.querySelector('.mypost-breadcrumb ul').innerHTML = `...`;
+
+// Update other selectors
+document.querySelector('.mypost-title').textContent = data.title;
+document.querySelector('.mypost-date').innerHTML = `...`;
+document.querySelector('.mypost-author-name').textContent = 'NEET Study Hub';
+document.querySelector('.mypost-content').innerHTML = data.content;
+
+// Update the related posts grid selector
+const relatedPostsGrid = document.querySelector('.mypost-related-posts-grid');
+relatedPostsGrid.innerHTML = selectedPosts.map(post => {
+  const imageUrl = extractImageFromContent(post.content);
+  return `
+        <div class="mypost-related-post-card">
             <img src="${imageUrl}" alt="${post.title}">
             <a href="post.html?postId=${post.id}">${post.title}</a>
         </div>
