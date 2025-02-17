@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading... | NEET Study Hub</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
+    <style>
+      
+      :root {
     --primary-color: #2d3436;
     --accent-color: #0984e3;
     --text-color: #2d3436;
@@ -172,7 +173,7 @@ body {
     padding: 1rem 0;
     position: sticky;
     top: 2rem;
-    
+    max-height: calc(100vh - 4rem);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--accent-color) transparent;
@@ -330,9 +331,227 @@ body {
     .related-post img {
         height: 160px;
     }
+}/* Update the post container max-width and padding */
+.post-container {
+    max-width: 1400px; /* Increased from 1200px to use more screen space */
+    margin: 0 auto;
+    padding: 1rem; /* Reduced from 2rem to minimize side space */
 }
-  
-</style>
+
+/* Desktop Layout - adjust columns and gap */
+@media (min-width: 1070px) {
+    .post-container {
+        display: grid;
+        grid-template-columns: 1fr 300px; /* Reduced sidebar from 350px to 300px */
+        gap: 2rem; /* Reduced from 3rem for tighter layout */
+    }
+
+    /* Adjust content padding */
+    .post-content {
+        padding: 2rem; /* Reduced from 3rem */
+    }
+
+    /* Adjust sidebar position */
+    .related-posts {
+        padding: 0.5rem 0; /* Reduced from 1rem */
+        top: 1rem; /* Reduced from 2rem */
+        max-height: calc(100vh - 2rem); /* Adjusted for new top value */
+    }
+}
+
+/* Add smooth scrolling for better UX */
+html {
+    scroll-behavior: smooth;
+}/* Mobile styles for related posts */
+@media (max-width: 768px) {
+    .related-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 13px;
+        margin-top: 4px;
+        margin-left: 4px;
+        margin-right: 4px;
+        max-width: 100%;
+        position: static; /* Override the sticky positioning for mobile */
+        padding: 0;
+    }
+
+    .related-post-card {
+        flex: 1 1 calc(49% - 20px);
+        max-width: calc(49% - 20px);
+        background: #f7f7f7;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        height: 198px;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .related-post-card img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 3px;
+    }
+
+    .related-post-card a {
+        text-decoration: none;
+        color: #333;
+        font-size: 12px;
+        font-weight: 500;
+        overflow: hidden;
+        object-fit: contain;
+        text-align: left;
+    }
+
+    .related-post-card a:hover {
+        color: #007bff;
+    }
+
+    .related-post-card:hover {
+        transform: scale(1.03);
+    }
+}
+
+/* Desktop styles for related posts */
+@media (min-width: 769px) {
+    .related-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 0.5rem 0;
+        position: sticky;
+        top: 1rem;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+
+    .related-post-card {
+        align-items: center;
+        background: white;
+        padding: 13px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .related-post-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+    }
+
+    .related-post-card a {
+        text-decoration: none;
+        color: #333;
+        text-align: left;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .related-post-card a:hover {
+        color: #007bff;
+    }
+}/* Base font sizes for mobile first */
+:root {
+    --h1-size: 1.8rem;    /* post title */
+    --h2-size: 1.4rem;    /* section headings */
+    --h3-size: 1.2rem;    /* related post titles */
+    --body-size: 1rem;    /* regular text */
+    --small-size: 0.875rem; /* meta text */
+}
+
+/* Post title */
+.post-title {
+    font-size: var(--h1-size);
+}
+
+/* Section headings */
+.post-content h2, .related-posts h2 {
+    font-size: var(--h2-size);
+}
+
+.post-content h3 {
+    font-size: var(--h3-size);
+}
+
+/* Meta information */
+.post-date, .author-name {
+    font-size: var(--small-size);
+}
+
+/* Related posts cards */
+.related-post-card a {
+    font-size: var(--body-size);
+}
+
+/* Tablet sizes (768px and up) */
+@media (min-width: 768px) {
+    :root {
+        --h1-size: 2.2rem;
+        --h2-size: 1.6rem;
+        --h3-size: 1.3rem;
+        --body-size: 1.1rem;
+        --small-size: 0.9rem;
+    }
+}
+
+/* Desktop sizes (1070px and up) */
+@media (min-width: 1070px) {
+    :root {
+        --h1-size: 2.5rem;
+        --h2-size: 1.8rem;
+        --h3-size: 1.4rem;
+        --body-size: 1.125rem;
+        --small-size: 0.95rem;
+    }
+    
+    .related-post-card a {
+        font-size: 1.1rem;
+    }
+}
+
+/* Large desktop sizes (1400px and up) */
+@media (min-width: 1400px) {
+    :root {
+        --h1-size: 2.8rem;
+        --h2-size: 2rem;
+        --h3-size: 1.5rem;
+        --body-size: 1.2rem;
+        --small-size: 1rem;
+    }
+}
+
+/* Specific adjustments for mobile related posts */
+@media (max-width: 768px) {
+    .related-post-card a {
+        font-size: 0.875rem; /* Smaller font for mobile cards */
+    }
+    
+    .related-posts h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    :root {
+        --h1-size: 1.6rem;
+        --h2-size: 1.3rem;
+        --h3-size: 1.1rem;
+        --body-size: 0.95rem;
+        --small-size: 0.8rem;
+    }
+    
+    .related-post-card a {
+        font-size: 0.8rem;
+    }
+}
+    </style>
 </head>
 <body>
     <main class="post-container">
@@ -375,7 +594,8 @@ body {
         </div>
     </main>
     <script>
-const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev';
+      
+      const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev';
 
 // Get the postId from the URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -383,114 +603,122 @@ const postId = urlParams.get('postId');
 
 // Function to fetch and display the post content
 async function fetchPost() {
-    try {
-        // Show loading state
-        document.querySelector('.post-title').textContent = 'Loading...';
-        document.querySelector('.post-content').innerHTML = '<div class="loading">Loading post content...</div>';
-
-        // Fetch post data via Cloudflare Worker
-        const response = await fetch(`${cloudflareProxy}?id=${postId}`);
-        const data = await response.json();
-
-        if (!data || !data.title) {
-            throw new Error('Post not found');
-        }
-
-        // Update document title
-        document.title = `${data.title} | NEET Study Hub`;
-
-        // Update breadcrumbs
-        document.querySelector('.breadcrumb ul').innerHTML = `
+  try {
+    // Show loading state
+    document.querySelector('.post-title').textContent = 'Loading...';
+    document.querySelector('.post-content').innerHTML = '<div class="loading">Loading post content...</div>';
+    
+    // Fetch post data via Cloudflare Worker
+    const response = await fetch(`${cloudflareProxy}?id=${postId}`);
+    const data = await response.json();
+    
+    if (!data || !data.title) {
+      throw new Error('Post not found');
+    }
+    
+    // Update document title
+    document.title = `${data.title} | NEET Study Hub`;
+    
+    // Update breadcrumbs
+    document.querySelector('.breadcrumb ul').innerHTML = `
             <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="/blog.html">All Posts</a></li>
             <li>${data.title}</li>
         `;
-
-        // Update post header
-        document.querySelector('.post-title').textContent = data.title;
-        document.querySelector('.post-date').innerHTML = `
+    
+    // Update post header
+    document.querySelector('.post-title').textContent = data.title;
+    document.querySelector('.post-date').innerHTML = `
             <i class="far fa-calendar-alt"></i> ${new Date(data.published).toLocaleDateString()}
         `;
-        document.querySelector('.author-name').textContent = 'NEET Study Hub';
-
-        // Update post content
-        document.querySelector('.post-content').innerHTML = data.content;
-
-        // Fetch and display related posts
-        fetchRelatedPosts();
-    } catch (error) {
-        console.error('Error fetching the post:', error);
-        document.querySelector('.post-content').innerHTML = `
+    document.querySelector('.author-name').textContent = 'NEET Study Hub';
+    
+    // Update post content
+    document.querySelector('.post-content').innerHTML = data.content;
+    
+    // Fetch and display related posts
+    fetchRelatedPosts();
+  } catch (error) {
+    console.error('Error fetching the post:', error);
+    document.querySelector('.post-content').innerHTML = `
             <div class="error-message">
                 <h2>Error Loading Post</h2>
                 <p>Sorry, the requested post could not be loaded. Please try again later.</p>
                 <a href="/blog.html">Return to Blog</a>
             </div>
         `;
-    }
+  }
 }
 
 // Function to fetch and display related posts
 async function fetchRelatedPosts() {
-    try {
-        const response = await fetch(`${cloudflareProxy}?maxResults=500`);
-        const data = await response.json();
-
-        if (data.items && data.items.length > 1) {
-            // Shuffle the posts randomly
-            const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
-
-            // Select 5 posts (excluding current post and posts with labels "ncert" or "pyq")
-            const excludedLabels = ['ncert', 'pyq'];
-            const selectedPosts = shuffledPosts
-                .filter(post => 
-                    post.id !== postId && 
-                    (!post.labels || !post.labels.some(label => 
-                        excludedLabels.includes(label.toLowerCase())
-                    ))
-                )
-                .slice(0, 5);
-
-            // Render related posts
-            const relatedPostsGrid = document.querySelector('.related-posts-grid');
-            relatedPostsGrid.innerHTML = selectedPosts.map(post => {
-                const imageUrl = extractImageFromContent(post.content);
-                return `
+  try {
+    const response = await fetch(`${cloudflareProxy}?maxResults=500`);
+    const data = await response.json();
+    
+    if (data.items && data.items.length > 1) {
+      // Shuffle the posts randomly
+      const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
+      
+      // Select 5 posts (excluding current post and posts with labels "ncert" or "pyq")
+      const excludedLabels = ['ncert', 'pyq'];
+      const selectedPosts = shuffledPosts
+        .filter(post =>
+          post.id !== postId &&
+          (!post.labels || !post.labels.some(label =>
+            excludedLabels.includes(label.toLowerCase())
+          ))
+        )
+        .slice(0, 5);
+      
+      // Render related posts
+      const relatedPostsGrid = document.querySelector('.related-posts-grid');
+      relatedPostsGrid.innerHTML = selectedPosts.map(post => {
+        const imageUrl = extractImageFromContent(post.content);
+        return `
                     <article class="related-post">
                         <img src="${imageUrl}" alt="${post.title}">
                         <h3><a href="post.html?postId=${post.id}">${post.title}</a></h3>
                         <p><i class="far fa-clock"></i> ${getReadingTime(post.content)} min read</p>
                     </article>
                 `;
-            }).join('');
-        } else {
-            document.querySelector('.related-posts-grid').innerHTML = '<p>No related posts found.</p>';
-        }
-    } catch (error) {
-        console.error('Error fetching related posts:', error);
-        document.querySelector('.related-posts-grid').innerHTML = '<p>Error loading related posts.</p>';
+      }).join('');
+    } else {
+      document.querySelector('.related-posts-grid').innerHTML = '<p>No related posts found.</p>';
     }
+  } catch (error) {
+    console.error('Error fetching related posts:', error);
+    document.querySelector('.related-posts-grid').innerHTML = '<p>Error loading related posts.</p>';
+  }
 }
 
 // Helper function to extract first image from content
 function extractImageFromContent(content) {
-    const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-    return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
 }
 
 // Helper function to calculate reading time
 function getReadingTime(content) {
-    const wordsPerMinute = 200;
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-    const text = tempDiv.textContent || tempDiv.innerText;
-    const wordCount = text.trim().split(/\s+/).length;
-    return Math.ceil(wordCount / wordsPerMinute);
+  const wordsPerMinute = 200;
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = content;
+  const text = tempDiv.textContent || tempDiv.innerText;
+  const wordCount = text.trim().split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
 }
 
 // Initialize when document is ready
-document.addEventListener('DOMContentLoaded', fetchPost);
-      
+document.addEventListener('DOMContentLoaded', fetchPost); // In the fetchRelatedPosts function, update the HTML template:
+relatedPostsGrid.innerHTML = selectedPosts.map(post => {
+  const imageUrl = extractImageFromContent(post.content);
+  return `
+        <div class="related-post-card">
+            <img src="${imageUrl}" alt="${post.title}">
+            <a href="post.html?postId=${post.id}">${post.title}</a>
+        </div>
+    `;
+}).join('');
     </script>
 </body>
 </html>
