@@ -26,5 +26,16 @@
 
 
 
-// latest post blogger 
+// hide .html
+
+  // Check if the current URL ends with '.html'
+  if (window.location.pathname.endsWith('.html')) {
+    // Remove the '.html' extension from the pathname
+    var newPath = window.location.pathname.replace(/\.html$/, '');
+    // Create the new URL while preserving any query strings or hash
+    var newUrl = newPath + window.location.search + window.location.hash;
+    // Replace the current history entry with the new URL without reloading the page
+    history.replaceState(null, '', newUrl);
+  }
+
 
