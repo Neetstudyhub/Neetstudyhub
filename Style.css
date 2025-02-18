@@ -36,7 +36,7 @@
      font-size: 19px;
    }
   .related-post-card {
-    flex: 1 calc(100% - 20px); /* Each card takes 50% width minus the gap */
+    flex: 1 calc(50% - 20px); /* Each card takes 50% width minus the gap */
     max-width: calc(100% - 20px); /* Ensures they do not exceed half the row */
     background: #f7f7f7;
     padding: 15px;
