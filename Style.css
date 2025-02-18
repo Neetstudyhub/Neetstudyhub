@@ -1,140 +1,110 @@
 @media (min-width: 1061px) and (max-width: 1600px) {
-  /* Overall container as flex to allow two columns */
   .container {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 90%;
-    margin: 27px auto;
+    width: 65%; /* Adjusted width for the main content */
     padding: 12px;
-    box-sizing: border-box;
+    margin: 27px auto; /* Center aligned */
+    margin-bottom: 0;
   }
-  
-  /* Left Sidebar: Related Posts (Container 1) */
-  .container1 {
-    flex: 1;
-    margin-right: 20px;
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    overflow-y: auto;
-    max-height: calc(100vh - 54px); /* Adjust based on top/bottom margins */
-  }
-  
-  /* Right Content: Post Content (Container 2) */
+
   .container2 {
-    flex: 1;
+    min-width: 550px;
     padding: 20px;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    margin: 30px auto;
   }
-  
-  /* Ensure both columns stretch to the same height */
-  .container {
-    align-items: stretch;
-  }
-  
-  /* Breadcrumbs */
+
   .breadcrumbs {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 18px; /* Adjusted for responsive design */
+    margin-bottom: 7px;
     color: #555;
+    margin-top: -8px;
   }
-  
-  .breadcrumbs a {
-    text-decoration: none;
-    color: #007bff;
-  }
-  
-  .breadcrumbs a:hover {
-    color: red;
-  }
-  
-  /* Post Title */
+
   .post-title {
-    font-size: 28px;
-    margin: 10px 0;
+    font-size: 28px; /* Reduced size for responsiveness */
+    margin: 5px;
     font-weight: bold;
     color: #222;
     text-align: left;
+    max-width: 100%;
   }
-  
-  /* Post Meta */
+
   .post-meta {
-    font-size: 16px;
+    font-size: 16px; /* Reduced size for responsiveness */
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    margin-left: 5px;
   }
-  
-  .post-meta img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  /* Post Content */
+
   .post-content {
     text-align: left;
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: 14px; /* Larger font for readability */
+    padding: 5px;
+    line-height: 24px;
   }
-  
+
   .post-content img {
-    width: 90%;
+    min-width: 70%;
+    max-width: 90%;
     height: auto;
     border-radius: 8px;
-    margin: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Related Posts Sidebar */
-  .related-posts-heading {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-  
+
   .related-posts {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    position: fixed; /* Fixed position for sidebar */
+    top: 120px; /* Adjust based on your header size */
+    right: 20px; /* Aligns with content margin */
+    width: 30%; /* Sidebar width */
+    max-height: calc(100vh - 150px); /* Adjust for viewport */
+    overflow-y: auto; /* Scrollable content */
+    background: #f9f9f9;
+    padding: 15px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
   }
-  
+
+  .related-posts-heading {
+    font-size: 16px; /* Adjusted font size */
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
   .related-post-card {
-    background: #f7f7f7;
+    flex: 1 1 100%; /* Sidebar cards are stacked */
+    max-width: 100%;
+    background: #fff;
     padding: 10px;
+    margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s;
+    text-align: left;
+    transition: transform 0.2s ease;
   }
-  
+
   .related-post-card img {
     width: 100%;
-    height: 150px;
+    height: 120px;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    border-radius: 3px;
+    margin-bottom: 8px;
   }
-  
+
   .related-post-card a {
     text-decoration: none;
     color: #333;
     font-size: 14px;
     font-weight: 500;
-    display: block;
-    text-align: center;
   }
-  
-  .related-post-card a:hover {
-    color: #007bff;
-  }
-  
+
   .related-post-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 }
