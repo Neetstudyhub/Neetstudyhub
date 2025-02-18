@@ -36,7 +36,14 @@
      font-size: 19px;
    }
   .related-post-card {
-    
-    max-width: calc(100% - 20px);
-  }
+    flex: 1 calc(100% - 20px); /* Each card takes 50% width minus the gap */
+    max-width: calc(100% - 20px); /* Ensures they do not exceed half the row */
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 228px;
+    overflow: hidden;
+    text-align: center;
+}
 }
