@@ -1,4 +1,4 @@
-@media (min-width: 1061px) and (max-width: 1400px) {
+@media (min-width: 1061px) and (max-width: 1600px) {
   /* Overall container as flex to allow two columns */
   .container {
     display: flex;
