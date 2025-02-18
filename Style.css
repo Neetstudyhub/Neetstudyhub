@@ -2,7 +2,7 @@
   .flexy1 {
     display: flex;
     flex-direction: row;
-    gap: 12px; /* Adjust gap as needed */
+    gap: 20px; /* Adjust gap as needed */
   }
 
   .container {
@@ -11,7 +11,7 @@
 
   .container1 {
     flex: 1; /* Sidebar takes less space */
-    min-width: 270px; /* Optional: Limit the width of the sidebar */
+    max-width: 300px; /* Optional: Limit the width of the sidebar */
   }
 
   .container1 .related-posts-heading {
@@ -32,18 +32,4 @@
   .container2 {
     flex: 3; /* Ensures other main content areas retain proportions */
   }
-   .post-content {
-     font-size: 19px;
-   }
-  .related-post-card {
-    flex: 1 calc(50% - 20px); /* Each card takes 50% width minus the gap */
-    max-width: calc(100% - 20px); /* Ensures they do not exceed half the row */
-    background: #f7f7f7;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 228px;
-    overflow: hidden;
-    text-align: center;
-}
 }
