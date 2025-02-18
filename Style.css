@@ -2,7 +2,7 @@
   .flexy1 {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Adjust gap as needed */
+    gap: 12px; /* Adjust gap as needed */
   }
 
   .container {
