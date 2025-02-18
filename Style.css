@@ -35,4 +35,8 @@
    .post-content {
      font-size: 19px;
    }
+  .related-post-card {
+    
+    max-width: calc(100% - 20px);
+  }
 }
