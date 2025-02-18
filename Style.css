@@ -11,7 +11,7 @@
 
   .container1 {
     flex: 1; /* Sidebar takes less space */
-    max-width: 300px; /* Optional: Limit the width of the sidebar */
+    min-width: 500px; /* Optional: Limit the width of the sidebar */
   }
 
   .container1 .related-posts-heading {
@@ -32,4 +32,7 @@
   .container2 {
     flex: 3; /* Ensures other main content areas retain proportions */
   }
+   .post-content {
+     font-size: 19px;
+   }
 }
