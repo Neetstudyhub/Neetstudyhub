@@ -32,26 +32,39 @@
   function slugify(text) {
     return text.toString().toLowerCase().trim()
       .replace(/\s+/g, '-')       // Replace spaces with -
-      .replace(/[^\w\-]+/g, '')   // Remove all non-word chars
+      .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
       .replace(/\-\-+/g, '-');     // Replace multiple - with single -
   }
 
   (function() {
-    var path = window.location.pathname;
-    
+    // Create a URL object from the current location
+    var currentUrl = new URL(window.location.href);
+
+    // Remove the "postId" query parameter if present
+    currentUrl.searchParams.delete('postId');
+
+    // Get the updated query string and hash
+    var updatedQuery = currentUrl.search;
+    var currentHash = currentUrl.hash;
+
+    // Get the pathname from the updated URL object
+    var path = currentUrl.pathname;
+
     // Check if the URL ends with "post.html"
     if (path.endsWith('post.html')) {
-      // Use the document title as the new URL path (slugified)
-      var newSlug = slugify(document.title);
-      var newUrl = '/' + newSlug + window.location.search + window.location.hash;
-      history.replaceState(null, '', newUrl);
+      // Use the content from the element with id "post-title"
+      var postTitleElement = document.getElementById('post-title');
+      if (postTitleElement && postTitleElement.textContent) {
+        var newSlug = slugify(postTitleElement.textContent);
+        var newUrl = '/' + newSlug + updatedQuery + currentHash;
+        history.replaceState(null, '', newUrl);
+      }
     }
     // For any other .html pages, remove the .html extension
     else if (path.endsWith('.html')) {
       var newPath = path.replace(/\.html$/, '');
-      var newUrl = newPath + window.location.search + window.location.hash;
+      var newUrl = newPath + updatedQuery + currentHash;
       history.replaceState(null, '', newUrl);
     }
   })();
-
 
