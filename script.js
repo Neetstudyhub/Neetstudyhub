@@ -28,43 +28,32 @@
 
 // hide .html
 
-  // Utility function to convert text into a URL-friendly slug
-  function slugify(text) {
-    return text.toString().toLowerCase().trim()
-      .replace(/\s+/g, '-')       // Replace spaces with -
-      .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
-      .replace(/\-\-+/g, '-');     // Replace multiple - with single -
-  }
-
   (function() {
-    // Create a URL object from the current location
-    var currentUrl = new URL(window.location.href);
-
-    // Remove the "postId" query parameter if present
-    currentUrl.searchParams.delete('postId');
-
-    // Get the updated query string and hash
-    var updatedQuery = currentUrl.search;
-    var currentHash = currentUrl.hash;
-
-    // Get the pathname from the updated URL object
-    var path = currentUrl.pathname;
-
-    // Check if the URL ends with "post.html"
-    if (path.endsWith('post.html')) {
-      // Use the content from the element with id "post-title"
-      var postTitleElement = document.getElementById('post-title');
-      if (postTitleElement && postTitleElement.textContent) {
-        var newSlug = slugify(postTitleElement.textContent);
-        var newUrl = '/' + newSlug + updatedQuery + currentHash;
-        history.replaceState(null, '', newUrl);
+    var currentPath = window.location.pathname;
+    var searchParams = new URLSearchParams(window.location.search);
+    
+    // If we're on post.html and there is a postid parameter
+    if (currentPath.endsWith("post.html")) {
+      var postId = searchParams.get("postid");
+      if (postId) {
+        // Update the post title element (if present) with text based on the postid
+        var postTitleEl = document.getElementById("post-title");
+        if (postTitleEl) {
+          postTitleEl.textContent = "Post " + postId;
+        }
+        // Remove the postid parameter
+        searchParams.delete("postid");
       }
-    }
-    // For any other .html pages, remove the .html extension
-    else if (path.endsWith('.html')) {
-      var newPath = path.replace(/\.html$/, '');
-      var newUrl = newPath + updatedQuery + currentHash;
+      // Remove the ".html" extension and update URL (e.g. change /post.html to /post)
+      var newPath = currentPath.replace(/post\.html$/, "post");
+      var newSearch = searchParams.toString() ? "?" + searchParams.toString() : "";
+      var newUrl = newPath + newSearch + window.location.hash;
+      history.replaceState(null, '', newUrl);
+    } 
+    // For any other page ending in .html, remove the .html extension
+    else if (currentPath.endsWith(".html")) {
+      var newPath = currentPath.replace(/\.html$/, "");
+      var newUrl = newPath + window.location.search + window.location.hash;
       history.replaceState(null, '', newUrl);
     }
   })();
-
