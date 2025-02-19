@@ -28,14 +28,30 @@
 
 // hide .html
 
-  // Check if the current URL ends with '.html'
-  if (window.location.pathname.endsWith('.html')) {
-    // Remove the '.html' extension from the pathname
-    var newPath = window.location.pathname.replace(/\.html$/, '');
-    // Create the new URL while preserving any query strings or hash
-    var newUrl = newPath + window.location.search + window.location.hash;
-    // Replace the current history entry with the new URL without reloading the page
-    history.replaceState(null, '', newUrl);
+  // Utility function to convert text into a URL-friendly slug
+  function slugify(text) {
+    return text.toString().toLowerCase().trim()
+      .replace(/\s+/g, '-')       // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')   // Remove all non-word chars
+      .replace(/\-\-+/g, '-');     // Replace multiple - with single -
   }
+
+  (function() {
+    var path = window.location.pathname;
+    
+    // Check if the URL ends with "post.html"
+    if (path.endsWith('post.html')) {
+      // Use the document title as the new URL path (slugified)
+      var newSlug = slugify(document.title);
+      var newUrl = '/' + newSlug + window.location.search + window.location.hash;
+      history.replaceState(null, '', newUrl);
+    }
+    // For any other .html pages, remove the .html extension
+    else if (path.endsWith('.html')) {
+      var newPath = path.replace(/\.html$/, '');
+      var newUrl = newPath + window.location.search + window.location.hash;
+      history.replaceState(null, '', newUrl);
+    }
+  })();
 
 
