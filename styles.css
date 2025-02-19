@@ -776,6 +776,9 @@ a{
      .logo a:hover{
           color: white;
       }
+.homesearch-bar a{
+        color:#0066cc;
+}
       .homesearch-bar a:Hover{
-        color:blue;
+        color:#0066cc;
       }
