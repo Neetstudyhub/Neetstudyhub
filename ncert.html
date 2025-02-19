@@ -4,258 +4,248 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NCERT Posts</title>
-  <style>
-    /* General Styles */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f4f8;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+  <link rel="stylesheet" href="stys.css">
+  <style>/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f8fc;
+  color: #333;
+}
 
-    header {
-      background-color: #007bff;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
+.header {
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
+.header h1 {
+  margin: 0;
+}
 
-    main {
-      padding: 1rem;
-    }
+.filters {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
-    /* Filters */
-    #myodf-class-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+.filters select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #dce7f3;
+  border-radius: 5px;
+}
 
-    #myodf-class-buttons button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+/* Post Grid */
+.post-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 20px;
+}
 
-    #myodf-class-buttons button:hover {
-      background-color: #0056b3;
-    }
+.post-card {
+  border: 1px solid #dce7f3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
 
-    #myodf-subjects {
-      display: block;
-      margin: 0 auto 1rem auto;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      max-width: 200px;
-      text-align: center;
-    }
+.post-card:hover {
+  transform: scale(1.03);
+}
 
-    /* Posts Grid */
-    #myodf-posts-container {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
+.post-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
 
-    /* Post Card */
-    .myodf-post-card {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease;
-    }
+.post-card-content {
+  padding: 15px;
+  text-align: center;
+}
 
-    .myodf-post-card:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
+.post-card-content h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
 
-    .myodf-post-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+.post-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
-    .myodf-post-card-content {
-      padding: 1rem;
-    }
+.view-btn, .download-btn {
+  padding: 8px 15px;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+}
 
-    .myodf-post-card-content h3 {
-      font-size: 1.25rem;
-      margin: 0 0 0.5rem 0;
-    }
+.view-btn {
+  background-color: #007bff;
+}
 
-    .myodf-post-card-content p {
-      font-size: 0.9rem;
-      margin: 0.5rem 0;
-    }
+.download-btn {
+  background-color: #28a745;
+}
 
-    .myodf-post-actions {
-      margin-top: 1rem;
-      display: flex;
-      gap: 1rem;
-    }
+.view-btn:hover, .download-btn:hover {
+  opacity: 0.8;
+}
 
-    .myodf-download-button,
-    .myodf-view-button {
-      background-color: #007bff;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+}
 
-    .myodf-download-button:hover,
-    .myodf-view-button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+/* Responsive */
+@media (max-width: 768px) {
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .post-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1201px) {
+  .post-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>NCERT Posts</h1>
+  <header class="header">
+    <h1>NCERT Resources</h1>
+    <div class="filters">
+      <select id="class-filter">
+        <option value="">Select Class</option>
+      </select>
+      <select id="subject-filter">
+        <option value="">Select Subject</option>
+      </select>
+    </div>
   </header>
+
   <main>
-    <div id="myodf-class-buttons">
-      <button data-class="11">Class 11</button>
-      <button data-class="12">Class 12</button>
-    </div>
-    <select id="myodf-subjects">
-      <option value="all">All Subjects</option>
-      <option value="biology">Biology</option>
-      <option value="physics">Physics</option>
-      <option value="chemistry">Chemistry</option>
-      <option value="maths">Maths</option>
-    </select>
-    <div id="myodf-posts-container">
-      <!-- Posts will be dynamically added here -->
-    </div>
+    <div id="post-container" class="post-grid"></div>
   </main>
-  <script>
-    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev'; // Cloudflare Worker URL
 
-    const classButtons = document.getElementById('myodf-class-buttons');
-    const subjectDropdown = document.getElementById('myodf-subjects');
-    const postsContainer = document.getElementById('myodf-posts-container');
+  <footer class="footer">
+    <p>© 2025 NEET Study Hub</p>
+  </footer>
 
-    // State
-    let fetchedPosts = []; // To store all fetched posts
-    let selectedClass = null;
-    let selectedSubject = 'all';
+  <script src="script.js"></script>
+  <script>const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev'; // Cloudflare Worker URL
 
-    // Fetch NCERT posts initially
-    async function fetchNcertPosts() {
-      try {
-        postsContainer.innerHTML = '<p>Loading...</p>';
-        const response = await fetch(`${cloudflareProxy}?maxResults=500`);
-        const data = await response.json();
+const classFilter = document.getElementById('class-filter');
+const subjectFilter = document.getElementById('subject-filter');
+const postContainer = document.getElementById('post-container');
 
-        // Filter and store posts with "NCERT" label
-        fetchedPosts = data.items.filter((post) => {
-          const labels = post.labels ? post.labels.map((label) => label.toLowerCase()) : [];
-          return labels.includes('ncert'); // Only include posts with "NCERT" label
-        });
+// Populate class and subject filters
+function initializeFilters() {
+  const classes = ['Class 11', 'Class 12'];
+  const subjects = ['Physics', 'Chemistry', 'Biology', 'Math'];
 
-        // Display posts
-        filterAndDisplayPosts();
-      } catch (error) {
-        console.error('Error fetching NCERT posts:', error);
-        postsContainer.innerHTML = '<p>Error loading posts. Please try again later.</p>';
-      }
-    }
+  classFilter.innerHTML += classes
+    .map((cls) => `<option value="${cls.toLowerCase()}">${cls}</option>`)
+    .join('');
+  subjectFilter.innerHTML += subjects
+    .map((sub) => `<option value="${sub.toLowerCase()}">${sub}</option>`)
+    .join('');
+}
 
-    // Filter and display posts based on class and subject
-    function filterAndDisplayPosts() {
-      const filteredPosts = fetchedPosts.filter((post) => {
-        const labels = post.labels ? post.labels.map((label) => label.toLowerCase()) : [];
-        const isClassMatch = !selectedClass || labels.includes(`class ${selectedClass}`);
-        const isSubjectMatch = selectedSubject === 'all' || labels.includes(selectedSubject.toLowerCase());
-        return isClassMatch && isSubjectMatch;
+// Fetch NCERT posts based on selected filters
+async function fetchNCERTPosts() {
+  try {
+    const selectedClass = classFilter.value;
+    const selectedSubject = subjectFilter.value;
+
+    const response = await fetch(`${cloudflareProxy}?maxResults=500`);
+    const data = await response.json();
+
+    const ncertPosts = data.items
+      .filter((post) => {
+        const classMatch = selectedClass ? post.content.includes(selectedClass) : true;
+        const subjectMatch = selectedSubject ? post.content.includes(selectedSubject) : true;
+        return post.labels?.includes('Ncert') && classMatch && subjectMatch;
       });
 
-      if (filteredPosts.length > 0) {
-        const posts = filteredPosts.map((post) => {
-          const imageUrl = post.images && post.images[0] ? post.images[0].url : extractImageFromContent(post.content);
-          const downloadLink = extractDownloadLink(post.content);
-
-          return `
-            <div class="myodf-post-card">
-              <img src="${imageUrl}" alt="${post.title}">
-              <div class="myodf-post-card-content">
-                <h3>${post.title}</h3>
-                <p><strong>Class:</strong> ${getLabel(post.labels, 'class')} | <strong>Subject:</strong> ${getLabel(post.labels, selectedSubject)}</p>
-                <p><strong>Labels:</strong> ${post.labels ? post.labels.join(', ') : 'No labels'}</p>
-                <div class="myodf-post-actions">
-                  <a href="${downloadLink}" class="myodf-download-button" target="_blank">Download</a>
-                  <a href="post.html?postId=${post.id}" class="myodf-view-button" target="_self">View</a>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-
-        postsContainer.innerHTML = posts.join('');
-      } else {
-        postsContainer.innerHTML = '<p>No posts found for the selected criteria.</p>';
-      }
+    if (ncertPosts.length > 0) {
+      renderPosts(ncertPosts);
+    } else {
+      postContainer.innerHTML = '<p>No posts found for the selected filters.</p>';
     }
+  } catch (error) {
+    console.error('Error fetching NCERT posts:', error);
+    postContainer.innerHTML = '<p>Error loading posts. Please try again later.</p>';
+  }
+}
 
-    // Extract the first image from content
-    function extractImageFromContent(content) {
-      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
-    }
+// Render posts as cards
+function renderPosts(posts) {
+  const postCards = posts.map((post) => {
+    const imageUrl =
+      post.images && post.images[0]
+        ? post.images[0].url
+        : extractImageFromContent(post.content);
 
-    // Extract the download link from content
-    function extractDownloadLink(content) {
-      const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
-      return downloadButtonMatch ? downloadButtonMatch[1] : '#';
-    }
+    const downloadLink = extractDownloadLink(post.content);
 
-    // Get specific label from labels
-    function getLabel(labels, prefix) {
-      if (!labels) return 'N/A';
-      const label = labels.find((l) => l.toLowerCase().startsWith(prefix.toLowerCase()));
-      return label ? label.split(' ')[1] : 'N/A';
-    }
+    return `
+      <div class="post-card">
+        <img src="${imageUrl}" alt="${post.title}">
+        <div class="post-card-content">
+          <h3>${post.title}</h3>
+          <div class="post-buttons">
+            <a href="post.html?postId=${post.id}" class="view-btn">View</a>
+            <a href="${downloadLink}" class="download-btn" target="_blank">Download</a>
+          </div>
+        </div>
+      </div>
+    `;
+  });
 
-    // Handle class button clicks
-    classButtons.addEventListener('click', (event) => {
-      if (event.target.tagName === 'BUTTON') {
-        // Update selected class
-        selectedClass = event.target.dataset.class;
+  postContainer.innerHTML = postCards.join('');
+}
 
-        // Reset subject dropdown to "all"
-        subjectDropdown.value = 'all';
-        selectedSubject = 'all';
+// Extract the first image from content
+function extractImageFromContent(content) {
+  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+}
 
-        // Filter and display posts
-        filterAndDisplayPosts();
-      }
-    });
+// Extract download link from the post content
+function extractDownloadLink(content) {
+  const downloadMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
+  return downloadMatch ? downloadMatch[1] : '#';
+}
 
-    // Handle subject dropdown change
-    subjectDropdown.addEventListener('change', (event) => {
-      // Update selected subject
-      selectedSubject = event.target.value.toLowerCase();
+// Event listeners for filters
+classFilter.addEventListener('change', fetchNCERTPosts);
+subjectFilter.addEventListener('change', fetchNCERTPosts);
 
-      // Filter and display posts
-      filterAndDisplayPosts();
-    });
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', fetch
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+  initializeFilters();
+  fetchNCERTPosts();
+});
+</script>
+</body>
+</html>
