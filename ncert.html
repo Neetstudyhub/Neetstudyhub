@@ -164,8 +164,11 @@
         const response = await fetch(`${cloudflareProxy}?maxResults=500`);
         const data = await response.json();
 
-        // Store posts
-        fetchedPosts = data.items;
+        // Filter and store posts with "NCERT" label
+        fetchedPosts = data.items.filter((post) => {
+          const labels = post.labels ? post.labels.map((label) => label.toLowerCase()) : [];
+          return labels.includes('ncert'); // Only include posts with "NCERT" label
+        });
 
         // Display posts
         filterAndDisplayPosts();
@@ -178,25 +181,24 @@
     // Filter and display posts based on class and subject
     function filterAndDisplayPosts() {
       const filteredPosts = fetchedPosts.filter((post) => {
-        const content = post.content || '';
-        const isClassMatch = !selectedClass || content.includes(`Class: ${selectedClass}`);
-        const isSubjectMatch = selectedSubject === 'all' || content.includes(`Subject: ${selectedSubject}`);
+        const labels = post.labels ? post.labels.map((label) => label.toLowerCase()) : [];
+        const isClassMatch = !selectedClass || labels.includes(`class ${selectedClass}`);
+        const isSubjectMatch = selectedSubject === 'all' || labels.includes(selectedSubject.toLowerCase());
         return isClassMatch && isSubjectMatch;
       });
 
       if (filteredPosts.length > 0) {
         const posts = filteredPosts.map((post) => {
-          const imageUrl = extractImageFromContent(post.content);
+          const imageUrl = post.images && post.images[0] ? post.images[0].url : extractImageFromContent(post.content);
           const downloadLink = extractDownloadLink(post.content);
-          const postClass = extractDetail(post.content, 'Class');
-          const postSubject = extractDetail(post.content, 'Subject');
 
           return `
             <div class="myodf-post-card">
               <img src="${imageUrl}" alt="${post.title}">
               <div class="myodf-post-card-content">
                 <h3>${post.title}</h3>
-                <p><strong>Class:</strong> ${postClass} | <strong>Subject:</strong> ${postSubject}</p>
+                <p><strong>Class:</strong> ${getLabel(post.labels, 'class')} | <strong>Subject:</strong> ${getLabel(post.labels, selectedSubject)}</p>
+                <p><strong>Labels:</strong> ${post.labels ? post.labels.join(', ') : 'No labels'}</p>
                 <div class="myodf-post-actions">
                   <a href="${downloadLink}" class="myodf-download-button" target="_blank">Download</a>
                   <a href="post.html?postId=${post.id}" class="myodf-view-button" target="_self">View</a>
@@ -212,12 +214,6 @@
       }
     }
 
-    // Extract details from content
-    function extractDetail(content, detail) {
-      const match = content.match(new RegExp(`${detail}:\\s*(\\w+)`, 'i'));
-      return match ? match[1] : 'N/A';
-    }
-
     // Extract the first image from content
     function extractImageFromContent(content) {
       const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
@@ -228,6 +224,13 @@
     function extractDownloadLink(content) {
       const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
       return downloadButtonMatch ? downloadButtonMatch[1] : '#';
+    }
+
+    // Get specific label from labels
+    function getLabel(labels, prefix) {
+      if (!labels) return 'N/A';
+      const label = labels.find((l) => l.toLowerCase().startsWith(prefix.toLowerCase()));
+      return label ? label.split(' ')[1] : 'N/A';
     }
 
     // Handle class button clicks
@@ -255,7 +258,4 @@
     });
 
     // Initialize
-    document.addEventListener('DOMContentLoaded', fetchNcertPosts);
-  </script>
-</body>
-</html>
+    document.addEventListener('DOMContentLoaded', fetch
