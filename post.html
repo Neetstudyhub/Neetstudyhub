@@ -773,104 +773,102 @@ body{
   <script>
   const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev'; // Cloudflare Worker URL
 
-// Get the postId from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const postId = urlParams.get('postId');
+  // Get the postId from the URL (assuming the format is /posts/<postId>)
+  const postId = window.location.pathname.split('/posts/')[1];
 
-const breadcrumbs = document.getElementById('breadcrumbs');
-const postTitle = document.getElementById('post-title');
-const postMeta = document.getElementById('post-meta');
-const postContent = document.getElementById('post-content');
-const relatedPostsContainer = document.getElementById('related-posts');
+  const breadcrumbs = document.getElementById('breadcrumbs');
+  const postTitle = document.getElementById('post-title');
+  const postMeta = document.getElementById('post-meta');
+  const postContent = document.getElementById('post-content');
+  const relatedPostsContainer = document.getElementById('related-posts');
 
-// Fetch and display the post content
-async function fetchPost() {
-  try {
-    // Fetch post data via Cloudflare Worker
-    const response = await fetch(`${cloudflareProxy}?id=${postId}`);
-    const data = await response.json();
+  // Fetch and display the post content
+  async function fetchPost() {
+    try {
+      // Fetch post data via Cloudflare Worker
+      const response = await fetch(`${cloudflareProxy}?id=${postId}`);
+      const data = await response.json();
 
-    // Populate the post content
-    postTitle.textContent = data.title;
-    postMeta.innerHTML = `By - NEET Study Hub | Time: ${new Date(
-      data.published
-    ).toLocaleDateString()}`;
-    postContent.innerHTML = data.content;
+      // Populate the post content
+      postTitle.textContent = data.title;
+      postMeta.innerHTML = `By - NEET Study Hub | Time: ${new Date(
+        data.published
+      ).toLocaleDateString()}`;
+      postContent.innerHTML = data.content;
 
-    // Set breadcrumbs
-breadcrumbs.innerHTML = `<a href="index.html">Home</a> › <a href="blog.html">All Posts</a>`;
+      // Set breadcrumbs
+      breadcrumbs.innerHTML = `<a href="/index.html">Home</a> › <a href="/blog.html">All Posts</a>`;
 
-    
-    // Fetch and display related posts
-    fetchRelatedPosts();
-  } catch (error) {
-    console.error('Error fetching the post:', error);
-    postContent.innerHTML = `<p>Error loading post. Please try again.</p>`;
-  }
-}
-
-// Fetch all posts and display 5 related posts excluding "ncert" and "pyq"
-async function fetchRelatedPosts() {
-  try {
-    // Fetch related posts data via Cloudflare Worker
-    const response = await fetch(`${cloudflareProxy}?maxResults=500`);
-    const data = await response.json();
-
-    if (data.items && data.items.length > 1) {
-      // Shuffle the posts randomly
-      const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
-
-      // Select 5 posts (excluding the current post and posts with labels "ncert" or "pyq")
-      const excludedLabels = ['ncert', 'pyq'];
-      const selectedPosts = shuffledPosts
-        .filter(
-          (post) =>
-            post.id !== postId && // Exclude the current post
-            (!post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))) // Exclude posts with specific labels
-        )
-        .slice(0, 5);
-
-      // Render the selected posts
-      const relatedPosts = selectedPosts.map((post) => {
-        const imageUrl =
-          post.images && post.images[0]
-            ? post.images[0].url
-            : extractImageFromContent(post.content);
-
-        return `
-          <div class="related-post-card">
-            <img src="${imageUrl}" alt="${post.title}">
-            <div class="related-card-content">
-              <a href="post.html?postId=${post.id}" target="_self">
-                <h3>${post.title}</h3>
-              </a>
-            </div>
-          </div>
-        `;
-      });
-
-      relatedPostsContainer.innerHTML = relatedPosts.join('');
-    } else {
-      relatedPostsContainer.innerHTML = '<p>No related posts found.</p>';
+      // Fetch and display related posts
+      fetchRelatedPosts();
+    } catch (error) {
+      console.error('Error fetching the post:', error);
+      postContent.innerHTML = `<p>Error loading post. Please try again.</p>`;
     }
-  } catch (error) {
-    console.error('Error fetching related posts:', error);
-    relatedPostsContainer.innerHTML = '<p>Error loading related posts.</p>';
   }
-}
 
-// Extract the first image from content
-function extractImageFromContent(content) {
-  const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-  return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
-}
+  // Fetch all posts and display 5 related posts excluding "ncert" and "pyq"
+  async function fetchRelatedPosts() {
+    try {
+      // Fetch related posts data via Cloudflare Worker
+      const response = await fetch(`${cloudflareProxy}?maxResults=500`);
+      const data = await response.json();
 
-// Initialize
-document.addEventListener('DOMContentLoaded', fetchPost);
+      if (data.items && data.items.length > 1) {
+        // Shuffle the posts randomly
+        const shuffledPosts = data.items.sort(() => 0.5 - Math.random());
+
+        // Select 5 posts (excluding the current post and posts with labels "ncert" or "pyq")
+        const excludedLabels = ['ncert', 'pyq'];
+        const selectedPosts = shuffledPosts
+          .filter(
+            (post) =>
+              post.id !== postId && // Exclude the current post
+              (!post.labels || !post.labels.some((label) => excludedLabels.includes(label.toLowerCase()))) // Exclude posts with specific labels
+          )
+          .slice(0, 5);
+
+        // Render the selected posts
+        const relatedPosts = selectedPosts.map((post) => {
+          const imageUrl =
+            post.images && post.images[0]
+              ? post.images[0].url
+              : extractImageFromContent(post.content);
+
+          return `
+            <div class="related-post-card">
+              <img src="${imageUrl}" alt="${post.title}">
+              <div class="related-card-content">
+                <a href="/posts/${post.id}" target="_self">
+                  <h3>${post.title}</h3>
+                </a>
+              </div>
+            </div>
+          `;
+        });
+
+        relatedPostsContainer.innerHTML = relatedPosts.join('');
+      } else {
+        relatedPostsContainer.innerHTML = '<p>No related posts found.</p>';
+      }
+    } catch (error) {
+      console.error('Error fetching related posts:', error);
+      relatedPostsContainer.innerHTML = '<p>Error loading related posts.</p>';
+    }
+  }
+
+  // Extract the first image from content
+  function extractImageFromContent(content) {
+    const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+    return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', fetchPost);
+</script>
 
 
-        
-  </script>
+
   <script src="script.js">script.js</script>
 </body>
 </html>
