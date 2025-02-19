@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT Page</title>
+  <style>
+    /* CSS */
+    body {
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      background-color: #f4f4f4;
+    }
+
+    #myodf-class-buttons {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    #myodf-class-buttons button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #myodf-class-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    #myodf-subject-dropdown {
+      margin: 20px 0;
+    }
+
+    #myodf-subject-dropdown label {
+      font-weight: bold;
+    }
+
+    #myodf-posts-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .myodf-post-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .myodf-post-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .myodf-post-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .myodf-post-card-content {
+      padding: 15px;
+    }
+
+    .myodf-post-card-content h3 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .myodf-post-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .myodf-post-actions a {
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+
+    .myodf-download-button {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .myodf-download-button:hover {
+      background-color: #0056b3;
+    }
+
+    .myodf-view-button {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .myodf-view-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div id="myodf-ncert-page">
+    <div id="myodf-class-buttons">
+      <button data-class="11">Class 11</button>
+      <button data-class="12">Class 12</button>
+    </div>
+
+    <div id="myodf-subject-dropdown">
+      <label for="myodf-subjects">Select Subject:</label>
+      <select id="myodf-subjects">
+        <option value="all">All Subjects</option>
+        <option value="physics">Physics</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="biology">Biology</option>
+      </select>
+    </div>
+
+    <div id="myodf-posts-container"></div>
+  </div>
+
+  <script>
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev'; // Cloudflare Worker URL
+
+    const classButtons = document.getElementById('myodf-class-buttons');
+    const subjectDropdown = document.getElementById('myodf-subjects');
+    const postsContainer = document.getElementById('myodf-posts-container');
+
+    // State
+    let selectedClass = null;
+    let selectedSubject = 'all';
+
+    // Fetch and display NCERT posts
+    async function fetchNcertPosts() {
+      try {
+        postsContainer.innerHTML = '<p>Loading...</p>';
+        
+        const response = await fetch(`${cloudflareProxy}?maxResults=500`);
+        const data = await response.json();
+
+        const filteredPosts = data.items.filter((post) => {
+          const labels = post.labels.map((label) => label.toLowerCase());
+          const isClassMatch = !selectedClass || labels.includes(`class ${selectedClass}`);
+          const isSubjectMatch = selectedSubject === 'all' || labels.includes(selectedSubject);
+          return labels.includes('ncert') && isClassMatch && isSubjectMatch;
+        });
+
+        if (filteredPosts.length > 0) {
+          const posts = filteredPosts.map((post) => {
+            const imageUrl = post.images && post.images[0] ? post.images[0].url : extractImageFromContent(post.content);
+            const downloadLink = extractDownloadLink(post.content);
+
+            return `
+              <div class="myodf-post-card">
+                <img src="${imageUrl}" alt="${post.title}">
+                <div class="myodf-post-card-content">
+                  <h3>${post.title}</h3>
+                  <div class="myodf-post-actions">
+                    <a href="${downloadLink}" class="myodf-download-button" target="_blank">Download</a>
+                    <a href="post.html?postId=${post.id}" class="myodf-view-button" target="_self">View</a>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+
+          postsContainer.innerHTML = posts.join('');
+        } else {
+          postsContainer.innerHTML = '<p>No posts found for the selected criteria.</p>';
+        }
+      } catch (error) {
+        console.error('Error fetching NCERT posts:', error);
+        postsContainer.innerHTML = '<p>Error loading posts. Please try again later.</p>';
+      }
+    }
+
+    // Extract the first image from content
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/300x200';
+    }
+
+    // Extract the download link from content
+    function extractDownloadLink(content) {
+      const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
+      return downloadButtonMatch ? downloadButtonMatch[1] : '#';
+    }
+
+    // Handle class button clicks
+    classButtons.addEventListener('click', (event) => {
+      if (event.target.tagName === 'BUTTON') {
+        selectedClass = event.target.dataset.class;
+        fetchNcertPosts();
+      }
+    });
+
+    // Handle subject dropdown change
+    subjectDropdown.addEventListener('change', (event) => {
+      selectedSubject = event.target.value.toLowerCase();
+      fetchNcertPosts();
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', fetchNcertPosts);
+  </script>
+</body>
+</html>
