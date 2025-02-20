@@ -366,6 +366,30 @@
   text-align: center;
   margin-bottom: 20px;
 }
+    /* Loading Animation */
+    #loading-spinner {
+      display: none;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    .spinner {
+      border: 4px solid #f4f4f4;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -437,6 +461,12 @@
           <i>🌱</i> Biology
         </button>
       </div>
+      
+      <!-- Loading Spinner -->
+      <div id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading posts...</p>
+      </div>
 
       <!-- Blog Cards -->
       <div id="blog-container" class="cards-section"></div>
@@ -497,33 +527,37 @@
     const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
     const maxResults = 100;
     const postsPerBatch = 6;
-    
+
     let latestPosts = [];
     let displayedPosts = 0;
     let activeFilter = "Physics";
-    
+
     const blogContainer = document.getElementById('blog-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
     const endMessage = document.getElementById('end-message');
     const filterButtons = document.querySelectorAll('.filter-btn');
-    
+    const loadingSpinner = document.getElementById('loading-spinner');
+
     function extractImageFromContent(content) {
       const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
       return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
     }
-    
+
     function extractDownloadLink(content) {
       const downloadButtonMatch = content.match(/<download-button[^>]*>([^<]+)<\/download-button>/i);
       return downloadButtonMatch ? downloadButtonMatch[1] : '#';
     }
-    
+
     async function fetchBloggerPosts() {
       try {
+        loadingSpinner.style.display = "block";
         const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
         const data = await response.json();
         if (!data.items) throw new Error("No posts found.");
         const filteredPosts = data.items.filter((post) =>
-          post.labels && post.labels.some((label) => ["Physics", "Chemistry", "Biology"].includes(label))
+          post.labels && post.labels.some((label) =>
+            ["Physics", "Chemistry", "Biology"].includes(label)
+          )
         );
         latestPosts = filteredPosts.map((post) => ({
           id: post.id,
@@ -533,19 +567,21 @@
           contentSnippet: post.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120),
           downloadLink: extractDownloadLink(post.content),
         }));
+        loadingSpinner.style.display = "none";
         filterAndDisplayPosts();
       } catch (error) {
+        loadingSpinner.style.display = "none";
         blogContainer.innerHTML = `<p>Error loading posts.</p>`;
       }
     }
-    
+
     function filterAndDisplayPosts() {
       const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
       displayedPosts = 0;
       blogContainer.innerHTML = "";
       displayPosts(filteredPosts);
     }
-    
+
     function displayPosts(posts) {
       const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
       const postCards = postsToDisplay.map((post) => `
@@ -573,12 +609,12 @@
         loadMoreBtn.style.display = "block";
       }
     }
-    
+
     loadMoreBtn.addEventListener("click", () => {
       const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
       displayPosts(filteredPosts);
     });
-    
+
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         filterButtons.forEach((btn) => btn.classList.remove("active"));
@@ -587,7 +623,7 @@
         filterAndDisplayPosts();
       });
     });
-    
+
     document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
   </script>
   </body>
