@@ -1,179 +1,335 @@
-<div class="latestpost-bg">
-  <div class="container">
-    <h1>Latest Blogs</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Blogs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+    }
 
-    <!-- Filter Buttons -->
-    <div class="filter-buttons">
-      <button class="filter-btn active" data-filter="Physics">
-        <img src="physics-icon.png" alt="Physics Icon" /> Physics
-      </button>
-      <button class="filter-btn" data-filter="Chemistry">
-        <img src="chemistry-icon.png" alt="Chemistry Icon" /> Chemistry
-      </button>
-      <button class="filter-btn" data-filter="Biology">
-        <img src="biology-icon.png" alt="Biology Icon" /> Biology
-      </button>
-    </div>
+    .latestpost-bg {
+      padding: 20px;
+    }
 
-    <!-- Skeleton Loader (Shown while posts are being fetched) -->
-    <div id="skeletonLoader" class="cards-section">
-      <!-- Skeleton cards here -->
-    </div>
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-    <!-- Blog Cards Container -->
-    <div id="blog-container" class="cards-section"></div>
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
 
-    <!-- Load More Button -->
-    <button id="load-more-btn" style="display: none;">Load More</button>
-    <!-- End Message -->
-    <p id="end-message" style="display: none;">That's all!</p>
-  </div>
-</div>
+    .filter-btn {
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s, color 0.3s;
+    }
 
-<script>
-  const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
-  const maxResults = 100;
-  const postsPerBatch = 6;
+    .filter-btn img {
+      width: 20px;
+      height: 20px;
+    }
 
-  let latestPosts = [];
-  let displayedPosts = 0;
-  let activeFilter = "Physics";
+    .filter-btn.active {
+      background: #007bff;
+      color: #fff;
+    }
 
-  const blogContainer = document.getElementById('blog-container');
-  const loadMoreBtn = document.getElementById('load-more-btn');
-  const skeletonLoader = document.getElementById('skeletonLoader');
-  const endMessage = document.getElementById('end-message');
-  const filterButtons = document.querySelectorAll('.filter-btn');
+    .cards-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
 
-  function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString(undefined, options);
-  }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
 
-  function extractImageFromContent(content) {
-    const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
-    return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
-  }
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-  function extractDownloadLink(content) {
-    const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
-    return downloadButtonMatch ? downloadButtonMatch[1] : '#';
-  }
+    .card-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
 
-  async function fetchBloggerPosts() {
-    try {
-      const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
-      const data = await response.json();
+    .card-content {
+      padding: 15px;
+    }
 
-      if (!data.items || data.items.length === 0) {
-        throw new Error("No posts found.");
+    .card-content h3 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+    }
+
+    .card-content p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .view-button,
+    .download-button {
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .view-button {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .download-button {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .view-button:hover {
+      background: #0056b3;
+    }
+
+    .download-button:hover {
+      background: #1e7e34;
+    }
+
+    #load-more-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #load-more-btn:hover {
+      background: #0056b3;
+    }
+
+    #end-message {
+      text-align: center;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .skeleton-card {
+      background: #e0e0e0;
+      border-radius: 10px;
+      padding: 10px;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-image {
+      height: 150px;
+      background: #d6d6d6;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .skeleton-line {
+      height: 10px;
+      background: #d6d6d6;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .skeleton-line.long {
+      width: 80%;
+    }
+
+    .skeleton-line.medium {
+      width: 60%;
+    }
+
+    .skeleton-line.short {
+      width: 40%;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-color: #e0e0e0;
       }
+      50% {
+        background-color: #c0c0c0;
+      }
+      100% {
+        background-color: #e0e0e0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="latestpost-bg">
+    <div class="container">
+      <h1>Latest Blogs</h1>
 
-      const filteredPosts = data.items.filter(
-        (post) =>
-          post.labels &&
-          post.labels.some((label) =>
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="Physics">
+          <img src="physics-icon.png" alt="Physics Icon" /> Physics
+        </button>
+        <button class="filter-btn" data-filter="Chemistry">
+          <img src="chemistry-icon.png" alt="Chemistry Icon" /> Chemistry
+        </button>
+        <button class="filter-btn" data-filter="Biology">
+          <img src="biology-icon.png" alt="Biology Icon" /> Biology
+        </button>
+      </div>
+
+      <!-- Skeleton Loader -->
+      <div id="skeletonLoader" class="cards-section">
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+
+      <!-- Blog Cards -->
+      <div id="blog-container" class="cards-section"></div>
+
+      <!-- Load More Button -->
+      <button id="load-more-btn" style="display: none;">Load More</button>
+      <p id="end-message" style="display: none;">That's all!</p>
+    </div>
+  </div>
+
+  <script>
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+    const maxResults = 100;
+    const postsPerBatch = 6;
+
+    let latestPosts = [];
+    let displayedPosts = 0;
+    let activeFilter = "Physics";
+
+    const blogContainer = document.getElementById('blog-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const skeletonLoader = document.getElementById('skeletonLoader');
+    const endMessage = document.getElementById('end-message');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
+    }
+
+    function extractDownloadLink(content) {
+      const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
+      return downloadButtonMatch ? downloadButtonMatch[1] : '#';
+    }
+
+    async function fetchBloggerPosts() {
+      try {
+        const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
+        const data = await response.json();
+        if (!data.items) throw new Error("No posts found.");
+        const filteredPosts = data.items.filter((post) =>
+          post.labels && post.labels.some((label) =>
             ["Physics", "Chemistry", "Biology"].includes(label)
           )
-      );
-
-      latestPosts = await Promise.all(
-        filteredPosts.map((post) => {
-          const { id, title, content, labels, published } = post;
-          const imageUrl = post.images?.[0]?.url || extractImageFromContent(content);
-          const formattedDate = published ? formatDate(published) : "Unknown Date";
-          const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120);
-          const downloadLink = extractDownloadLink(content);
-          return {
-            id,
-            title,
-            labels: labels || [],
-            imageUrl,
-            published: formattedDate,
-            contentSnippet,
-            downloadLink,
-          };
-        })
-      );
-
-      skeletonLoader.style.display = "none";
-      filterAndDisplayPosts();
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-      skeletonLoader.style.display = "none";
-      blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
+        );
+        latestPosts = filteredPosts.map((post) => ({
+          id: post.id,
+          title: post.title,
+          labels: post.labels || [],
+          imageUrl: extractImageFromContent(post.content),
+          contentSnippet: post.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120),
+          downloadLink: extractDownloadLink(post.content),
+        }));
+        skeletonLoader.style.display = "none";
+        filterAndDisplayPosts();
+      } catch (error) {
+        skeletonLoader.style.display = "none";
+        blogContainer.innerHTML = `<p>Error loading posts.</p>`;
+      }
     }
-  }
 
-  function filterAndDisplayPosts() {
-    const filteredPosts = latestPosts.filter((post) =>
-      post.labels.includes(activeFilter)
-    );
-    displayedPosts = 0;
-    blogContainer.innerHTML = "";
-    displayPosts(filteredPosts);
-  }
+    function filterAndDisplayPosts() {
+      const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
+      displayedPosts = 0;
+      blogContainer.innerHTML = "";
+      displayPosts(filteredPosts);
+    }
 
-  function displayPosts(posts) {
-    const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
-    const postCards = postsToDisplay.map((post) => {
-      const { id, title, labels, imageUrl, published, contentSnippet, downloadLink } = post;
-      const labelMarkup = labels.map((label) => `<span class="label">${label}</span>`).join(" ");
-      return `
+    function displayPosts(posts) {
+      const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
+      const postCards = postsToDisplay.map((post) => `
         <div class="card">
-          <a href="post.html?postId=${id}" target="_self">
+          <a href="post.html?postId=${post.id}" target="_self">
             <div class="card-image">
-              <img src="${imageUrl}" alt="${title}" />
+              <img src="${post.imageUrl}" alt="${post.title}" />
             </div>
           </a>
           <div class="card-content">
-            <div class="top-labels">${labelMarkup}</div>
-            <h3>
-              <a href="post.html?postId=${id}" target="_self">${title}</a>
-            </h3>
-            <p class="post-description">${contentSnippet}...</p>
+            <h3>${post.title}</h3>
+            <p>${post.contentSnippet}...</p>
             <div class="buttons">
-              <a href="post.html?postId=${id}" class="view-button">View</a>
-              <a href="${downloadLink}" class="download-button" target="_blank">Download</a>
-            </div>
-            <div class="bottom-meta">
-              <div class="date-logo">
-                <img src="date-logo.png" alt="Date Logo" />
-              </div>
-              <span class="published-date">Mental Ease • ${published}</span>
+              <a href="post.html?postId=${post.id}" class="view-button">View</a>
+              <a href="${post.downloadLink}" class="download-button" target="_blank">Download</a>
             </div>
           </div>
-        </div>
-      `;
-    });
-
-    blogContainer.innerHTML += postCards.join("");
-    displayedPosts += postsToDisplay.length;
-
-    if (displayedPosts >= posts.length) {
-      loadMoreBtn.style.display = "none";
-      endMessage.style.display = "block";
-    } else {
-      loadMoreBtn.style.display = "block";
+        </div>`).join("");
+      blogContainer.innerHTML += postCards;
+      displayedPosts += postsToDisplay.length;
+      if (displayedPosts >= posts.length) {
+        loadMoreBtn.style.display = "none";
+        endMessage.style.display = "block";
+      } else {
+        loadMoreBtn.style.display = "block";
+      }
     }
-  }
 
-  loadMoreBtn.addEventListener("click", () => {
-    const filteredPosts = latestPosts.filter((post) =>
-      post.labels.includes(activeFilter)
-    );
-    displayPosts(filteredPosts);
-  });
-
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      activeFilter = button.getAttribute("data-filter");
-      filterAndDisplayPosts();
+    loadMoreBtn.addEventListener("click", () => {
+      const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
+      displayPosts(filteredPosts);
     });
-  });
 
-  document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
-</script>
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        activeFilter = button.dataset.filter;
+        filterAndDisplayPosts();
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
+  </script>
+</body>
+</html>
