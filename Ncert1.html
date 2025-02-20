@@ -382,6 +382,7 @@
           <i>🌱</i> Biology
         </button>
       </div>
+
       <!-- Blog Cards -->
       <div id="blog-container" class="cards-section"></div>
 
@@ -395,60 +396,55 @@
     const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
     const maxResults = 100;
     const postsPerBatch = 6;
-
+    
     let latestPosts = [];
     let displayedPosts = 0;
     let activeFilter = "Physics";
-
+    
     const blogContainer = document.getElementById('blog-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
     const endMessage = document.getElementById('end-message');
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const loader = document.getElementById('loader');
-
+    
     function extractImageFromContent(content) {
       const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
       return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
     }
-
+    
     function extractDownloadLink(content) {
       const downloadButtonMatch = content.match(/<download-button[^>]*>([^<]+)<\/download-button>/i);
       return downloadButtonMatch ? downloadButtonMatch[1] : '#';
     }
-
+    
     async function fetchBloggerPosts() {
-      loader.style.display = 'flex';
       try {
         const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
         const data = await response.json();
-        loader.style.display = 'none';
         if (!data.items) throw new Error("No posts found.");
         const filteredPosts = data.items.filter((post) =>
-          post.labels && post.labels.some((label) =>
-            ["Physics", "Chemistry", "Biology"].includes(label)
-          )
+          post.labels && post.labels.some((label) => ["Physics", "Chemistry", "Biology"].includes(label))
         );
         latestPosts = filteredPosts.map((post) => ({
           id: post.id,
           title: post.title,
           labels: post.labels || [],
           imageUrl: extractImageFromContent(post.content),
+          contentSnippet: post.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120),
           downloadLink: extractDownloadLink(post.content),
         }));
         filterAndDisplayPosts();
       } catch (error) {
-        loader.style.display = 'none';
         blogContainer.innerHTML = `<p>Error loading posts.</p>`;
       }
     }
-
+    
     function filterAndDisplayPosts() {
       const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
       displayedPosts = 0;
       blogContainer.innerHTML = "";
       displayPosts(filteredPosts);
     }
-
+    
     function displayPosts(posts) {
       const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
       const postCards = postsToDisplay.map((post) => `
@@ -460,6 +456,7 @@
           </a>
           <div class="card-content">
             <h3>${post.title}</h3>
+            <p>${post.contentSnippet}...</p>
             <div class="buttons">
               <a href="post.html?postId=${post.id}" class="view-button">View</a>
               <a href="${post.downloadLink}" class="download-button" target="_blank">Download</a>
@@ -475,12 +472,12 @@
         loadMoreBtn.style.display = "block";
       }
     }
-
+    
     loadMoreBtn.addEventListener("click", () => {
       const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
       displayPosts(filteredPosts);
     });
-
+    
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         filterButtons.forEach((btn) => btn.classList.remove("active"));
@@ -489,7 +486,7 @@
         filterAndDisplayPosts();
       });
     });
-
+    
     document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
   </script>
   </body>
