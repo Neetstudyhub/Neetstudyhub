@@ -4,7 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Latest Blogs</title>
-          <style>
+  <style>
+      .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .view-button,
+    .download-button {
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .view-button {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .download-button {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .view-button:hover {
+      background: #0056b3;
+    }
+
+    .download-button:hover {
+      background: #1e7e34;
+    }
             .filter-buttons {
       display: flex;
       justify-content: center;
