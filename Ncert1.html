@@ -530,7 +530,7 @@
 
     let latestPosts = [];
     let displayedPosts = 0;
-    let activeFilter = "Physics";
+    let activeFilter = "Physics11";
 
     const blogContainer = document.getElementById('blog-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
@@ -556,7 +556,7 @@
         if (!data.items) throw new Error("No posts found.");
         const filteredPosts = data.items.filter((post) =>
           post.labels && post.labels.some((label) =>
-            ["Physics", "Chemistry", "Biology"].includes(label)
+            ["Physics11", "Chemistry11", "Biology11"].includes(label)
           )
         );
         latestPosts = filteredPosts.map((post) => ({
