@@ -47,38 +47,34 @@
     transform: scale(1.05);
   }
     /* Filter Buttons */
-    .filter-buttons {
+  .filter-buttons {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto;
-      gap: 10px;
-      justify-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      justify-content: center;
       margin-bottom: 20px;
     }
-
-    .filter-buttons button:nth-child(3) {
-      grid-column: span 2;
-      justify-self: center;
-    }
-
+    
     .filter-btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      background-color: #007bff;
+      padding: 12px 20px;
       border: none;
-      border-radius: 5px;
+      background: #007bff;
+      color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s, transform 0.2s;
     }
-
+    
     .filter-btn:hover {
-      background-color: #0056b3;
+      background: #0056b3;
+      transform: scale(1.05);
     }
-
+    
     .filter-btn.active {
-      background-color: #0056b3;
+      background: #0056b3;
+      color: #fff;
     }
 
     
