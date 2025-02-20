@@ -5,67 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Latest Blogs</title>
   <style>
-      .buttons {
-      display: flex;
-      gap: 10px;
+     .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .view-button,
+  .download-button {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .view-button {
+    background: #007bff;
+    color: #fff;
+  }
+  
+  .download-button {
+    background: #28a745;
+    color: #fff;
+  }
+  
+  .view-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .download-button:hover {
+    background: #1e7e34;
+    transform: scale(1.05);
+  }
+  .filter-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
     }
-
-    .view-button,
-    .download-button {
-      padding: 8px 15px;
-      font-size: 0.9rem;
+    
+    .filter-btn {
+      padding: 12px 20px;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: center;
-    }
-
-    .view-button {
       background: #007bff;
       color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
     }
-
-    .download-button {
+    
+    .filter-btn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+    
+    .filter-btn.active {
       background: #28a745;
       color: #fff;
     }
-
-    .view-button:hover {
-      background: #0056b3;
-    }
-
-    .download-button:hover {
-      background: #1e7e34;
-    }
-            .filter-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .filter-btn {
-      padding: 10px 20px;
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .filter-btn img {
-      width: 20px;
-      height: 20px;
-    }
-
-    .filter-btn.active {
-      background: #007bff;
-      color: #fff;
-    }
+    
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -366,13 +373,11 @@
       <!-- Filter Buttons -->
       <div class="filter-buttons">
         <button class="filter-btn active" data-filter="Physics">
-          <img src="physics-icon.png" alt="Physics Icon" /> Physics
-        </button>
+          Physics   </button>
         <button class="filter-btn" data-filter="Chemistry">
-          <img src="chemistry-icon.png" alt="Chemistry Icon" /> Chemistry
-        </button>
+          Chemistry </button>
         <button class="filter-btn" data-filter="Biology">
-          <img src="biology-icon.png" alt="Biology Icon" /> Biology
+           Biology
         </button>
       </div>
 
@@ -399,36 +404,33 @@
     const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
     const maxResults = 100;
     const postsPerBatch = 6;
-
+    
     let latestPosts = [];
     let displayedPosts = 0;
     let activeFilter = "Physics";
-
+    
     const blogContainer = document.getElementById('blog-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
-    const skeletonLoader = document.getElementById('skeletonLoader');
     const endMessage = document.getElementById('end-message');
     const filterButtons = document.querySelectorAll('.filter-btn');
-
+    
     function extractImageFromContent(content) {
       const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
       return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
     }
-
+    
     function extractDownloadLink(content) {
-      const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
+      const downloadButtonMatch = content.match(/<download-button[^>]*>([^<]+)<\/download-button>/i);
       return downloadButtonMatch ? downloadButtonMatch[1] : '#';
     }
-
+    
     async function fetchBloggerPosts() {
       try {
         const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
         const data = await response.json();
         if (!data.items) throw new Error("No posts found.");
         const filteredPosts = data.items.filter((post) =>
-          post.labels && post.labels.some((label) =>
-            ["Physics", "Chemistry", "Biology"].includes(label)
-          )
+          post.labels && post.labels.some((label) => ["Physics", "Chemistry", "Biology"].includes(label))
         );
         latestPosts = filteredPosts.map((post) => ({
           id: post.id,
@@ -438,21 +440,19 @@
           contentSnippet: post.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120),
           downloadLink: extractDownloadLink(post.content),
         }));
-        skeletonLoader.style.display = "none";
         filterAndDisplayPosts();
       } catch (error) {
-        skeletonLoader.style.display = "none";
         blogContainer.innerHTML = `<p>Error loading posts.</p>`;
       }
     }
-
+    
     function filterAndDisplayPosts() {
       const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
       displayedPosts = 0;
       blogContainer.innerHTML = "";
       displayPosts(filteredPosts);
     }
-
+    
     function displayPosts(posts) {
       const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
       const postCards = postsToDisplay.map((post) => `
@@ -480,12 +480,12 @@
         loadMoreBtn.style.display = "block";
       }
     }
-
+    
     loadMoreBtn.addEventListener("click", () => {
       const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
       displayPosts(filteredPosts);
     });
-
+    
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         filterButtons.forEach((btn) => btn.classList.remove("active"));
@@ -494,8 +494,9 @@
         filterAndDisplayPosts();
       });
     });
-
+    
     document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
   </script>
-</body>
-</html>
+  </body>
+  
+  </html>
