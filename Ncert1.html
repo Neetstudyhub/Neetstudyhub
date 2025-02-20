@@ -46,35 +46,41 @@
     background: #1e7e34;
     transform: scale(1.05);
   }
-  .filter-buttons {
+    /* Filter Buttons */
+    .filter-buttons {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      justify-content: center;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 10px;
+      justify-items: center;
       margin-bottom: 20px;
     }
-    
+
+    .filter-buttons button:nth-child(3) {
+      grid-column: span 2;
+      justify-self: center;
+    }
+
     .filter-btn {
-      padding: 12px 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #007bff;
       border: none;
-      background: #007bff;
-      color: #fff;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 1rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      transition: background-color 0.3s ease;
     }
-    
+
     .filter-btn:hover {
-      background: #0056b3;
-      transform: scale(1.05);
+      background-color: #0056b3;
     }
-    
+
     .filter-btn.active {
-      background: #28a745;
-      color: #fff;
+      background-color: #0056b3;
     }
+
     
     .container {
       max-width: 1200px;
