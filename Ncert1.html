@@ -523,7 +523,7 @@
       </div>
     </div>
   </footer>
-          <script>
+  <script>
     const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
     const maxResults = 100;
     const postsPerBatch = 6;
@@ -555,8 +555,9 @@
         const data = await response.json();
         if (!data.items) throw new Error("No posts found.");
         const filteredPosts = data.items.filter((post) =>
-          post.labels &&
-          post.labels.some((label) => label === "class11" && ["Physics", "Chemistry", "Biology"].includes(label))
+          post.labels && post.labels.some((label) =>
+            ["Physics", "Chemistry", "Biology"].includes(label)
+          )
         );
         latestPosts = filteredPosts.map((post) => ({
           id: post.id,
@@ -616,14 +617,14 @@
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        activeFilter = button.dataset.filter;
         filterButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
+        activeFilter = button.dataset.filter;
         filterAndDisplayPosts();
       });
     });
 
-    fetchBloggerPosts();
+    document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
   </script>
   </body>
   
