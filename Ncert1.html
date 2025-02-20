@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Latest Blogs</title>
           <style>
+            .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .filter-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .filter-btn.active {
+      background: #007bff;
+      color: #fff;
+    }
     .container {
       max-width: 1200px;
       margin: 0 auto;
