@@ -1,309 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blogger Posts</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
-  <style>
-    
+<div class="latestpost-bg">
+  <div class="container">
+    <h1>Latest Blogs</h1>
 
-    /* Loading spinner styles */
-    .spinner {
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      border-top: 4px solid #6b46c1;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
-</head>
-<body>
-      <!-- Header with Navbar -->
-  <header>
-    <div class="logo">NEET Study Hub</div>
-    <div class="hamburger" id="hamburger">☰</div>
-    <nav class="nav-links">
-      <a href="#">Home</a>
-      <a href="About us/Index.html">About</a>
-      <a href="#">Subjects</a>
-      <a href="#">Mock Tests</a>
-      <a href="blog.html">Contact</a>
-    </nav>
-  </header>
-
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
- <div class="sideflexy">
-   
-
- <div class="homesearch-bar">
-  Neet Study Hub 
-</div>
-  <button class="sidebar-close" id="closeSidebar">&times;</button>
-  </div>
-  <ul class="sidebar-menu">
-    
-    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-    <li><a href="About us/Index.html"><i class="fas fa-info-circle"></i> About</a></li>
-    <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
-    <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
-    <li><a href="Test.html"><i class="fas fa-envelope"></i> Contact</a></li>
-  </ul>
-  <div class="sidebar-footer">
-  <div class="social-media">
-    <a href="#" title="Facebook">
-      <i class="fab fa-facebook-f"></i></a>
-    <a href="#" title="X" class="x-icon">X</a>
-    <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-  </div>
-  <div class="pages-links pages-row">
-    <a href="#">Privacy Policy</a>
-    <a href="#">About Us</a>
-    <a href="#">Contact Us</a>
-    <a href="#">Sitemap</a>
-    
-  </div>
-</div>
-</div>
-<!-- Sidebar Toggle Tab -->
-<div class="sidebar-tab" id="sidebarTab">
-  <i class="fas fa-bars"></i>
-</div>
-
-  <div class="container mx-auto">
-    <h1 class="text-4xl font-bold text-center mb-10 text-gray-800">Ncert Pdf Class 11</h1>
     <!-- Filter Buttons -->
-    <div class="grid grid-cols-2 gap-4 sm:flex sm:justify-center mb-8">
-      <button id="physics" class="flex items-center justify-center text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-800" style="background-color: #0066cc;">
-        <span class="mr-2">⚛️</span> Physics
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="Physics">
+        <img src="physics-icon.png" alt="Physics Icon" /> Physics
       </button>
-      <button id="chemistry" class="flex items-center justify-center text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-800" style="background-color: #0066cc;">
-        <span class="mr-2">🧪</span> Chemistry
+      <button class="filter-btn" data-filter="Chemistry">
+        <img src="chemistry-icon.png" alt="Chemistry Icon" /> Chemistry
       </button>
-      <button id="biology" class="flex items-center justify-center text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-800 col-span-2" style="background-color: #0066cc;">
-        <span class="mr-2">🧬</span> Biology
+      <button class="filter-btn" data-filter="Biology">
+        <img src="biology-icon.png" alt="Biology Icon" /> Biology
       </button>
     </div>
 
-    <!-- Error Message -->
-    <div id="errorMessage" class="hidden text-red-600 text-center text-lg font-medium mb-4"></div>
-
-    <!-- No Posts Message -->
-    <div id="noPostsMessage" class="hidden text-center text-lg font-medium text-gray-600 my-8">
-      No posts found. Please try a different filter.
+    <!-- Skeleton Loader (Shown while posts are being fetched) -->
+    <div id="skeletonLoader" class="cards-section">
+      <!-- Skeleton cards here -->
     </div>
 
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" class="flex justify-center items-center my-10 hidden">
-      <div class="spinner"></div>
-    </div>
+    <!-- Blog Cards Container -->
+    <div id="blog-container" class="cards-section"></div>
 
-    <!-- Cards Section -->
-    <div id="cardContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      <!-- Posts will be dynamically added here -->
-    </div>
+    <!-- Load More Button -->
+    <button id="load-more-btn" style="display: none;">Load More</button>
+    <!-- End Message -->
+    <p id="end-message" style="display: none;">That's all!</p>
   </div>
-  <!-- Footer -->
-  <footer>
-    <div class="footer-container">
-      <!-- About Us Column (Left) -->
-      <div class="footer-section">
-        <h3>Neet Study Hub</h3>
-        <p>
-          Neet Study Hub is your trusted resource for exam preparation. We offer previous year questions (PYQ's), NCERT PDFs, informative blogs, and mock tests to help you succeed.
-        </p>
-      </div>
-      <!-- Quick Links Column (Center) -->
-      <div class="footer-section quick-link1">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-          <li><a href="#"><i class="fas fa-book-open"></i>PYQ's</a></li>
-          <li><a href="#"><i class="fas fa-file-pdf"></i>NCERT PDF</a></li>
-          <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
-          <li><a href="#"><i class="fas fa-chalkboard-teacher"></i>Mock Test</a></li>
-        </ul>
-      </div>
-      <!-- Follow Us Column (Right) -->
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-links">
-          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <!-- Tagline visible in desktop mode -->
-        <p class="social-tagline">Get updated by following on social media</p>
-      </div>
-    </div>
-    <!-- Footer Bottom Area -->
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        © 2025 Neet Study Hub. All rights reserved.
-      </div>
-      <div class="footer-pages">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Terms</a>
-        <a href="#">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-  <script>
-    const proxyUrl = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/'; // Your custom proxy URL
+</div>
 
-    // Fetch posts and display them
-    async function fetchPosts() {
-      const cardContainer = document.getElementById('cardContainer');
-      const errorMessage = document.getElementById('errorMessage');
-      const noPostsMessage = document.getElementById('noPostsMessage');
+<script>
+  const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+  const maxResults = 100;
+  const postsPerBatch = 6;
 
-      try {
-        const response = await fetch(proxyUrl);
+  let latestPosts = [];
+  let displayedPosts = 0;
+  let activeFilter = "Physics";
 
-        // Check for errors in the response
-        if (!response.ok) {
-          throw new Error(`Error fetching posts: ${response.status} - ${response.statusText}`);
-        }
+  const blogContainer = document.getElementById('blog-container');
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  const skeletonLoader = document.getElementById('skeletonLoader');
+  const endMessage = document.getElementById('end-message');
+  const filterButtons = document.querySelectorAll('.filter-btn');
 
-        const data = await response.json();
-        const posts = data.items || [];
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  }
 
-        // Clear existing cards, error messages, and no-posts message
-        cardContainer.innerHTML = '';
-        errorMessage.classList.add('hidden');
-        errorMessage.textContent = '';
-        noPostsMessage.classList.add('hidden');
+  function extractImageFromContent(content) {
+    const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+    return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
+  }
 
-        // If no posts available
-        if (posts.length === 0) {
-          noPostsMessage.classList.remove('hidden');
-          return;
-        }
+  function extractDownloadLink(content) {
+    const downloadButtonMatch = content.match(/<a[^>]+class="download-button"[^>]+href="([^">]+)"/);
+    return downloadButtonMatch ? downloadButtonMatch[1] : '#';
+  }
 
-        // Loop through posts and create cards
-        let postFound = false;
-        posts.forEach(post => {
-          const labels = post.labels || [];
-          const content = post.content || '';
-          const hasClass11 = labels.includes('class11');
+  async function fetchBloggerPosts() {
+    try {
+      const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
+      const data = await response.json();
 
-          // Only include posts with "class11" label
-          if (!hasClass11) return;
-
-          postFound = true;
-
-          // Fetch thumbnail from media$thumbnail or content
-          let thumbnail = 'https://placehold.co/600x400'; // Default placeholder
-          if (post.media$thumbnail) {
-            thumbnail = post.media$thumbnail.url;
-          } else {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(content, 'text/html');
-            const imgTag = doc.querySelector('img');
-            if (imgTag) {
-              thumbnail = imgTag.src;
-            }
-          }
-
-          // Extract download link from <download-button> even if hidden
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(content, 'text/html');
-          const downloadButton = doc.querySelector('download-button')?.textContent.trim() || '#';
-
-          const cardHTML = `
-            <div class="card bg-white shadow-xl rounded-2xl overflow-hidden transform transition-all hover:scale-105 ${labels.join(' ').toLowerCase()}">
-              <img src="${thumbnail}" alt="Card Image" class="w-full h-64 object-cover">
-              <div class="p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-3">${post.title}</h2>
-                <p class="text-gray-600 mb-5">${post.content.slice(0, 100)}...</p>
-                <div class="flex justify-between">
-                  <button class="text-white px-4 py-2 w-32 rounded-lg hover:from-purple-600 hover:to-purple-800" style="background-color: #0066cc;" onclick="window.open('${downloadButton}', '_blank')">Download</button>
-                  <button class="text-white px-4 py-2 w-32 rounded-lg hover:from-purple-600 hover:to-purple-800" style="background-color: #0066cc;" onclick="window.open('${post.url}', '_blank')">View</button>
-                </div>
-              </div>
-            </div>
-          `;
-          cardContainer.innerHTML += cardHTML;
-        });
-
-        // Show no posts message if no valid posts are found
-        if (!postFound) {
-          noPostsMessage.classList.remove('hidden');
-        }
-
-        // Show default filter (Physics)
-        filterCards('physics');
-      } catch (error) {
-        // Display error message
-        errorMessage.textContent = error.message;
-        errorMessage.classList.remove('hidden');
-        cardContainer.innerHTML = ''; // Clear cards if an error occurs
+      if (!data.items || data.items.length === 0) {
+        throw new Error("No posts found.");
       }
+
+      const filteredPosts = data.items.filter(
+        (post) =>
+          post.labels &&
+          post.labels.some((label) =>
+            ["Physics", "Chemistry", "Biology"].includes(label)
+          )
+      );
+
+      latestPosts = await Promise.all(
+        filteredPosts.map((post) => {
+          const { id, title, content, labels, published } = post;
+          const imageUrl = post.images?.[0]?.url || extractImageFromContent(content);
+          const formattedDate = published ? formatDate(published) : "Unknown Date";
+          const contentSnippet = content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120);
+          const downloadLink = extractDownloadLink(content);
+          return {
+            id,
+            title,
+            labels: labels || [],
+            imageUrl,
+            published: formattedDate,
+            contentSnippet,
+            downloadLink,
+          };
+        })
+      );
+
+      skeletonLoader.style.display = "none";
+      filterAndDisplayPosts();
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      skeletonLoader.style.display = "none";
+      blogContainer.innerHTML = `<p>Error loading posts. Please try again.</p>`;
     }
+  }
 
-    // Filter functionality
-    document.getElementById('physics').addEventListener('click', () => applyFilter('physics'));
-    document.getElementById('chemistry').addEventListener('click', () => applyFilter('chemistry'));
-    document.getElementById('biology').addEventListener('click', () => applyFilter('biology'));
+  function filterAndDisplayPosts() {
+    const filteredPosts = latestPosts.filter((post) =>
+      post.labels.includes(activeFilter)
+    );
+    displayedPosts = 0;
+    blogContainer.innerHTML = "";
+    displayPosts(filteredPosts);
+  }
 
-    // Show spinner and filter cards
-    function applyFilter(label) {
-      const spinner = document.getElementById('loadingSpinner');
-      const cardContainer = document.getElementById('cardContainer');
-      const noPostsMessage = document.getElementById('noPostsMessage');
+  function displayPosts(posts) {
+    const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
+    const postCards = postsToDisplay.map((post) => {
+      const { id, title, labels, imageUrl, published, contentSnippet, downloadLink } = post;
+      const labelMarkup = labels.map((label) => `<span class="label">${label}</span>`).join(" ");
+      return `
+        <div class="card">
+          <a href="post.html?postId=${id}" target="_self">
+            <div class="card-image">
+              <img src="${imageUrl}" alt="${title}" />
+            </div>
+          </a>
+          <div class="card-content">
+            <div class="top-labels">${labelMarkup}</div>
+            <h3>
+              <a href="post.html?postId=${id}" target="_self">${title}</a>
+            </h3>
+            <p class="post-description">${contentSnippet}...</p>
+            <div class="buttons">
+              <a href="post.html?postId=${id}" class="view-button">View</a>
+              <a href="${downloadLink}" class="download-button" target="_blank">Download</a>
+            </div>
+            <div class="bottom-meta">
+              <div class="date-logo">
+                <img src="date-logo.png" alt="Date Logo" />
+              </div>
+              <span class="published-date">Mental Ease • ${published}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
 
-      // Hide cards and show spinner
-      cardContainer.style.display = 'none';
-      spinner.classList.remove('hidden');
-      noPostsMessage.classList.add('hidden');
+    blogContainer.innerHTML += postCards.join("");
+    displayedPosts += postsToDisplay.length;
 
-      // Simulate delay for filtering
-      setTimeout(() => {
-        filterCards(label);
-
-        // Show cards and hide spinner
-        cardContainer.style.display = 'grid';
-        spinner.classList.add('hidden');
-
-        // Show no posts message if no visible cards
-        const visibleCards = document.querySelectorAll(`.card.${label}`);
-        if (visibleCards.length === 0) {
-          noPostsMessage.classList.remove('hidden');
-        }
-      }, 500);
+    if (displayedPosts >= posts.length) {
+      loadMoreBtn.style.display = "none";
+      endMessage.style.display = "block";
+    } else {
+      loadMoreBtn.style.display = "block";
     }
+  }
 
-    // Filter cards based on label
-    function filterCards(label) {
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        if (card.classList.contains(label)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
+  loadMoreBtn.addEventListener("click", () => {
+    const filteredPosts = latestPosts.filter((post) =>
+      post.labels.includes(activeFilter)
+    );
+    displayPosts(filteredPosts);
+  });
 
-    // Fetch and display posts on page load
-    fetchPosts();
-  </script>
-  <script src="script.js">script1.js</script>
-</body>
-</html>
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+      activeFilter = button.getAttribute("data-filter");
+      filterAndDisplayPosts();
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
+</script>
