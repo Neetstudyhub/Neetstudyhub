@@ -1,1 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+  <title>Latest Blogs</title>
+  <style>
+     .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .view-button,
+  .download-button {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .view-button {
+    background: #007bff;
+    color: #fff;
+  }
+  
+  .download-button {
+    background: #28a745;
+    color: #fff;
+  }
+  
+  .view-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .download-button:hover {
+    background: #1e7e34;
+    transform: scale(1.05);
+  }
+    /* Filter Buttons */
+  .filter-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    min-width: 130px;
+    }
+    
+    .filter-btn {
+      padding: 12px 20px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    
+    .filter-btn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+    
+    .filter-btn.active {
+      background: #0056b3;
+      color: #fff;
+    }
+
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      margin-top: -90px:
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Cards Section (Grid Layout) */
+    .cards-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      box-sizing: border-box;
+    }
+    
+    /* Card Styles – uniform height enforced via flexbox, increased border radius */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    /* Image Container with fixed aspect ratio (16:9) and increased border radius on top */
+    .card-image {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 ratio */
+      overflow: hidden;
+      background: #ccc;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .card-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    /* Top Labels */
+    .top-labels {
+      margin-bottom: 8px;
+    }
+    .top-labels .label {
+      display: inline-block;
+      background: #1b76dc;
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 0.8em;
+      margin-right: 5px;
+    }
+    .card-content h3 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.3em;
+      margin: 10px 0;
+    }
+    /* Description styling */
+    .post-description {
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      flex: 1;
+    }
+    /* Bottom Meta */
+    .bottom-meta {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .date-logo img {
+      width: 20px;
+      height: auto;
+      margin-right: 5px;
+      border-radius: 50%;
+    }
+    .published-date {
+      font-size: 0.9em;
+      color: #777;
+    }
+    
+    /* Responsive Text and Label Sizes */
+    @media (max-width: 480px) {
+      h1 { font-size: 2em; }
+      .card-content h3 { font-size: 1.1em; }
+      .post-description { font-size: 0.9em; }
+      .published-date { font-size: 0.8em; }
+      .top-labels .label { font-size: 0.7em; padding: 2px 6px; }
+    }
+    @media (min-width: 481px) and (max-width: 1024px) {
+      h1 { font-size: 2.3em; }
+      .card-content h3 { font-size: 1.2em; }
+      .post-description { font-size: 0.92em; }
+      .published-date { font-size: 0.85em; }
+      .top-labels .label { font-size: 0.75em; }
+    }
+    @media (min-width: 1025px) {
+      h1 { font-size: 2.5em; }
+      .card-content h3 { font-size: 1.3em; }
+      .post-description { font-size: 0.95em; }
+      .published-date { font-size: 0.9em; }
+      .top-labels .label { font-size: 0.8em; }
+    }
+    
+    /* Responsive Grid Adjustments */
+    @media (max-width: 480px) {
+      .cards-section { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 481px) and (max-width: 1024px) {
+      .cards-section { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1025px) {
+      .cards-section { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 1201px) {
+      .container { padding: 60px 40px; }
+      h1 { font-size: 2.7em; }
+      .card-content h3 { font-size: 1.35em; }
+      .post-description { font-size: 1em; }
+      .published-date { font-size: 1em; }
+      .cards-section { gap: 30px; }
+    }
+    
+    /* Enhanced Load More Button */
+    #load-more-btn {
+      display: block;
+      margin: 30px auto;
+    margin-bottom: -10px;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #1b76dc, #166bb3);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #load-more-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+    #load-more-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #load-more-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    /* Spinner for loading animation */
+    .spinner {
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* End Message */
+    #end-message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: -10px;
+    }
+    
+    /* YouTube-Style Skeleton Loader */
+    .skeleton-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .skeleton-image {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 ratio */
+      background: #e0e0e0;
+      overflow: hidden;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .skeleton-shimmer {
+      position: absolute;
+      top: 0;
+      left: -150px;
+      height: 100%;
+      width: 150px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+    .skeleton-content {
+      padding: 15px;
+    }
+    .skeleton-line {
+      height: 12px;
+      background: #e0e0e0;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .skeleton-line.short { width: 40%; }
+    .skeleton-line.medium { width: 70%; }
+    .skeleton-line.long { width: 90%; }
+    
+    .latestpost-bg{
+      padding: 16px;
+    }
+    .heading-latest{
+      display: flex;
+      font-size: 25px;
+      margin-left: 10px;
+      margin-bottom: 15px;
+      font-weight: bolder;
+      margin-top: -30px;
+      
+    }
+    
+    .btn1{
+      background: #1b76dc;
+  color: #fff;
+  padding: 8px 16px;
+  margin-top: 25px;
+  
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9em;
+  position: absolute;
+  left: 36%;
+    }
+    @media (min-width: 768px){
+      
+      .btn1{
+        left: 42%;
+      }
+    }
+    
+    .heading-latest1 {
+  font-size: 30px;
+  
+  margin-top: 80px;
+  font-weight: 501;
+  text-align: center;
+  margin-bottom: 20px;
+}
+    /* Loading Animation */
+    #loading-spinner {
+      display: none;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    .spinner {
+      border: 4px solid #f4f4f4;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+      <!-- Header with Navbar -->
+  <header>
+    <div class="logo">NEET Study Hub</div>
+    <div class="hamburger" id="hamburger">☰</div>
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="About us/Index.html">About</a>
+      <a href="#">Subjects</a>
+      <a href="#">Mock Tests</a>
+      <a href="blog.html">Contact</a>
+    </nav>
+  </header>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+ <div class="sideflexy">
+   
+
+ <div class="homesearch-bar">
+  Neet Study Hub 
+</div>
+  <button class="sidebar-close" id="closeSidebar">&times;</button>
+  </div>
+  <ul class="sidebar-menu">
+    
+    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="About us/Index.html"><i class="fas fa-info-circle"></i> About</a></li>
+    <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
+    <li><a href="blog.html"><i class="fas fa-blog"></i> Blogs</a></li>
+    <li><a href="Test.html"><i class="fas fa-envelope"></i> Contact</a></li>
+  </ul>
+  <div class="sidebar-footer">
+  <div class="social-media">
+    <a href="#" title="Facebook">
+      <i class="fab fa-facebook-f"></i></a>
+    <a href="#" title="X" class="x-icon">X</a>
+    <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+  </div>
+  <div class="pages-links pages-row">
+    <a href="#">Privacy Policy</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact Us</a>
+    <a href="#">Sitemap</a>
+    
+  </div>
+</div>
+</div>
+<!-- Sidebar Toggle Tab -->
+<div class="sidebar-tab" id="sidebarTab">
+  <i class="fas fa-bars"></i>
+</div>
+
+  <div class="latestpost-bg">
+    <div class="container">
+  
+
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="Physics11">
+          <i>🧪</i> Physics
+        </button>
+        <button class="filter-btn" data-filter="Chemistry11">
+          <i>⚗️</i> Chemistry
+        </button>
+        <button class="filter-btn" data-filter="Biology11">
+          <i>🌱</i> Biology
+        </button>
+      </div>
+      
+      <!-- Loading Spinner -->
+      <div id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading posts...</p>
+      </div>
+
+      <!-- Blog Cards -->
+      <div id="blog-container" class="cards-section"></div>
+
+      <!-- Load More Button -->
+      <button id="load-more-btn" style="display: none;">Load More</button>
+      <p id="end-message" style="display: none;">That's all!</p>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <!-- About Us Column (Left) -->
+      <div class="footer-section">
+        <h3>Neet Study Hub</h3>
+        <p>
+          Neet Study Hub is your trusted resource for exam preparation. We offer previous year questions (PYQ's), NCERT PDFs, informative blogs, and mock tests to help you succeed.
+        </p>
+      </div>
+      <!-- Quick Links Column (Center) -->
+      <div class="footer-section quick-link1">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+          <li><a href="#"><i class="fas fa-book-open"></i>PYQ's</a></li>
+          <li><a href="#"><i class="fas fa-file-pdf"></i>NCERT PDF</a></li>
+          <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
+          <li><a href="#"><i class="fas fa-chalkboard-teacher"></i>Mock Test</a></li>
+        </ul>
+      </div>
+      <!-- Follow Us Column (Right) -->
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <!-- Tagline visible in desktop mode -->
+        <p class="social-tagline">Get updated by following on social media</p>
+      </div>
+    </div>
+    <!-- Footer Bottom Area -->
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        © 2025 Neet Study Hub. All rights reserved.
+      </div>
+      <div class="footer-pages">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Terms</a>
+        <a href="#">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const cloudflareProxy = 'https://neetstudyhub-api-proxy.earnmoney100a.workers.dev/';
+    const maxResults = 100;
+    const postsPerBatch = 6;
+
+    let latestPosts = [];
+    let displayedPosts = 0;
+    let activeFilter = "Physics11";
+
+    const blogContainer = document.getElementById('blog-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const endMessage = document.getElementById('end-message');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    function extractImageFromContent(content) {
+      const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
+      return imgTagMatch ? imgTagMatch[1] : 'https://via.placeholder.com/500x300';
+    }
+
+    function extractDownloadLink(content) {
+      const downloadButtonMatch = content.match(/<download-button[^>]*>([^<]+)<\/download-button>/i);
+      return downloadButtonMatch ? downloadButtonMatch[1] : '#';
+    }
+
+    async function fetchBloggerPosts() {
+      try {
+        loadingSpinner.style.display = "block";
+        const response = await fetch(`${cloudflareProxy}?maxResults=${maxResults}`);
+        const data = await response.json();
+        if (!data.items) throw new Error("No posts found.");
+        const filteredPosts = data.items.filter((post) =>
+          post.labels && post.labels.some((label) =>
+            ["Physics11", "Chemistry11", "Biology11"].includes(label)
+          )
+        );
+        latestPosts = filteredPosts.map((post) => ({
+          id: post.id,
+          title: post.title,
+          labels: post.labels || [],
+          imageUrl: extractImageFromContent(post.content),
+          contentSnippet: post.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 120),
+          downloadLink: extractDownloadLink(post.content),
+        }));
+        loadingSpinner.style.display = "none";
+        filterAndDisplayPosts();
+      } catch (error) {
+        loadingSpinner.style.display = "none";
+        blogContainer.innerHTML = `<p>Error loading posts.</p>`;
+      }
+    }
+
+    function filterAndDisplayPosts() {
+      const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
+      displayedPosts = 0;
+      blogContainer.innerHTML = "";
+      displayPosts(filteredPosts);
+    }
+
+    function displayPosts(posts) {
+      const postsToDisplay = posts.slice(displayedPosts, displayedPosts + postsPerBatch);
+      const postCards = postsToDisplay.map((post) => `
+        <div class="card">
+          <a href="post.html?postId=${post.id}" target="_self">
+            <div class="card-image">
+              <img src="${post.imageUrl}" alt="${post.title}" />
+            </div>
+          </a>
+          <div class="card-content">
+            <h3>${post.title}</h3>
+            <p>${post.contentSnippet}...</p>
+            <div class="buttons">
+              <a href="post.html?postId=${post.id}" class="view-button">View</a>
+              <a href="${post.downloadLink}" class="download-button" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>`).join("");
+      blogContainer.innerHTML += postCards;
+      displayedPosts += postsToDisplay.length;
+      if (displayedPosts >= posts.length) {
+        loadMoreBtn.style.display = "none";
+        endMessage.style.display = "block";
+      } else {
+        loadMoreBtn.style.display = "block";
+      }
+    }
+
+    loadMoreBtn.addEventListener("click", () => {
+      const filteredPosts = latestPosts.filter((post) => post.labels.includes(activeFilter));
+      displayPosts(filteredPosts);
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        activeFilter = button.dataset.filter;
+        filterAndDisplayPosts();
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", fetchBloggerPosts);
+  </script>
+  </body>
+  
+  </html>
 
