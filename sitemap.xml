@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://neetstudyhub.github.io/Neetstudyhub/</loc>
+    <lastmod>2025-02-21</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Blog overview page -->
+  <url>
+    <loc>https://neetstudyhub.github.io/Neetstudyhub/blog/</loc>
+    <lastmod>2025-02-21</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- NEET details page -->
+  <url>
+    <loc>https://neetstudyhub.github.io/Neetstudyhub/neet-details/</loc>
+    <lastmod>2025-02-21</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Example individual blog posts -->
+  <url>
+    <loc>https://neetstudyhub.github.io/Neetstudyhub/blog/post1</loc>
+    <lastmod>2025-02-20</lastmod>
+    <priority>0.64</priority>
+  </url>
+  <url>
+    <loc>https://neetstudyhub.github.io/Neetstudyhub/blog/post2</loc>
+    <lastmod>2025-02-19</lastmod>
+    <priority>0.64</priority>
+  </url>
+</urlset>
+
