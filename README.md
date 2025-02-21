@@ -57,4 +57,4 @@ Welcome to **NEET Study Hub**, a comprehensive platform dedicated to helping stu
 
 1. **Clone the Repository**:  
    ```bash  
-   git clone https://github.com/yourusername/neet-study-hub.git  
+   git clone https://neetstudyhub.github.io/Neetstudyhub/  
