@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDFFlex | Advanced PDF Editor</title>
+    <title>PDFPro | Advanced Online PDF Editor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         :root {
             --primary: #4361ee;
-            --secondary: #3a0ca3;
+            --secondary: #3f37c9;
             --accent: #4cc9f0;
             --light: #f8f9fa;
             --dark: #212529;
             --success: #4ade80;
             --danger: #f87171;
-            --warning: #fbbf24;
-            --purple: #7209b7;
         }
 
         body {
@@ -83,7 +80,7 @@
         }
 
         .btn {
-            padding: 12px 28px;
+            padding: 10px 25px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
@@ -91,18 +88,12 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
-            border: none;
-            font-size: 1rem;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
+            border: 2px solid var(--primary);
         }
 
         .btn-outline {
@@ -111,18 +102,9 @@
             color: var(--primary);
         }
 
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-        }
-
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:active {
-            transform: translateY(0);
         }
 
         .hero {
@@ -145,10 +127,6 @@
             color: var(--secondary);
         }
 
-        .hero h1 span {
-            color: var(--primary);
-        }
-
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
@@ -162,19 +140,19 @@
             position: relative;
         }
 
-        .editor-container {
-            width: 100%;
-            max-width: 550px;
+        .editor-window {
             background: white;
             border-radius: 15px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
             overflow: hidden;
             position: relative;
             z-index: 2;
         }
 
         .editor-header {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: var(--primary);
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -188,22 +166,19 @@
             display: flex;
             gap: 15px;
             border-bottom: 1px solid #e1e4e8;
-            flex-wrap: wrap;
         }
 
         .tool {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             background: white;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             transition: all 0.3s;
-            font-size: 1.1rem;
-            color: var(--dark);
         }
 
         .tool:hover {
@@ -213,7 +188,7 @@
         }
 
         .editor-content {
-            height: 400px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -226,72 +201,16 @@
         .upload-area {
             border: 3px dashed #ccc;
             border-radius: 15px;
-            padding: 30px;
+            padding: 40px;
             text-align: center;
-            max-width: 90%;
-            background: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.95);
+            max-width: 80%;
+            background: rgba(255, 255, 255, 0.7);
         }
 
         .upload-area i {
             font-size: 4rem;
             color: var(--primary);
             margin-bottom: 20px;
-        }
-
-        .upload-area h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-
-        .upload-options {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .upload-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-            cursor: pointer;
-            width: 160px;
-        }
-
-        .upload-option:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .upload-option i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .upload-option.phone i {
-            color: var(--primary);
-        }
-
-        .upload-option.gallery i {
-            color: var(--accent);
-        }
-
-        .upload-option.cloud i {
-            color: var(--warning);
         }
 
         .features {
@@ -370,6 +289,7 @@
         .btn-light {
             background: white;
             color: var(--primary);
+            border: none;
             font-size: 1.1rem;
             padding: 15px 40px;
         }
@@ -430,105 +350,6 @@
             font-size: 0.9rem;
         }
 
-        /* Mobile menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
-
-        /* Gallery modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 30px;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .gallery-item {
-            border-radius: 10px;
-            overflow: hidden;
-            height: 150px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* File browser */
-        .file-browser {
-            margin-top: 20px;
-        }
-
-        .file-list {
-            margin-top: 15px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-        }
-
-        .file-item:hover {
-            background: #f5f7fa;
-        }
-
-        .file-item i {
-            font-size: 1.8rem;
-            margin-right: 15px;
-            color: var(--primary);
-        }
-
-        /* Responsive design */
         @media (max-width: 992px) {
             .hero {
                 flex-direction: column;
@@ -547,14 +368,6 @@
             nav ul {
                 display: none;
             }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .auth-buttons {
-                display: none;
-            }
         }
 
         @media (max-width: 768px) {
@@ -569,15 +382,9 @@
             .cta h2 {
                 font-size: 2.2rem;
             }
-
-            .upload-options {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .upload-option {
-                width: 100%;
-                max-width: 300px;
+            
+            .auth-buttons {
+                display: none;
             }
         }
     </style>
@@ -587,7 +394,7 @@
     <header>
         <div class="logo">
             <i class="fas fa-file-pdf"></i>
-            <span>PDFFlex</span>
+            <span>PDFPro</span>
         </div>
         <nav>
             <ul>
@@ -596,9 +403,6 @@
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#support">Support</a></li>
             </ul>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
         </nav>
         <div class="auth-buttons">
             <a href="#" class="btn btn-outline">Log In</a>
@@ -609,154 +413,38 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Edit PDFs <span>Anywhere</span>, Anytime</h1>
-            <p>Transform, edit, and manage your PDF documents with our powerful online editor. Access files from your gallery, phone storage, or cloud services with a single click.</p>
-            <div class="btn-group">
-                <a href="#" class="btn btn-primary" style="margin-right: 15px;">Start Editing Now</a>
-                <a href="#" class="btn btn-accent">View Demo</a>
-            </div>
+            <h1>Edit PDFs Like Never Before</h1>
+            <p>Transform, edit, and manage your PDF documents with our powerful online editor. No installation required - all processing happens in your browser for maximum security.</p>
+            <a href="#" class="btn btn-primary" style="font-size: 1.1rem; padding: 15px 35px;">Start Editing Now</a>
         </div>
         <div class="hero-image">
-            <div class="editor-container">
+            <div class="editor-window">
                 <div class="editor-header">
-                    <div><i class="fas fa-file-pdf"></i> document.pdf</div>
+                    <div>document.pdf</div>
                     <div>
                         <i class="fas fa-expand-alt"></i>
                         <i class="fas fa-times"></i>
                     </div>
                 </div>
                 <div class="editor-tools">
-                    <div class="tool" title="Text"><i class="fas fa-font"></i></div>
-                    <div class="tool" title="Images"><i class="fas fa-image"></i></div>
-                    <div class="tool" title="Draw"><i class="fas fa-pen"></i></div>
-                    <div class="tool" title="Shapes"><i class="fas fa-shapes"></i></div>
-                    <div class="tool" title="Signature"><i class="fas fa-signature"></i></div>
-                    <div class="tool" title="Erase"><i class="fas fa-eraser"></i></div>
-                    <div class="tool" title="Save"><i class="fas fa-save"></i></div>
-                    <div class="tool" title="Share"><i class="fas fa-share-alt"></i></div>
-                    <div class="tool" title="Print"><i class="fas fa-print"></i></div>
+                    <div class="tool"><i class="fas fa-font"></i></div>
+                    <div class="tool"><i class="fas fa-image"></i></div>
+                    <div class="tool"><i class="fas fa-pen"></i></div>
+                    <div class="tool"><i class="fas fa-shapes"></i></div>
+                    <div class="tool"><i class="fas fa-signature"></i></div>
+                    <div class="tool"><i class="fas fa-eraser"></i></div>
+                    <div class="tool"><i class="fas fa-save"></i></div>
                 </div>
                 <div class="editor-content">
                     <div class="upload-area">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <h3>Upload Your PDF</h3>
-                        <p>Drag & drop your file here or select from options below</p>
-                        
-                        <div class="upload-options">
-                            <div class="upload-option phone" id="phone-storage">
-                                <i class="fas fa-mobile-alt"></i>
-                                <h4>Phone Storage</h4>
-                                <p>Access local files</p>
-                            </div>
-                            <div class="upload-option gallery" id="gallery">
-                                <i class="fas fa-images"></i>
-                                <h4>Gallery</h4>
-                                <p>Select images</p>
-                            </div>
-                            <div class="upload-option cloud">
-                                <i class="fas fa-cloud"></i>
-                                <h4>Cloud Storage</h4>
-                                <p>Google Drive, Dropbox</p>
-                            </div>
-                        </div>
+                        <h3>Drag & Drop your PDF here</h3>
+                        <p>or click to browse files</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Gallery Modal -->
-    <div class="modal" id="gallery-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Select from Gallery</h2>
-            <p>Choose an image to convert to PDF or insert into your document</p>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Gallery image">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Gallery image">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Gallery image">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Gallery image">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Gallery image">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Gallery image">
-                </div>
-            </div>
-            
-            <button class="btn btn-primary" style="margin-top: 25px; width: 100%;">
-                <i class="fas fa-file-import"></i> Convert to PDF
-            </button>
-        </div>
-    </div>
-
-    <!-- Phone Storage Browser -->
-    <div class="modal" id="phone-storage-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Phone Storage</h2>
-            <p>Browse and select files from your device storage</p>
-            
-            <div class="file-browser">
-                <div class="btn-group">
-                    <button class="btn btn-outline"><i class="fas fa-folder"></i> Documents</button>
-                    <button class="btn btn-outline"><i class="fas fa-folder"></i> Downloads</button>
-                    <button class="btn btn-outline"><i class="fas fa-folder"></i> PDF Files</button>
-                </div>
-                
-                <div class="file-list">
-                    <div class="file-item">
-                        <i class="fas fa-file-pdf"></i>
-                        <div>
-                            <h4>Annual_Report.pdf</h4>
-                            <p>2.4 MB • Yesterday</p>
-                        </div>
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-file-pdf"></i>
-                        <div>
-                            <h4>Contract_Agreement.pdf</h4>
-                            <p>1.8 MB • 3 days ago</p>
-                        </div>
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-file-word"></i>
-                        <div>
-                            <h4>Resume.docx</h4>
-                            <p>0.8 MB • Convert to PDF</p>
-                        </div>
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-file-image"></i>
-                        <div>
-                            <h4>Diagram.png</h4>
-                            <p>1.2 MB • Convert to PDF</p>
-                        </div>
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-file-pdf"></i>
-                        <div>
-                            <h4>User_Manual.pdf</h4>
-                            <p>3.1 MB • Last week</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-primary" style="margin-top: 25px; width: 100%;">
-                    <i class="fas fa-file-import"></i> Open Selected File
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Features Section -->
     <section class="features" id="features">
@@ -771,14 +459,14 @@
                 <p>Modify existing text or add new text anywhere in your PDF document. Change fonts, size, color, and formatting with ease.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Mobile Access</h3>
-                <p>Access your files directly from your phone storage. Edit PDFs on the go with our mobile-friendly interface.</p>
+                <i class="fas fa-compress-alt"></i>
+                <h3>Compress PDFs</h3>
+                <p>Reduce file size without sacrificing quality. Perfect for email attachments and faster sharing.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-images"></i>
-                <h3>Gallery Integration</h3>
-                <p>Insert images directly from your gallery or convert multiple images to PDF documents with one click.</p>
+                <i class="fas fa-lock"></i>
+                <h3>Secure Documents</h3>
+                <p>Add passwords, permissions, and watermarks to protect sensitive information in your PDF files.</p>
             </div>
             <div class="feature-card">
                 <i class="fas fa-file-signature"></i>
@@ -801,7 +489,7 @@
     <!-- CTA Section -->
     <section class="cta">
         <h2>Ready to Transform Your PDF Workflow?</h2>
-        <p>Join millions of users who trust PDFFlex for their document editing needs. No credit card required to get started.</p>
+        <p>Join millions of users who trust PDFPro for their document editing needs. No credit card required to get started.</p>
         <a href="#" class="btn btn-light">Get Started for Free</a>
     </section>
 
@@ -809,7 +497,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-column">
-                <h3>PDFFlex</h3>
+                <h3>PDFPro</h3>
                 <p>The most advanced online PDF editor with all the tools you need to work with PDFs efficiently and securely.</p>
             </div>
             <div class="footer-column">
@@ -844,86 +532,49 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 PDFFlex. All rights reserved. | Privacy Policy | Terms of Service</p>
+            <p>&copy; 2023 PDFPro. All rights reserved. | Privacy Policy | Terms of Service</p>
         </div>
     </footer>
 
     <script>
-        // Gallery Modal
-        const galleryModal = document.getElementById('gallery-modal');
-        const galleryBtn = document.getElementById('gallery');
-        const phoneStorageModal = document.getElementById('phone-storage-modal');
-        const phoneStorageBtn = document.getElementById('phone-storage');
-        const closeModalBtns = document.querySelectorAll('.close-modal');
-        
-        galleryBtn.addEventListener('click', () => {
-            galleryModal.style.display = 'flex';
-        });
-        
-        phoneStorageBtn.addEventListener('click', () => {
-            phoneStorageModal.style.display = 'flex';
-        });
-        
-        closeModalBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                galleryModal.style.display = 'none';
-                phoneStorageModal.style.display = 'none';
+        // Simple animation for feature cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            featureCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
             });
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === galleryModal) {
-                galleryModal.style.display = 'none';
-            }
-            if (e.target === phoneStorageModal) {
-                phoneStorageModal.style.display = 'none';
-            }
-        });
-        
-        // Upload area interaction
-        const uploadArea = document.querySelector('.upload-area');
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = var('--primary');
-            uploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
-        });
-        
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.style.borderColor = '#ccc';
-            uploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-        });
-        
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = '#ccc';
-            uploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
             
-            // Simulate file upload
-            uploadArea.innerHTML = `
-                <i class="fas fa-spinner fa-spin"></i>
-                <h3>Processing your file...</h3>
-                <p>Your document will open in the editor shortly</p>
-            `;
-            
-            setTimeout(() => {
-                uploadArea.innerHTML = `
-                    <i class="fas fa-check-circle" style="color: #4ade80;"></i>
-                    <h3>File Uploaded Successfully!</h3>
-                    <p>document.pdf is ready for editing</p>
-                    <div style="margin-top: 20px;">
-                        <button class="btn btn-primary">Start Editing</button>
-                    </div>
+            // Upload area interaction
+            const uploadArea = document.querySelector('.upload-area');
+            uploadArea.addEventListener('click', function() {
+                this.innerHTML = `
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Processing your file...</h3>
+                    <p>Your document will open in the editor shortly</p>
                 `;
-            }, 2000);
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const nav = document.querySelector('nav ul');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                
+                // Simulate file processing
+                setTimeout(() => {
+                    this.innerHTML = `
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                        <h3>File Ready!</h3>
+                        <p>document.pdf has been uploaded successfully</p>
+                    `;
+                }, 2000);
+            });
         });
     </script>
 </body>
