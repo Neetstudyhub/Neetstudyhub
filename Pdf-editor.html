@@ -563,6 +563,203 @@
             transform: translateY(0);
             opacity: 1;
         }
+        
+        /* Home page specific */
+        #home-page {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .home-features {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 250px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .recent-files {
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .file-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .edit-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+        }
+        
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 100px;
+        }
+        
+        .dropdown-btn:hover {
+            background: #eef7ff;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .dropdown-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        /* Shape selector */
+        .shape-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .shape-option {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .shape-option:hover, .shape-option.active {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Text input */
+        .text-input-container {
+            position: absolute;
+            z-index: 100;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .text-input-container input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -572,7 +769,73 @@
             <p>Upload, edit and download PDF files with our powerful online editor</p>
         </header>
 
-        <div class="editor-container">
+        <div id="home-page">
+            <div class="home-features">
+                <div class="feature-card">
+                    <i class="fas fa-file-upload"></i>
+                    <h3>Upload PDF</h3>
+                    <p>Upload your PDF documents from your device or cloud storage</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-edit"></i>
+                    <h3>Edit & Annotate</h3>
+                    <p>Add text, highlights, shapes and drawings to your PDFs</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-download"></i>
+                    <h3>Download & Share</h3>
+                    <p>Save your edited PDFs and share them with others</p>
+                </div>
+            </div>
+            
+            <div class="upload-area" id="upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & drop your PDF file here</p>
+                <p>or</p>
+                <input type="file" id="file-input" accept=".pdf" style="display: none;">
+                <button class="btn" id="browse-btn">
+                    <i class="fas fa-folder-open"></i> Browse Files
+                </button>
+            </div>
+            
+            <div class="recent-files">
+                <h3><i class="fas fa-history"></i> Recently Edited Files</h3>
+                <div class="file-list" id="recent-files-list">
+                    <div class="file-item">
+                        <div>
+                            <div class="file-name">Annual Report.pdf</div>
+                            <div class="file-date">Edited: 2023-10-15</div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="file-btn edit-btn">Edit</button>
+                            <button class="file-btn delete-btn">Delete</button>
+                        </div>
+                    </div>
+                    <div class="file-item">
+                        <div>
+                            <div class="file-name">Contract Agreement.pdf</div>
+                            <div class="file-date">Edited: 2023-10-10</div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="file-btn edit-btn">Edit</button>
+                            <button class="file-btn delete-btn">Delete</button>
+                        </div>
+                    </div>
+                    <div class="file-item">
+                        <div>
+                            <div class="file-name">Research Paper.pdf</div>
+                            <div class="file-date">Edited: 2023-10-05</div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="file-btn edit-btn">Edit</button>
+                            <button class="file-btn delete-btn">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-container" id="editor-page" style="display: none;">
             <button class="sidebar-toggle" id="sidebar-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -591,9 +854,19 @@
                 </div>
                 
                 <div class="tool-group">
-                    <button class="tool-btn" id="shape-tool" data-tool="shape">
-                        <i class="fas fa-shapes"></i> Shapes
-                    </button>
+                    <div class="dropdown">
+                        <button class="dropdown-btn">
+                            <i class="fas fa-shapes"></i> Shapes
+                        </button>
+                        <div class="dropdown-content">
+                            <div class="shape-selector">
+                                <div class="shape-option" data-shape="rect"><i class="fas fa-square"></i></div>
+                                <div class="shape-option" data-shape="circle"><i class="fas fa-circle"></i></div>
+                                <div class="shape-option" data-shape="line"><i class="fas fa-minus"></i></div>
+                                <div class="shape-option" data-shape="arrow"><i class="fas fa-arrow-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
                     <button class="tool-btn" id="image-tool" data-tool="image">
                         <i class="fas fa-image"></i> Image
                     </button>
@@ -618,6 +891,9 @@
                     <button class="tool-btn" id="redo-btn">
                         <i class="fas fa-redo"></i> Redo
                     </button>
+                    <button class="tool-btn" id="back-btn">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </button>
                 </div>
             </div>
             
@@ -625,12 +901,12 @@
                 <div class="sidebar" id="sidebar">
                     <div class="sidebar-section">
                         <h3><i class="fas fa-file-upload"></i> Upload PDF</h3>
-                        <div class="upload-area" id="upload-area">
+                        <div class="upload-area" id="editor-upload-area">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p>Drag & drop your PDF file here</p>
                             <p>or</p>
-                            <input type="file" id="file-input" accept=".pdf" style="display: none;">
-                            <button class="btn" id="browse-btn">
+                            <input type="file" id="editor-file-input" accept=".pdf" style="display: none;">
+                            <button class="btn" id="editor-browse-btn">
                                 <i class="fas fa-folder-open"></i> Browse Files
                             </button>
                         </div>
@@ -689,6 +965,11 @@
                             <i class="fas fa-expand"></i>
                         </button>
                     </div>
+                    
+                    <div class="text-input-container" id="text-input-container">
+                        <input type="text" id="text-input" placeholder="Enter text...">
+                        <button class="btn" id="add-text-btn">Add</button>
+                    </div>
                 </div>
             </div>
             
@@ -723,12 +1004,16 @@
         let scale = 1;
         let currentTool = 'text';
         let currentColor = '#ff4d4d';
+        let currentShape = 'rect';
         let canvas, ctx;
         let isDrawing = false;
         let lastX, lastY;
         let annotations = [];
         let history = [];
         let historyIndex = -1;
+        let textInputActive = false;
+        let textInputX = 0;
+        let textInputY = 0;
         
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
@@ -739,8 +1024,13 @@
             // Initialize event listeners
             initEventListeners();
             
-            // Load a sample PDF or show instructions
-            showPlaceholder();
+            // Check if we have a saved PDF in localStorage
+            const savedPdf = localStorage.getItem('pdfData');
+            if (savedPdf) {
+                loadSavedPdf(savedPdf);
+            } else {
+                showPlaceholder();
+            }
         });
         
         // Initialize all event listeners
@@ -753,6 +1043,23 @@
                         b.classList.remove('active');
                     });
                     btn.classList.add('active');
+                    
+                    // Hide text input if switching from text tool
+                    if (currentTool !== 'text') {
+                        document.getElementById('text-input-container').style.display = 'none';
+                    }
+                });
+            });
+            
+            // Shape selection
+            document.querySelectorAll('.shape-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.shape-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    option.classList.add('active');
+                    currentShape = option.dataset.shape;
+                    currentTool = 'shape';
                 });
             });
             
@@ -767,7 +1074,7 @@
                 });
             });
             
-            // File upload
+            // File upload (home page)
             document.getElementById('browse-btn').addEventListener('click', () => {
                 document.getElementById('file-input').click();
             });
@@ -794,7 +1101,41 @@
                 if (e.dataTransfer.files.length) {
                     const file = e.dataTransfer.files[0];
                     if (file.type === 'application/pdf') {
-                        loadPDF(file);
+                        handleFileUpload({ target: { files: [file] } });
+                    } else {
+                        showToast('Please upload a PDF file.');
+                    }
+                }
+            });
+            
+            // File upload (editor page)
+            document.getElementById('editor-browse-btn').addEventListener('click', () => {
+                document.getElementById('editor-file-input').click();
+            });
+            
+            document.getElementById('editor-file-input').addEventListener('change', handleFileUpload);
+            
+            const editorUploadArea = document.getElementById('editor-upload-area');
+            editorUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                editorUploadArea.style.borderColor = '#2575fc';
+                editorUploadArea.style.backgroundColor = '#f0f8ff';
+            });
+            
+            editorUploadArea.addEventListener('dragleave', () => {
+                editorUploadArea.style.borderColor = '#ccc';
+                editorUploadArea.style.backgroundColor = '#fdfdfd';
+            });
+            
+            editorUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                editorUploadArea.style.borderColor = '#ccc';
+                editorUploadArea.style.backgroundColor = '#fdfdfd';
+                
+                if (e.dataTransfer.files.length) {
+                    const file = e.dataTransfer.files[0];
+                    if (file.type === 'application/pdf') {
+                        handleFileUpload({ target: { files: [file] } });
                     } else {
                         showToast('Please upload a PDF file.');
                     }
@@ -830,17 +1171,34 @@
             });
             
             document.getElementById('fit-to-screen').addEventListener('click', () => {
-                scale = 1;
-                renderPage();
+                // Auto-scale to fit screen
+                const container = document.querySelector('.pdf-view');
+                if (pdfDoc && container) {
+                    const pageWidth = container.clientWidth - 50;
+                    pdfDoc.getPage(currentPage).then(page => {
+                        const viewport = page.getViewport({ scale: 1 });
+                        scale = pageWidth / viewport.width;
+                        renderPage();
+                    });
+                }
             });
             
             // Tool actions
             document.getElementById('add-page-btn').addEventListener('click', () => {
+                totalPages++;
+                document.getElementById('page-indicator').textContent = `Page ${currentPage} of ${totalPages}`;
+                generateThumbnails();
                 showToast('New page added successfully');
             });
             
             document.getElementById('delete-page-btn').addEventListener('click', () => {
                 if (totalPages > 1) {
+                    totalPages--;
+                    if (currentPage > totalPages) {
+                        currentPage = totalPages;
+                    }
+                    document.getElementById('page-indicator').textContent = `Page ${currentPage} of ${totalPages}`;
+                    generateThumbnails();
                     showToast('Current page deleted');
                 } else {
                     showToast('Cannot delete the only page');
@@ -848,27 +1206,43 @@
             });
             
             document.getElementById('rotate-page-btn').addEventListener('click', () => {
+                // In a real implementation, we would rotate the PDF page
                 showToast('Page rotated 90 degrees');
             });
             
             // Main actions
             document.getElementById('save-btn').addEventListener('click', () => {
+                savePdfToStorage();
                 showToast('Document saved successfully');
             });
             
             document.getElementById('download-btn').addEventListener('click', () => {
-                showToast('PDF download started');
-                // In a real app, this would generate and download the PDF
-                simulateDownload();
+                downloadEditedPdf();
             });
             
             document.getElementById('share-btn').addEventListener('click', () => {
                 showToast('Share options displayed');
+                // In a real app, this would open a share dialog
+                const shareData = {
+                    title: 'Edited PDF',
+                    text: 'Check out this edited PDF document',
+                    url: window.location.href
+                };
+                
+                if (navigator.canShare && navigator.canShare(shareData)) {
+                    navigator.share(shareData)
+                        .then(() => showToast('PDF shared successfully'))
+                        .catch(error => showToast('Sharing failed: ' + error));
+                } else {
+                    showToast('Web Share API not supported in your browser');
+                }
             });
             
             document.getElementById('reset-btn').addEventListener('click', () => {
-                showToast('Editor reset');
-                resetEditor();
+                if (confirm('Are you sure you want to reset all changes?')) {
+                    resetEditor();
+                    showToast('Editor reset');
+                }
             });
             
             // Undo/redo
@@ -878,6 +1252,12 @@
             // Sidebar toggle
             document.getElementById('sidebar-toggle').addEventListener('click', () => {
                 document.getElementById('sidebar').classList.toggle('hidden');
+            });
+            
+            // Back to home
+            document.getElementById('back-btn').addEventListener('click', () => {
+                document.getElementById('editor-page').style.display = 'none';
+                document.getElementById('home-page').style.display = 'block';
             });
             
             // Canvas interaction
@@ -890,6 +1270,30 @@
             canvas.addEventListener('touchstart', handleTouchStart);
             canvas.addEventListener('touchmove', handleTouchMove);
             canvas.addEventListener('touchend', handleTouchEnd);
+            
+            // Text input
+            document.getElementById('add-text-btn').addEventListener('click', () => {
+                const text = document.getElementById('text-input').value;
+                if (text) {
+                    addTextAnnotation(text, textInputX, textInputY);
+                    document.getElementById('text-input-container').style.display = 'none';
+                    document.getElementById('text-input').value = '';
+                }
+            });
+            
+            canvas.addEventListener('click', (e) => {
+                if (currentTool === 'text') {
+                    const rect = canvas.getBoundingClientRect();
+                    textInputX = e.clientX - rect.left;
+                    textInputY = e.clientY - rect.top;
+                    
+                    const inputContainer = document.getElementById('text-input-container');
+                    inputContainer.style.display = 'block';
+                    inputContainer.style.left = (e.pageX + 10) + 'px';
+                    inputContainer.style.top = (e.pageY + 10) + 'px';
+                    document.getElementById('text-input').focus();
+                }
+            });
         }
         
         // Handle file upload
@@ -897,6 +1301,9 @@
             const file = e.target.files[0];
             if (file && file.type === 'application/pdf') {
                 loadPDF(file);
+                // Show editor page
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('editor-page').style.display = 'block';
             } else {
                 showToast('Please select a PDF file.');
             }
@@ -922,6 +1329,13 @@
                     generateThumbnails();
                     
                     showToast('PDF loaded successfully');
+                    
+                    // Save to localStorage
+                    localStorage.setItem('pdfData', JSON.stringify({
+                        name: file.name,
+                        data: Array.from(typedarray),
+                        lastModified: new Date().toISOString()
+                    }));
                 }).catch(error => {
                     console.error('Error loading PDF:', error);
                     showToast('Error loading PDF. Please try another file.');
@@ -929,6 +1343,35 @@
             };
             
             fileReader.readAsArrayBuffer(file);
+        }
+        
+        // Load saved PDF from localStorage
+        function loadSavedPdf(savedPdf) {
+            try {
+                const pdfData = JSON.parse(savedPdf);
+                const typedarray = new Uint8Array(pdfData.data);
+                
+                pdfjsLib.getDocument(typedarray).promise.then(pdf => {
+                    pdfDoc = pdf;
+                    totalPages = pdf.numPages;
+                    currentPage = 1;
+                    
+                    // Render the first page
+                    renderPage();
+                    
+                    // Generate thumbnails
+                    generateThumbnails();
+                    
+                    showToast('Saved PDF loaded successfully');
+                    
+                    // Show editor page
+                    document.getElementById('home-page').style.display = 'none';
+                    document.getElementById('editor-page').style.display = 'block';
+                });
+            } catch (error) {
+                console.error('Error loading saved PDF:', error);
+                showToast('Error loading saved PDF.');
+            }
         }
         
         // Render the current page
@@ -1065,8 +1508,46 @@
         }
         
         // Annotation functions
+        function addTextAnnotation(text, x, y) {
+            annotations.push({
+                type: 'text',
+                text: text,
+                x: x,
+                y: y,
+                color: currentColor
+            });
+            
+            // Render immediately
+            renderAnnotations();
+            
+            // Save state for undo
+            saveState();
+        }
+        
         function renderAnnotations() {
-            // In a real app, this would render saved annotations
+            // Clear existing annotations
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Re-render the PDF page
+            if (pdfDoc) {
+                pdfDoc.getPage(currentPage).then(page => {
+                    const viewport = page.getViewport({ scale: scale });
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(() => {
+                        // Then render annotations
+                        annotations.forEach(anno => {
+                            if (anno.type === 'text') {
+                                ctx.font = '16px Arial';
+                                ctx.fillStyle = anno.color;
+                                ctx.fillText(anno.text, anno.x, anno.y);
+                            }
+                        });
+                    });
+                });
+            }
         }
         
         // History functions
@@ -1102,6 +1583,40 @@
             img.src = history[historyIndex];
         }
         
+        // Save PDF to localStorage
+        function savePdfToStorage() {
+            if (pdfDoc) {
+                // Get the PDF data from localStorage
+                const savedPdf = localStorage.getItem('pdfData');
+                if (savedPdf) {
+                    const pdfData = JSON.parse(savedPdf);
+                    // Update last modified
+                    pdfData.lastModified = new Date().toISOString();
+                    localStorage.setItem('pdfData', JSON.stringify(pdfData));
+                }
+            }
+        }
+        
+        // Download edited PDF
+        function downloadEditedPdf() {
+            // Create a new PDF document
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            
+            // Get canvas image
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            
+            // Add image to PDF
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            
+            // Download
+            pdf.save('edited-document.pdf');
+            showToast('PDF download started');
+        }
+        
         // Reset editor
         function resetEditor() {
             currentPage = 1;
@@ -1109,13 +1624,19 @@
             pdfDoc = null;
             history = [];
             historyIndex = -1;
+            annotations = [];
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             document.getElementById('page-thumbnails').innerHTML = '';
             document.getElementById('page-indicator').textContent = 'Page 1 of 1';
             document.getElementById('zoom-level').textContent = '100%';
             
-            showPlaceholder();
+            // Remove saved PDF
+            localStorage.removeItem('pdfData');
+            
+            // Show home page
+            document.getElementById('editor-page').style.display = 'none';
+            document.getElementById('home-page').style.display = 'block';
         }
         
         // Show placeholder when no PDF is loaded
@@ -1133,14 +1654,6 @@
             
             ctx.font = '16px Arial';
             ctx.fillText('Use the tools on the left to annotate and edit your document', canvas.width / 2, canvas.height / 2 + 20);
-        }
-        
-        // Simulate download
-        function simulateDownload() {
-            const link = document.createElement('a');
-            link.href = 'data:application/pdf;base64,' + btoa('Simulated PDF content');
-            link.download = 'edited-document.pdf';
-            link.click();
         }
         
         // Show toast notification
