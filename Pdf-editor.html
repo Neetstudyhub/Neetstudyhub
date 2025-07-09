@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDFPro | Advanced Online PDF Editor</title>
+    <title>PDF Editor | Upload, Edit & Download PDFs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,568 +13,577 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4cc9f0;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4ade80;
-            --danger: #f87171;
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .logo i {
-            color: var(--secondary);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 1.1rem;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
             text-align: center;
-        }
-
-        .btn-primary {
-            background: var(--primary);
+            padding: 30px 0;
             color: white;
-            border: 2px solid var(--primary);
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero {
-            padding: 150px 5% 100px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-        }
-
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            color: var(--secondary);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: #555;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .editor-window {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 500px;
-            overflow: hidden;
-            position: relative;
-            z-index: 2;
-        }
-
-        .editor-header {
-            background: var(--primary);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .editor-tools {
-            background: #f0f2f5;
-            padding: 15px;
-            display: flex;
-            gap: 15px;
-            border-bottom: 1px solid #e1e4e8;
-        }
-
-        .tool {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-        }
-
-        .tool:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .editor-content {
-            height: 350px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 20px;
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            position: relative;
-        }
-
-        .upload-area {
-            border: 3px dashed #ccc;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            max-width: 80%;
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        .upload-area i {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .features {
-            padding: 100px 5%;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        .section-title p {
-            color: #777;
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--light);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-card i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-
-        .cta {
-            padding: 100px 5%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .cta h2 {
+        header h1 {
             font-size: 2.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .cta p {
+        header p {
             font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
+            max-width: 600px;
+            margin: 0 auto;
             opacity: 0.9;
         }
 
-        .btn-light {
+        .editor-container {
             background: white;
-            color: var(--primary);
-            border: none;
-            font-size: 1.1rem;
-            padding: 15px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 30px;
         }
 
-        footer {
-            background: var(--dark);
+        .toolbar {
+            display: flex;
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+            flex-wrap: wrap;
+        }
+
+        .tool-group {
+            display: flex;
+            margin-right: 20px;
+            padding-right: 20px;
+            border-right: 1px solid #e0e0e0;
+            align-items: center;
+        }
+
+        .tool-group:last-child {
+            border-right: none;
+            margin-right: 0;
+        }
+
+        .tool-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .tool-btn:hover {
+            background: #eef7ff;
+            border-color: #2575fc;
+            color: #2575fc;
+        }
+
+        .tool-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .tool-btn.active {
+            background: #2575fc;
             color: white;
-            padding: 70px 5% 30px;
+            border-color: #2575fc;
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
+        .color-picker {
+            display: flex;
+            align-items: center;
         }
 
-        .footer-column h3 {
-            font-size: 1.4rem;
+        .color-option {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: #333;
+            transform: scale(1.1);
+        }
+
+        .editor-main {
+            display: flex;
+            height: 600px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #eaeaea;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
             margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
         }
 
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent);
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
         }
 
-        .footer-column ul {
-            list-style: none;
+        .sidebar h3 i {
+            margin-right: 10px;
+            color: #2575fc;
         }
 
-        .footer-column ul li {
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            background: #fdfdfd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #2575fc;
+            background: #f0f8ff;
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: #2575fc;
             margin-bottom: 15px;
         }
 
-        .footer-column a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s;
+        .upload-area p {
+            color: #666;
+            margin-bottom: 15px;
         }
 
-        .footer-column a:hover {
+        .btn {
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #1c64e0;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .pdf-preview {
+            flex: 1;
+            padding: 25px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pdf-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #777;
+            text-align: center;
+        }
+
+        .pdf-placeholder i {
+            font-size: 100px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .pdf-view {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pdf-page {
+            position: relative;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        .page-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .page-btn {
+            background: #f0f4f8;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+        }
+
+        .page-btn:hover {
+            background: #2575fc;
             color: white;
         }
 
-        .copyright {
+        .page-indicator {
+            font-weight: 500;
+            color: #444;
+        }
+
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .zoom-btn {
+            background: #f0f4f8;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+        }
+
+        .zoom-btn:hover {
+            background: #2575fc;
+            color: white;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .actions .btn {
+            margin: 0 10px;
+            min-width: 180px;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        footer {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #444;
-            color: #aaa;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
 
-        @media (max-width: 992px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                gap: 50px;
-            }
-            
-            .hero-content {
-                max-width: 100%;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            nav ul {
-                display: none;
-            }
+        /* Sample annotations */
+        .annotation {
+            position: absolute;
+            pointer-events: auto;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.3rem;
+        .text-annotation {
+            padding: 5px;
+            background: rgba(255, 255, 200, 0.7);
+            border: 1px dashed #ccc;
+            cursor: move;
+        }
+
+        .highlight {
+            background: rgba(255, 255, 0, 0.3);
+        }
+
+        .drawing {
+            border: 2px solid red;
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .editor-main {
+                flex-direction: column;
+                height: auto;
             }
             
-            .section-title h2 {
-                font-size: 2rem;
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #eaeaea;
             }
             
-            .cta h2 {
-                font-size: 2.2rem;
+            .toolbar {
+                flex-direction: column;
+                align-items: flex-start;
             }
             
-            .auth-buttons {
-                display: none;
+            .tool-group {
+                margin-bottom: 10px;
+                border-right: none;
+                padding-right: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <i class="fas fa-file-pdf"></i>
-            <span>PDFPro</span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#tools">Tools</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#support">Support</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <a href="#" class="btn btn-outline">Log In</a>
-            <a href="#" class="btn btn-primary">Sign Up</a>
-        </div>
-    </header>
+    <div class="container">
+        <header>
+            <h1>PDF Editor Pro</h1>
+            <p>Upload, edit and download PDF files with our powerful online editor</p>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Edit PDFs Like Never Before</h1>
-            <p>Transform, edit, and manage your PDF documents with our powerful online editor. No installation required - all processing happens in your browser for maximum security.</p>
-            <a href="#" class="btn btn-primary" style="font-size: 1.1rem; padding: 15px 35px;">Start Editing Now</a>
-        </div>
-        <div class="hero-image">
-            <div class="editor-window">
-                <div class="editor-header">
-                    <div>document.pdf</div>
-                    <div>
-                        <i class="fas fa-expand-alt"></i>
-                        <i class="fas fa-times"></i>
+        <div class="editor-container">
+            <div class="toolbar">
+                <div class="tool-group">
+                    <button class="tool-btn active" id="text-tool"><i class="fas fa-font"></i> Text</button>
+                    <button class="tool-btn" id="draw-tool"><i class="fas fa-pencil-alt"></i> Draw</button>
+                    <button class="tool-btn" id="highlight-tool"><i class="fas fa-highlighter"></i> Highlight</button>
+                </div>
+                
+                <div class="tool-group">
+                    <button class="tool-btn"><i class="fas fa-shapes"></i> Shapes</button>
+                    <button class="tool-btn"><i class="fas fa-image"></i> Image</button>
+                    <button class="tool-btn"><i class="fas fa-eraser"></i> Eraser</button>
+                </div>
+                
+                <div class="tool-group color-picker">
+                    <span>Color:</span>
+                    <div class="color-option active" style="background-color: #ff4d4d;"></div>
+                    <div class="color-option" style="background-color: #2575fc;"></div>
+                    <div class="color-option" style="background-color: #2ecc71;"></div>
+                    <div class="color-option" style="background-color: #f1c40f;"></div>
+                    <div class="color-option" style="background-color: #9b59b6;"></div>
+                </div>
+                
+                <div class="tool-group">
+                    <button class="tool-btn"><i class="fas fa-undo"></i> Undo</button>
+                    <button class="tool-btn"><i class="fas fa-redo"></i> Redo</button>
+                </div>
+            </div>
+            
+            <div class="editor-main">
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <h3><i class="fas fa-file-upload"></i> Upload PDF</h3>
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop your PDF file here</p>
+                            <p>or</p>
+                            <button class="btn"><i class="fas fa-folder-open"></i> Browse Files</button>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fas fa-list"></i> Pages</h3>
+                        <div class="page-thumbnails">
+                            <div class="page-thumb active">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='130' viewBox='0 0 100 130'%3E%3Crect width='100' height='130' fill='white' stroke='%23ddd' stroke-width='1'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='12' fill='%23444' text-anchor='middle'%3EPage 1%3C/text%3E%3C/svg%3E" alt="Page 1">
+                                <span>Page 1</span>
+                            </div>
+                            <div class="page-thumb">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='130' viewBox='0 0 100 130'%3E%3Crect width='100' height='130' fill='white' stroke='%23ddd' stroke-width='1'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='12' fill='%23444' text-anchor='middle'%3EPage 2%3C/text%3E%3C/svg%3E" alt="Page 2">
+                                <span>Page 2</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fas fa-tools"></i> Tools</h3>
+                        <button class="tool-btn" style="width: 100%; margin-bottom: 10px;"><i class="fas fa-plus"></i> Add Page</button>
+                        <button class="tool-btn" style="width: 100%; margin-bottom: 10px;"><i class="fas fa-trash"></i> Delete Page</button>
+                        <button class="tool-btn" style="width: 100%;"><i class="fas fa-rotate-right"></i> Rotate Page</button>
                     </div>
                 </div>
-                <div class="editor-tools">
-                    <div class="tool"><i class="fas fa-font"></i></div>
-                    <div class="tool"><i class="fas fa-image"></i></div>
-                    <div class="tool"><i class="fas fa-pen"></i></div>
-                    <div class="tool"><i class="fas fa-shapes"></i></div>
-                    <div class="tool"><i class="fas fa-signature"></i></div>
-                    <div class="tool"><i class="fas fa-eraser"></i></div>
-                    <div class="tool"><i class="fas fa-save"></i></div>
-                </div>
-                <div class="editor-content">
-                    <div class="upload-area">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <h3>Drag & Drop your PDF here</h3>
-                        <p>or click to browse files</p>
+                
+                <div class="pdf-preview">
+                    <div class="page-controls">
+                        <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                        <span class="page-indicator">Page 1 of 2</span>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="pdf-view">
+                        <div class="pdf-page" style="width: 595px; height: 842px; position: relative;">
+                            <!-- PDF content would be rendered here -->
+                            <div class="annotation text-annotation" style="top: 150px; left: 100px; width: 200px;">
+                                Double-click to edit this text
+                            </div>
+                            <div class="annotation highlight" style="top: 250px; left: 100px; width: 300px; height: 30px;"></div>
+                            <div class="annotation drawing" style="top: 350px; left: 150px; width: 200px; height: 100px;"></div>
+                            
+                            <!-- Sample PDF content -->
+                            <div style="padding: 50px; font-size: 16px; line-height: 1.6;">
+                                <h2 style="text-align: center; margin-bottom: 30px;">Sample PDF Document</h2>
+                                <p>This is a demonstration of the PDF editor interface. In a real application, your uploaded PDF would be displayed here.</p>
+                                <p style="margin-top: 20px;">You can add text annotations, draw shapes, highlight important content, and make various modifications to your document.</p>
+                                <p style="margin-top: 20px;">Once you're done editing, simply click the "Download PDF" button to save your modified document.</p>
+                                
+                                <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px;">
+                                    <p>Try our editing tools:</p>
+                                    <ul style="margin-top: 10px; margin-left: 20px;">
+                                        <li>Text tool for adding comments</li>
+                                        <li>Drawing tool for freehand annotations</li>
+                                        <li>Highlighter for emphasizing content</li>
+                                        <li>Shape tools for rectangles, circles, etc.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="zoom-controls">
+                        <button class="zoom-btn"><i class="fas fa-search-minus"></i></button>
+                        <span>100%</span>
+                        <button class="zoom-btn"><i class="fas fa-search-plus"></i></button>
+                        <button class="zoom-btn"><i class="fas fa-expand"></i></button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="section-title">
-            <h2>Powerful PDF Editing Tools</h2>
-            <p>Everything you need to work with PDFs, all in one place</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-edit"></i>
-                <h3>Edit Text</h3>
-                <p>Modify existing text or add new text anywhere in your PDF document. Change fonts, size, color, and formatting with ease.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-compress-alt"></i>
-                <h3>Compress PDFs</h3>
-                <p>Reduce file size without sacrificing quality. Perfect for email attachments and faster sharing.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-lock"></i>
-                <h3>Secure Documents</h3>
-                <p>Add passwords, permissions, and watermarks to protect sensitive information in your PDF files.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-file-signature"></i>
-                <h3>E-Signature</h3>
-                <p>Sign documents electronically with legally binding signatures. Request and collect signatures from others.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-object-group"></i>
-                <h3>Merge & Split</h3>
-                <p>Combine multiple files into one PDF or split a PDF into separate documents. Reorder pages as needed.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-sync-alt"></i>
-                <h3>Convert Formats</h3>
-                <p>Convert PDFs to Word, Excel, PowerPoint, JPG, and more. Create PDFs from various file types.</p>
+            
+            <div class="actions">
+                <button class="btn btn-secondary"><i class="fas fa-save"></i> Save</button>
+                <button class="btn"><i class="fas fa-file-download"></i> Download PDF</button>
+                <button class="btn btn-secondary"><i class="fas fa-share-alt"></i> Share</button>
             </div>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <h2>Ready to Transform Your PDF Workflow?</h2>
-        <p>Join millions of users who trust PDFPro for their document editing needs. No credit card required to get started.</p>
-        <a href="#" class="btn btn-light">Get Started for Free</a>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>PDFPro</h3>
-                <p>The most advanced online PDF editor with all the tools you need to work with PDFs efficiently and securely.</p>
-            </div>
-            <div class="footer-column">
-                <h3>Features</h3>
-                <ul>
-                    <li><a href="#">Edit PDF</a></li>
-                    <li><a href="#">Convert PDF</a></li>
-                    <li><a href="#">Compress PDF</a></li>
-                    <li><a href="#">Merge PDF</a></li>
-                    <li><a href="#">Sign PDF</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Tutorials</a></li>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">API Documentation</a></li>
-                    <li><a href="#">Community</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Partners</a></li>
-                    <li><a href="#">Press</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2023 PDFPro. All rights reserved. | Privacy Policy | Terms of Service</p>
-        </div>
-    </footer>
+        
+        <footer>
+            <p>PDF Editor Pro &copy; 2023 | All Rights Reserved</p>
+        </footer>
+    </div>
 
     <script>
-        // Simple animation for feature cards on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            featureCards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
-            });
-            
-            // Upload area interaction
-            const uploadArea = document.querySelector('.upload-area');
-            uploadArea.addEventListener('click', function() {
-                this.innerHTML = `
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <h3>Processing your file...</h3>
-                    <p>Your document will open in the editor shortly</p>
-                `;
+        // Tool selection functionality
+        const toolButtons = document.querySelectorAll('.tool-btn');
+        toolButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons in the same group
+                const group = button.closest('.tool-group');
+                if (group) {
+                    group.querySelectorAll('.tool-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
                 
-                // Simulate file processing
-                setTimeout(() => {
-                    this.innerHTML = `
-                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                        <h3>File Ready!</h3>
-                        <p>document.pdf has been uploaded successfully</p>
-                    `;
-                }, 2000);
+                // Add active class to clicked button
+                button.classList.add('active');
             });
+        });
+        
+        // Color picker functionality
+        const colorOptions = document.querySelectorAll('.color-option');
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all options
+                option.parentElement.querySelectorAll('.color-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                
+                // Add active class to clicked option
+                option.classList.add('active');
+            });
+        });
+        
+        // Upload area interaction
+        const uploadArea = document.getElementById('upload-area');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#2575fc';
+            uploadArea.style.backgroundColor = '#f0f8ff';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '#fdfdfd';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '#fdfdfd';
+            
+            // Handle file upload
+            if (e.dataTransfer.files.length) {
+                const file = e.dataTransfer.files[0];
+                if (file.type === 'application/pdf') {
+                    alert(`PDF file "${file.name}" uploaded successfully!`);
+                } else {
+                    alert('Please upload a PDF file.');
+                }
+            }
+        });
+        
+        // Page thumbnails interaction
+        const pageThumbs = document.querySelectorAll('.page-thumb');
+        pageThumbs.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                document.querySelector('.page-thumb.active').classList.remove('active');
+                thumb.classList.add('active');
+            });
+        });
+        
+        // Text annotation editing
+        const textAnnotation = document.querySelector('.text-annotation');
+        textAnnotation.addEventListener('dblclick', () => {
+            const text = prompt('Edit annotation text:', textAnnotation.textContent);
+            if (text !== null) {
+                textAnnotation.textContent = text;
+            }
         });
     </script>
 </body>
