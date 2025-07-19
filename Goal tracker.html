@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Tracker Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #5c7cff;
+            --primary-dark: #3a56d4;
+            --success: #06d6a0;
+            --success-light: #07f5b9;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --danger-light: #ff6b8b;
+            --dark: #1e1e2d;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --calendar-bg: #ffffff;
+            --calendar-border: #e0e0e0;
+            --day-hover: #f5f7ff;
+            --border-radius: 12px;
+            --box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+            margin: 20px auto;
+        }
+
+        /* Header Styles */
+        header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
+            border-radius: var(--border-radius);
+            padding: 20px 30px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: white;
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-btn:hover {
+            background: var(--light-gray);
+            transform: translateY(-2px);
+        }
+
+        .current-month {
+            font-size: 1.5rem;
+            font-weight: 700;
+            min-width: 200px;
+            text-align: center;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .today-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .today-btn:hover {
+            background: var(--light-gray);
+            transform: translateY(-2px);
+        }
+
+        /* Calendar Styles - Realistic Look */
+        .calendar {
+            background: var(--calendar-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 0;
+            grid-column: 1 / 2;
+            overflow: hidden;
+            border: 1px solid var(--calendar-border);
+        }
+
+        .calendar-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 20px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calendar-header div {
+            padding: 10px 0;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+
+        .day {
+            min-height: 100px;
+            border: 1px solid var(--calendar-border);
+            padding: 10px;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day:hover {
+            background: var(--day-hover);
+            z-index: 10;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .day-number {
+            align-self: flex-end;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--dark);
+            background: var(--light-gray);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -5px -5px 5px 0;
+        }
+
+        .today .day-number {
+            background: var(--primary);
+            color: white;
+            font-weight: 800;
+        }
+
+        .day-status {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .status-tick {
+            color: var(--success);
+        }
+
+        .status-cross {
+            color: var(--danger);
+        }
+
+        .status-pending {
+            color: var(--warning);
+        }
+
+        .past-day {
+            background-color: #f9f9f9;
+        }
+
+        .future-day {
+            background-color: #ffffff;
+            opacity: 0.7;
+        }
+
+        .empty-day {
+            background: repeating-linear-gradient(
+                45deg,
+                #f8f9fa,
+                #f8f9fa 10px,
+                #e9ecef 10px,
+                #e9ecef 20px
+            );
+            cursor: default;
+        }
+
+        .day-note-preview {
+            font-size: 0.7rem;
+            color: var(--gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 2px 5px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .future-day .day-status {
+            opacity: 0.5;
+        }
+
+        .future-day:hover {
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+            background: white;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            grid-column: 2 / 3;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f2f5;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card-title i {
+            font-size: 1.4rem;
+        }
+
+        .goal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .goal-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .goal-input-group label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .goal-input {
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .goal-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .set-goal-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .set-goal-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .current-goal {
+            background: #e7eeff;
+            padding: 18px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1.05rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .goal-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .goal-text {
+            font-weight: 500;
+        }
+
+        .goal-text strong {
+            color: var(--primary);
+        }
+
+        .goal-due {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: var(--dark);
+            background: rgba(6, 214, 160, 0.15);
+            padding: 8px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, var(--success-light) 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .goal-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 12px 0;
+        }
+
+        .success-stat {
+            color: var(--success);
+        }
+
+        .missed-stat {
+            color: var(--danger);
+        }
+
+        .pending-stat {
+            color: var(--warning);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .achieved-days {
+            margin-top: 25px;
+        }
+
+        .achieved-list {
+            list-style: none;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-top: 15px;
+        }
+
+        .achieved-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .achieved-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .achieved-list::-webkit-scrollbar-thumb {
+            background: #c5c5c5;
+            border-radius: 10px;
+        }
+
+        .achieved-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .achieved-list li:hover {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding-left: 10px;
+        }
+
+        .achieved-list li:last-child {
+            border-bottom: none;
+        }
+
+        .day-date {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .day-status-badge {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 1rem;
+        }
+
+        .status-completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-missed {
+            background: var(--danger);
+            color: white;
+        }
+
+        .report-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 25px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .report-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Modal Styles */
+        .day-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .day-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transform: translateY(30px);
+            transition: transform 0.4s;
+        }
+
+        .day-modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+            background: #f8f9fa;
+            transform: rotate(90deg);
+        }
+
+        .status-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .status-option {
+            padding: 20px 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .status-option.selected {
+            border-color: var(--primary);
+            background: #e7eeff;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .status-option i {
+            font-size: 2.5rem;
+        }
+
+        .note-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin: 20px 0;
+            min-height: 120px;
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        .note-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .save-day {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .save-day:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(67, 97, 238, 0.4);
+        }
+
+        .reason-required {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* Motivational Emojis */
+        .motivation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 2rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                grid-column: 1 / -1;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .calendar-controls {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calendar-header {
+                display: none;
+            }
+            
+            .days-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .day {
+                min-height: 80px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+            }
+            
+            .day-status {
+                font-size: 2.5rem;
+                margin-left: 15px;
+            }
+            
+            .goal-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-title {
+                font-size: 1.3rem;
+            }
+            
+            .goal-details {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .goal-due {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                gap: 15px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .current-month {
+                font-size: 1.2rem;
+                min-width: 150px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .calendar {
+                padding: 0;
+            }
+
+            .day {
+                padding: 10px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .calendar, .sidebar {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .day-note-preview {
+            display: none;
+        }
+        
+        @media (min-width: 992px) {
+            .day-note-preview {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-calendar-check"></i></div>
+                <h1>Goal Tracker Pro</h1>
+            </div>
+            <div class="calendar-controls">
+                <div class="month-nav">
+                    <button class="nav-btn" id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                    <div class="current-month" id="current-month">July 2025</div>
+                    <button class="nav-btn" id="next-month"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <button class="today-btn" id="today-btn"><i class="fas fa-calendar-day"></i> Today</button>
+            </div>
+        </header>
+        
+        <main class="calendar">
+            <div class="calendar-header">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div class="days-grid" id="calendar-grid">
+                <!-- Calendar days will be generated here -->
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-bullseye"></i> Set Your Goal
+                </h2>
+                <form class="goal-form" id="goal-form">
+                    <div class="goal-input-group">
+                        <label for="goal-input">Your Goal:</label>
+                        <input type="text" class="goal-input" id="goal-input" placeholder="Exercise 30 minutes daily..." required>
+                    </div>
+                    
+                    <div class="goal-input-group">
+                        <label for="goal-due-date">Target Completion Date:</label>
+                        <input type="date" class="goal-input" id="goal-due-date" required>
+                    </div>
+                    
+                    <button type="submit" class="set-goal-btn" id="set-goal">
+                        <i class="fas fa-check"></i> Set Goal
+                    </button>
+                </form>
+                
+                <div class="current-goal">
+                    <div class="goal-details">
+                        <div class="goal-text">Current: <strong id="current-goal-text">Exercise for 30 minutes daily</strong></div>
+                        <div class="goal-due">
+                            <i class="fas fa-calendar-check"></i>
+                            <span id="due-date">Aug 15, 2025</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar" style="width: 45%"></div>
+                    </div>
+                    <div class="goal-text" id="days-remaining">25 days remaining</div>
+                </div>
+                
+                <div class="goal-stats">
+                    <div class="stat-card">
+                        <div class="stat-value success-stat" id="completed-count">17</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value missed-stat" id="missed-count">5</div>
+                        <div class="stat-label">Missed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value pending-stat" id="remaining-count">9</div>
+                        <div class="stat-label">Remaining</div>
+                    </div>
+                </div>
+                
+                <div class="motivation">
+                    <span>🚀</span>
+                    <span>💪</span>
+                    <span>🔥</span>
+                    <span>🌟</span>
+                    <span>🏆</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-chart-pie"></i> Monthly Report
+                </h2>
+                <div class="achieved-days">
+                    <h3>Daily Progress</h3>
+                    <ul class="achieved-list" id="achieved-list">
+                        <li>
+                            <span class="day-date"><i class="fas fa-calendar-day"></i> July 1 (Tue)</span>
+                            <span class="day-status-badge status-completed"><i class="fas fa-check"></i></span>
+                        </li>
+                        <li>
+                            <span class="day-date"><i class="fas fa-calendar-day"></i> July 2 (Wed)</span>
+                            <span class="day-status-badge status-completed"><i class="fas fa-check"></i></span>
+                        </li>
+                        <li>
+                            <span class="day-date"><i class="fas fa-calendar-day"></i> July 3 (Thu)</span>
+                            <span class="day-status-badge status-missed"><i class="fas fa-times"></i></span>
+                        </li>
+                        <li>
+                            <span class="day-date"><i class="fas fa-calendar-day"></i> July 4 (Fri)</span>
+                            <span class="day-status-badge status-completed"><i class="fas fa-check"></i></span>
+                        </li>
+                        <li>
+                            <span class="day-date"><i class="fas fa-calendar-day"></i> July 5 (Sat)</span>
+                            <span class="day-status-badge status-completed"><i class="fas fa-check"></i></span>
+                        </li>
+                    </ul>
+                </div>
+                <button class="report-btn" id="generate-report">
+                    <i class="fas fa-file-pdf"></i> Generate Full Report
+                </button>
+            </div>
+        </aside>
+    </div>
+    
+    <div class="day-modal" id="day-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-date"><i class="fas fa-calendar-day"></i> July 19, 2025</h2>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            
+            <p>Update your goal status for this day:</p>
+            
+            <div class="status-options">
+                <div class="status-option" data-status="completed">
+                    <div class="status-tick">✅</div>
+                    <div>Completed</div>
+                </div>
+                <div class="status-option" data-status="missed">
+                    <div class="status-cross">❌</div>
+                    <div>Missed</div>
+                </div>
+                <div class="status-option" data-status="pending">
+                    <div class="status-pending">⏳</div>
+                    <div>Pending</div>
+                </div>
+            </div>
+            
+            <div class="reason-required" id="reason-required">
+                <i class="fas fa-exclamation-circle"></i> Reason is required for missed days
+            </div>
+            
+            <label for="day-note">Add a note:</label>
+            <textarea class="note-input" id="day-note" placeholder="What did you do? Why was it missed?"></textarea>
+            
+            <button class="save-day" id="save-day">
+                <i class="fas fa-save"></i> Save Day
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Current date
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            let selectedDay = null;
+            
+            // DOM Elements
+            const currentMonthEl = document.getElementById('current-month');
+            const calendarGrid = document.getElementById('calendar-grid');
+            const prevMonthBtn = document.getElementById('prev-month');
+            const nextMonthBtn = document.getElementById('next-month');
+            const todayBtn = document.getElementById('today-btn');
+            const dayModal = document.getElementById('day-modal');
+            const closeModal = document.getElementById('close-modal');
+            const modalDate = document.getElementById('modal-date');
+            const saveDayBtn = document.getElementById('save-day');
+            const goalForm = document.getElementById('goal-form');
+            const goalInput = document.getElementById('goal-input');
+            const dueDateInput = document.getElementById('goal-due-date');
+            const setGoalBtn = document.getElementById('set-goal');
+            const currentGoalText = document.getElementById('current-goal-text');
+            const dueDateText = document.getElementById('due-date');
+            const progressBar = document.getElementById('progress-bar');
+            const daysRemaining = document.getElementById('days-remaining');
+            const completedCount = document.getElementById('completed-count');
+            const missedCount = document.getElementById('missed-count');
+            const remainingCount = document.getElementById('remaining-count');
+            const generateReportBtn = document.getElementById('generate-report');
+            const reasonRequired = document.getElementById('reason-required');
+            
+            // Set default due date to 30 days from now
+            const defaultDueDate = new Date();
+            defaultDueDate.setDate(defaultDueDate.getDate() + 30);
+            dueDateInput.valueAsDate = defaultDueDate;
+            
+            // Data storage
+            const goalData = {
+                goal: "Exercise for 30 minutes daily",
+                dueDate: defaultDueDate,
+                days: {
+                    // Sample data for demonstration
+                    '2025-7-1': { status: 'completed', note: 'Morning run - 45 minutes' },
+                    '2025-7-2': { status: 'completed', note: 'Gym workout - strength training' },
+                    '2025-7-3': { status: 'missed', note: 'Sick with fever' },
+                    '2025-7-4': { status: 'completed', note: 'Swimming session' },
+                    '2025-7-5': { status: 'completed', note: 'Yoga and meditation' },
+                    '2025-7-10': { status: 'missed', note: 'Business trip' },
+                    '2025-7-15': { status: 'missed', note: 'Family emergency' },
+                    '2025-7-19': { status: 'pending', note: '' }
+                }
+            };
+            
+            // Initialize
+            updateCalendar();
+            updateGoalStats();
+            updateProgress();
+            
+            // Render calendar
+            function updateCalendar() {
+                // Update month display
+                currentMonthEl.textContent = getMonthName(currentMonth) + ' ' + currentYear;
+                
+                // Clear grid
+                calendarGrid.innerHTML = '';
+                
+                // Get first day of month
+                const firstDay = new Date(currentYear, currentMonth, 1);
+                const lastDay = new Date(currentYear, currentMonth + 1, 0);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                // Get day of week for first day (0 = Sunday, 6 = Saturday)
+                const firstDayOfWeek = firstDay.getDay();
+                
+                // Get total days in month
+                const totalDays = lastDay.getDate();
+                
+                // Add empty cells for days before first day of month
+                for (let i = 0; i < firstDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.classList.add('day', 'empty-day');
+                    calendarGrid.appendChild(emptyDay);
+                }
+                
+                // Add cells for each day of the month
+                for (let day = 1; day <= totalDays; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('day');
+                    
+                    // Check if this day is in past, present or future
+                    const dayDate = new Date(currentYear, currentMonth, day);
+                    dayDate.setHours(0, 0, 0, 0);
+                    
+                    if (dayDate < today) {
+                        dayElement.classList.add('past-day');
+                    } else if (dayDate > today) {
+                        dayElement.classList.add('future-day');
+                    }
+                    
+                    // Check if this is today
+                    if (currentYear === today.getFullYear() && 
+                        currentMonth === today.getMonth() && 
+                        day === today.getDate()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Add day number
+                    const dayNumber = document.createElement('div');
+                    dayNumber.classList.add('day-number');
+                    dayNumber.textContent = day;
+                    dayElement.appendChild(dayNumber);
+                    
+                    // Add status indicator
+                    const statusEl = document.createElement('div');
+                    statusEl.classList.add('day-status');
+                    
+                    // Check if we have data for this day
+                    const dateKey = `${currentYear}-${currentMonth}-${day}`;
+                    const dayData = goalData.days[dateKey];
+                    
+                    // For past days without data, mark as missed automatically
+                    if (!dayData && dayDate < today && dayDate <= goalData.dueDate) {
+                        goalData.days[dateKey] = { status: 'missed', note: 'Not tracked - automatically marked as missed' };
+                    }
+                    
+                    const finalDayData = goalData.days[dateKey] || { status: 'pending', note: '' };
+                    
+                    if (finalDayData.status === 'completed') {
+                        statusEl.innerHTML = '✅';
+                    } else if (finalDayData.status === 'missed') {
+                        statusEl.innerHTML = '❌';
+                    } else if (dayDate > today) {
+                        statusEl.innerHTML = '🔒';
+                    } else {
+                        statusEl.innerHTML = '⏳';
+                    }
+                    
+                    dayElement.appendChild(statusEl);
+                    
+                    // Add note preview for desktop
+                    if (finalDayData.note) {
+                        const notePreview = document.createElement('div');
+                        notePreview.classList.add('day-note-preview');
+                        notePreview.textContent = finalDayData.note;
+                        dayElement.appendChild(notePreview);
+                    }
+                    
+                    // Add click event only for today and past days
+                    if (dayDate <= today) {
+                        dayElement.addEventListener('click', function() {
+                            openDayModal(day);
+                        });
+                    } else {
+                        dayElement.style.cursor = 'not-allowed';
+                        dayElement.addEventListener('click', function() {
+                            alert("Future days cannot be tracked! Focus on today. 😊");
+                        });
+                    }
+                    
+                    calendarGrid.appendChild(dayElement);
+                }
+            }
+            
+            function openDayModal(day) {
+                selectedDay = day;
+                const date = new Date(currentYear, currentMonth, day);
+                modalDate.textContent = getMonthName(currentMonth) + ' ' + day + ', ' + currentYear;
+                
+                // Set current status if exists
+                const dateKey = `${currentYear}-${currentMonth}-${day}`;
+                const dayData = goalData.days[dateKey] || { status: 'pending', note: '' };
+                
+                // Update status options
+                const statusOptions = document.querySelectorAll('.status-option');
+                statusOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.dataset.status === dayData.status) {
+                        option.classList.add('selected');
+                    }
+                });
+                
+                // Set note
+                document.getElementById('day-note').value = dayData.note;
+                
+                // Hide reason required
+                reasonRequired.style.display = 'none';
+                
+                // Show modal
+                dayModal.classList.add('active');
+            }
+            
+            function updateGoalStats() {
+                // Update goal text
+                currentGoalText.textContent = goalData.goal;
+                
+                // Calculate stats
+                let completed = 0;
+                let missed = 0;
+                let pending = 0;
+                
+                const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                for (let day = 1; day <= lastDay; day++) {
+                    const dateKey = `${currentYear}-${currentMonth}-${day}`;
+                    const dayDate = new Date(currentYear, currentMonth, day);
+                    dayDate.setHours(0, 0, 0, 0);
+                    
+                    // Skip days beyond due date
+                    if (dayDate > goalData.dueDate) continue;
+                    
+                    const dayData = goalData.days[dateKey];
+                    
+                    if (dayData) {
+                        if (dayData.status === 'completed') {
+                            completed++;
+                        } else if (dayData.status === 'missed') {
+                            missed++;
+                        } else if (dayDate > today) {
+                            pending++;
+                        }
+                    } else if (dayDate > today) {
+                        pending++;
+                    }
+                }
+                
+                // Update counters
+                completedCount.textContent = completed;
+                missedCount.textContent = missed;
+                remainingCount.textContent = pending;
+                
+                // Update achieved days list
+                updateAchievedDaysList();
+            }
+            
+            function updateProgress() {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                // Calculate total days in goal period
+                const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                const totalDays = Math.ceil((goalData.dueDate - startDate) / (1000 * 60 * 60 * 24));
+                
+                // Calculate days passed
+                const daysPassed = Math.ceil((today - startDate) / (1000 * 60 * 60 * 24));
+                
+                // Calculate percentage
+                const percentage = Math.min(100, Math.max(0, (daysPassed / totalDays) * 100));
+                progressBar.style.width = percentage + '%';
+                
+                // Calculate days remaining
+                const daysRemainingCount = Math.ceil((goalData.dueDate - today) / (1000 * 60 * 60 * 24));
+                daysRemaining.textContent = daysRemainingCount + " days remaining";
+                
+                // Format due date
+                dueDateText.textContent = formatDate(goalData.dueDate);
+            }
+            
+            function updateAchievedDaysList() {
+                const achievedList = document.getElementById('achieved-list');
+                achievedList.innerHTML = '';
+                
+                // Get the last day of the month
+                const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+                
+                // Create an array of days
+                const days = [];
+                
+                for (let day = 1; day <= lastDay; day++) {
+                    const dateKey = `${currentYear}-${currentMonth}-${day}`;
+                    const dayData = goalData.days[dateKey];
+                    const dayDate = new Date(currentYear, currentMonth, day);
+                    
+                    // Skip days beyond due date
+                    if (dayDate > goalData.dueDate) continue;
+                    
+                    if (dayData) {
+                        days.push({
+                            date: dayDate,
+                            data: dayData
+                        });
+                    }
+                }
+                
+                // Sort by date
+                days.sort((a, b) => a.date - b.date);
+                
+                // Add to list
+                days.forEach(day => {
+                    const listItem = document.createElement('li');
+                    
+                    const dayDate = document.createElement('span');
+                    dayDate.classList.add('day-date');
+                    dayDate.innerHTML = `<i class="fas fa-calendar-day"></i> ${getMonthName(day.date.getMonth())} ${day.date.getDate()} (${getDayName(day.date.getDay())})`;
+                    
+                    const statusBadge = document.createElement('span');
+                    statusBadge.classList.add('day-status-badge');
+                    
+                    if (day.data.status === 'completed') {
+                        statusBadge.classList.add('status-completed');
+                        statusBadge.innerHTML = '✅';
+                    } else if (day.data.status === 'missed') {
+                        statusBadge.classList.add('status-missed');
+                        statusBadge.innerHTML = '❌';
+                    } else {
+                        statusBadge.classList.add('status-pending');
+                        statusBadge.innerHTML = '⏳';
+                    }
+                    
+                    listItem.appendChild(dayDate);
+                    listItem.appendChild(statusBadge);
+                    
+                    achievedList.appendChild(listItem);
+                });
+                
+                // If no days
+                if (days.length === 0) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = 'No data available yet. Start tracking today!';
+                    achievedList.appendChild(listItem);
+                }
+            }
+            
+            // Helper functions
+            function getMonthName(monthIndex) {
+                const months = [
+                    'January', 'February', 'March', 'April', 
+                    'May', 'June', 'July', 'August',
+                    'September', 'October', 'November', 'December'
+                ];
+                return months[monthIndex];
+            }
+            
+            function getDayName(dayIndex) {
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                return days[dayIndex];
+            }
+            
+            function formatDate(date) {
+                return getMonthName(date.getMonth()) + ' ' + date.getDate() + ', ' + date.getFullYear();
+            }
+            
+            // Event listeners
+            prevMonthBtn.addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                updateCalendar();
+                updateGoalStats();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                updateCalendar();
+                updateGoalStats();
+            });
+            
+            todayBtn.addEventListener('click', function() {
+                currentDate = new Date();
+                currentMonth = currentDate.getMonth();
+                currentYear = currentDate.getFullYear();
+                updateCalendar();
+                updateGoalStats();
+            });
+            
+            closeModal.addEventListener('click', function() {
+                dayModal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            dayModal.addEventListener('click', function(e) {
+                if (e.target === dayModal) {
+                    dayModal.classList.remove('active');
+                }
+            });
+            
+            // Status selection
+            const statusOptions = document.querySelectorAll('.status-option');
+            statusOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    statusOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Set goal button
+            goalForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newGoal = goalInput.value.trim();
+                const dueDate = new Date(dueDateInput.value);
+                
+                if (newGoal && dueDate) {
+                    goalData.goal = newGoal;
+                    goalData.dueDate = dueDate;
+                    
+                    currentGoalText.textContent = newGoal;
+                    goalInput.value = '';
+                    
+                    updateGoalStats();
+                    updateProgress();
+                    updateCalendar();
+                    
+                    // Show confirmation
+                    const originalText = setGoalBtn.innerHTML;
+                    setGoalBtn.innerHTML = '<i class="fas fa-check"></i> Goal Set!';
+                    setTimeout(() => {
+                        setGoalBtn.innerHTML = originalText;
+                    }, 2000);
+                }
+            });
+            
+            // Save day button
+            saveDayBtn.addEventListener('click', function() {
+                const selectedStatus = document.querySelector('.status-option.selected').dataset.status;
+                const note = document.getElementById('day-note').value.trim();
+                
+                // Require reason for missed days
+                if (selectedStatus === 'missed' && !note) {
+                    reasonRequired.style.display = 'block';
+                    return;
+                }
+                
+                // Update data
+                const dateKey = `${currentYear}-${currentMonth}-${selectedDay}`;
+                goalData.days[dateKey] = {
+                    status: selectedStatus,
+                    note: note
+                };
+                
+                // Update UI
+                updateCalendar();
+                updateGoalStats();
+                
+                // Close modal
+                dayModal.classList.remove('active');
+            });
+            
+            // Generate report
+            generateReportBtn.addEventListener('click', function() {
+                // Show loading effect
+                const originalText = generateReportBtn.innerHTML;
+                generateReportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating Report...';
+                
+                setTimeout(() => {
+                    generateReportBtn.innerHTML = originalText;
+                    
+                    // Create report content
+                    const completed = parseInt(completedCount.textContent);
+                    const missed = parseInt(missedCount.textContent);
+                    const successRate = Math.round(completed / (completed + missed) * 100) || 0;
+                    
+                    // Show report
+                    alert("Monthly Report Generated!\n\n" + 
+                         `Month: ${getMonthName(currentMonth)} ${currentYear}\n` +
+                         `Goal: ${goalData.goal}\n` +
+                         `Due Date: ${formatDate(goalData.dueDate)}\n` +
+                         `Completed Days: ${completed}\n` +
+                         `Missed Days: ${missed}\n` +
+                         `Success Rate: ${successRate}%\n\n` +
+                         "Keep up the great work! 💪");
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
