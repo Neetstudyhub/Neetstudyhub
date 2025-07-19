@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goal Tracker Pro</title>
+    <title>Premium Goal Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
@@ -147,7 +147,7 @@
             transform: translateY(-2px);
         }
         
-        /* Calendar Styles */
+        /* Calendar Styles - ENHANCED FOR BETTER VISIBILITY */
         .calendar-container {
             background: white;
             border-radius: 16px;
@@ -164,21 +164,22 @@
             color: var(--gray);
             margin-bottom: 15px;
             padding: 0 10px;
+            font-size: 16px;
         }
         
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 12px;
+            gap: 15px;
         }
         
         .day {
-            aspect-ratio: 1/1;
+            min-height: 140px; /* Increased height for better visibility */
             border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 15px 10px;
             font-weight: 500;
             cursor: pointer;
@@ -194,17 +195,33 @@
         }
         
         .day-number {
-            font-size: 18px;
+            font-size: 22px; /* Larger day number */
             margin-bottom: 5px;
             z-index: 2;
+            font-weight: 600;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .day.today .day-number {
+            background: var(--primary);
+            color: white;
         }
         
         .day-status {
-            font-size: 12px;
+            font-size: 14px; /* Larger status text */
             font-weight: 600;
-            padding: 3px 8px;
+            padding: 6px 10px;
             border-radius: 20px;
             z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
         }
         
         .day.non-month {
@@ -239,17 +256,56 @@
         
         .day-label {
             position: absolute;
-            bottom: 8px;
+            bottom: 10px;
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 10px;
-            color: var(--gray);
+            font-size: 13px; /* Larger label text */
+            color: var(--dark);
             z-index: 2;
-            padding: 0 5px;
+            padding: 6px 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 6px;
+            margin: 0 5px;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .day-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .day-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+        
+        .icon-done {
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+        }
+        
+        .icon-missed {
+            background: rgba(249, 65, 68, 0.2);
+            color: var(--danger);
+        }
+        
+        .icon-note {
+            background: rgba(114, 9, 183, 0.2);
+            color: var(--secondary);
         }
         
         /* Goal Management */
@@ -735,6 +791,23 @@
             border-top: 2px solid var(--light-gray);
         }
         
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: var(--light-gray);
+        }
+        
+        .empty-state p {
+            font-size: 18px;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .navbar {
@@ -749,15 +822,16 @@
             }
             
             .days-grid {
-                gap: 8px;
+                gap: 10px;
             }
             
             .day {
+                min-height: 120px;
                 padding: 10px 5px;
             }
             
             .day-number {
-                font-size: 16px;
+                font-size: 18px;
             }
             
             .goal-stats, .report-stats {
@@ -776,20 +850,21 @@
         
         @media (max-width: 576px) {
             .days-grid {
-                gap: 5px;
+                gap: 8px;
             }
             
             .day {
+                min-height: 100px;
                 padding: 8px 3px;
             }
             
             .day-number {
-                font-size: 14px;
+                font-size: 16px;
             }
             
             .day-status {
-                font-size: 10px;
-                padding: 2px 5px;
+                font-size: 12px;
+                padding: 4px 8px;
             }
             
             .status-options {
@@ -817,9 +892,10 @@
             
             <!-- Month Navigation -->
             <div class="month-nav">
-                <div class="month-title">July 2025</div>
+                <div class="month-title" id="month-title">July 2025</div>
                 <div class="month-switch">
                     <button class="month-btn" id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                    <button class="month-btn" id="today-month">Today</button>
                     <button class="month-btn" id="next-month"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
@@ -848,15 +924,15 @@
                 <form id="add-goal-form">
                     <div class="form-group">
                         <label for="goal-name">Goal Name</label>
-                        <input type="text" id="goal-name" class="form-control" placeholder="E.g. Daily Exercise">
+                        <input type="text" id="goal-name" class="form-control" placeholder="E.g. Daily Exercise" required>
                     </div>
                     <div class="form-group">
                         <label for="start-date">Start Date</label>
-                        <input type="date" id="start-date" class="form-control">
+                        <input type="date" id="start-date" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="end-date">End Date</label>
-                        <input type="date" id="end-date" class="form-control">
+                        <input type="date" id="end-date" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">
                         <i class="fas fa-plus"></i> Add Goal
@@ -877,8 +953,8 @@
             <div class="reward-badge">
                 <i class="fas fa-trophy"></i>
             </div>
-            <h3 class="reward-title">Congratulations!</h3>
-            <p class="reward-text">You've achieved 3 goals this month. Keep up the great work! You've earned 150 points towards your next reward.</p>
+            <h3 class="reward-title" id="reward-title">Congratulations!</h3>
+            <p class="reward-text" id="reward-text">You've achieved 3 goals this month. Keep up the great work! You've earned 150 points towards your next reward.</p>
             <button class="btn btn-primary">
                 <i class="fas fa-gift"></i> Redeem Rewards
             </button>
@@ -887,7 +963,7 @@
         <!-- Reports Section -->
         <section class="reports-container">
             <div class="report-actions">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" id="generate-report">
                     <i class="fas fa-download"></i> Generate Report
                 </button>
             </div>
@@ -941,42 +1017,17 @@
         let currentMonth = today.getMonth();
         let currentYear = today.getFullYear();
         
-        // Sample goals data
-        const goals = [
-            {
-                id: 1,
-                name: "Daily Exercise",
-                startDate: "2025-07-01",
-                endDate: "2025-07-31",
-                progress: 18,
-                totalDays: 31,
-                missed: 2,
-                status: "active"
-            },
-            {
-                id: 2,
-                name: "Meditation Practice",
-                startDate: "2025-07-10",
-                endDate: "2025-08-10",
-                progress: 10,
-                totalDays: 32,
-                missed: 0,
-                status: "active"
-            },
-            {
-                id: 3,
-                name: "Learn JavaScript",
-                startDate: "2025-06-15",
-                endDate: "2025-07-25",
-                progress: 25,
-                totalDays: 40,
-                missed: 5,
-                status: "completed"
-            }
-        ];
+        // Goals data (stored in localStorage)
+        let goals = [];
         
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
+            // Load goals from localStorage
+            loadGoalsFromStorage();
+            
+            // Set default dates in the form
+            setFormDefaults();
+            
             // Generate calendar
             generateCalendar(currentMonth, currentYear);
             
@@ -988,7 +1039,69 @@
             
             // Set up event listeners
             setupEventListeners();
+            
+            // Update rewards section
+            updateRewards();
         });
+        
+        // Load goals from localStorage
+        function loadGoalsFromStorage() {
+            const storedGoals = localStorage.getItem('goals');
+            if (storedGoals) {
+                goals = JSON.parse(storedGoals);
+            } else {
+                // Add sample goals if none exist
+                goals = [
+                    {
+                        id: Date.now() + 1,
+                        name: "Daily Exercise",
+                        startDate: getFormattedDate(new Date(currentYear, currentMonth, 1)),
+                        endDate: getFormattedDate(new Date(currentYear, currentMonth + 1, 0)),
+                        progress: 18,
+                        totalDays: 31,
+                        missed: 2,
+                        status: "active"
+                    },
+                    {
+                        id: Date.now() + 2,
+                        name: "Meditation Practice",
+                        startDate: getFormattedDate(new Date(currentYear, currentMonth, 10)),
+                        endDate: getFormattedDate(new Date(currentYear, currentMonth + 1, 10)),
+                        progress: 10,
+                        totalDays: 32,
+                        missed: 0,
+                        status: "active"
+                    },
+                    {
+                        id: Date.now() + 3,
+                        name: "Learn JavaScript",
+                        startDate: getFormattedDate(new Date(currentYear, currentMonth - 1, 15)),
+                        endDate: getFormattedDate(new Date(currentYear, currentMonth, 25)),
+                        progress: 25,
+                        totalDays: 40,
+                        missed: 5,
+                        status: "completed"
+                    }
+                ];
+                saveGoalsToStorage();
+            }
+        }
+        
+        // Save goals to localStorage
+        function saveGoalsToStorage() {
+            localStorage.setItem('goals', JSON.stringify(goals));
+        }
+        
+        // Set default dates in the form
+        function setFormDefaults() {
+            const todayFormatted = getFormattedDate(today);
+            const nextWeek = new Date(today);
+            nextWeek.setDate(today.getDate() + 7);
+            const nextWeekFormatted = getFormattedDate(nextWeek);
+            
+            document.getElementById('start-date').value = todayFormatted;
+            document.getElementById('end-date').value = nextWeekFormatted;
+        }
         
         // Generate calendar for specific month and year
         function generateCalendar(month, year) {
@@ -996,8 +1109,9 @@
             calendarDays.innerHTML = '';
             
             // Set month title
-            document.querySelector('.month-title').textContent = 
-                new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            document.getElementById('month-title').textContent = `${monthNames[month]} ${year}`;
             
             // Get first day of month and total days
             const firstDay = new Date(year, month, 1);
@@ -1022,7 +1136,8 @@
             for (let i = 1; i <= daysInMonth; i++) {
                 const day = document.createElement('div');
                 day.className = 'day';
-                day.dataset.date = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                day.dataset.date = dateStr;
                 
                 // Check if today
                 if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
@@ -1039,19 +1154,52 @@
                     const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
                     day.classList.add(randomStatus);
                     
-                    day.innerHTML += `<div class="day-status">${randomStatus.charAt(0).toUpperCase() + randomStatus.slice(1)}</div>`;
+                    day.innerHTML += `<div class="day-status"><i class="fas fa-${randomStatus === 'done' ? 'check' : randomStatus === 'missed' ? 'times' : 'clock'}"></i> ${randomStatus.charAt(0).toUpperCase() + randomStatus.slice(1)}</div>`;
                 }
                 
                 // Add labels for some days
                 if (i === 5) {
-                    day.innerHTML += `<div class="day-label">Vacation</div>`;
+                    day.innerHTML += `<div class="day-label">Vacation Day</div>`;
                 } else if (i === 12) {
                     day.innerHTML += `<div class="day-label">Achievement!</div>`;
                 } else if (i === 19) {
-                    day.innerHTML += `<div class="day-label">Meeting</div>`;
+                    day.innerHTML += `<div class="day-label">Team Meeting</div>`;
+                } else if (i === 25) {
+                    day.innerHTML += `<div class="day-label">Birthday Party</div>`;
+                }
+                
+                // Add icons for status indicators
+                if (i % 3 === 0) {
+                    day.innerHTML += `<div class="day-icons">
+                        <div class="day-icon icon-done"><i class="fas fa-check"></i></div>
+                    </div>`;
+                } else if (i % 5 === 0) {
+                    day.innerHTML += `<div class="day-icons">
+                        <div class="day-icon icon-missed"><i class="fas fa-times"></i></div>
+                        <div class="day-icon icon-note"><i class="fas fa-comment"></i></div>
+                    </div>`;
+                } else if (i % 7 === 0) {
+                    day.innerHTML += `<div class="day-icons">
+                        <div class="day-icon icon-done"><i class="fas fa-check"></i></div>
+                        <div class="day-icon icon-note"><i class="fas fa-comment"></i></div>
+                    </div>`;
                 }
                 
                 day.innerHTML = `<div class="day-number">${i}</div>` + day.innerHTML;
+                calendarDays.appendChild(day);
+            }
+            
+            // Fill remaining days of the week
+            const totalCells = 42; // 6 rows x 7 days
+            const daysSoFar = document.querySelectorAll('.days-grid .day').length;
+            const nextMonthDays = totalCells - daysSoFar;
+            
+            for (let i = 1; i <= nextMonthDays; i++) {
+                const day = document.createElement('div');
+                day.className = 'day non-month';
+                day.innerHTML = `
+                    <div class="day-number">${i}</div>
+                `;
                 calendarDays.appendChild(day);
             }
             
@@ -1067,10 +1215,26 @@
         // Render goals in the goals list
         function renderGoals() {
             const goalsContainer = document.getElementById('goals-container');
+            
+            if (goals.length === 0) {
+                goalsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>No goals found. Add your first goal!</p>
+                    </div>
+                `;
+                return;
+            }
+            
             goalsContainer.innerHTML = '';
             
             goals.forEach(goal => {
-                const progressPercent = Math.round((goal.progress / goal.totalDays) * 100);
+                // Calculate progress
+                const start = new Date(goal.startDate);
+                const end = new Date(goal.endDate);
+                const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                const progressPercent = Math.round((goal.progress / totalDays) * 100);
+                
                 let rank = 'Beginner';
                 let rankIcon = 'fas fa-seedling';
                 
@@ -1110,7 +1274,7 @@
                             <div class="stat-label">Missed</div>
                         </div>
                         <div class="stat remaining">
-                            <div class="stat-value">${goal.totalDays - goal.progress - goal.missed}</div>
+                            <div class="stat-value">${totalDays - goal.progress - goal.missed}</div>
                             <div class="stat-label">Remaining</div>
                         </div>
                     </div>
@@ -1141,35 +1305,52 @@
         // Render reports
         function renderReports() {
             const reportsContainer = document.getElementById('reports-container');
+            
+            if (goals.length === 0) {
+                reportsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-chart-line"></i>
+                        <p>No reports available. Add goals to generate reports.</p>
+                    </div>
+                `;
+                return;
+            }
+            
             reportsContainer.innerHTML = '';
             
             // Add current goals
-            goals.filter(goal => goal.status === 'active').forEach(goal => {
-                const progressPercent = Math.round((goal.progress / goal.totalDays) * 100);
-                
-                const reportElement = document.createElement('div');
-                reportElement.className = 'report-card';
-                reportElement.innerHTML = `
-                    <h4 class="report-title">${goal.name}</h4>
-                    <div class="report-dates">${formatDate(goal.startDate)} - ${formatDate(goal.endDate)}</div>
+            const activeGoals = goals.filter(goal => goal.status === 'active');
+            if (activeGoals.length > 0) {
+                activeGoals.forEach(goal => {
+                    const start = new Date(goal.startDate);
+                    const end = new Date(goal.endDate);
+                    const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                    const progressPercent = Math.round((goal.progress / totalDays) * 100);
                     
-                    <div class="report-stats">
-                        <div class="report-stat">
-                            <div class="report-stat-value">${progressPercent}%</div>
-                            <div class="report-stat-label">Progress</div>
+                    const reportElement = document.createElement('div');
+                    reportElement.className = 'report-card';
+                    reportElement.innerHTML = `
+                        <h4 class="report-title">${goal.name}</h4>
+                        <div class="report-dates">${formatDate(goal.startDate)} - ${formatDate(goal.endDate)}</div>
+                        
+                        <div class="report-stats">
+                            <div class="report-stat">
+                                <div class="report-stat-value">${progressPercent}%</div>
+                                <div class="report-stat-label">Progress</div>
+                            </div>
+                            <div class="report-stat">
+                                <div class="report-stat-value">${goal.progress}</div>
+                                <div class="report-stat-label">Done</div>
+                            </div>
+                            <div class="report-stat">
+                                <div class="report-stat-value">${goal.missed}</div>
+                                <div class="report-stat-label">Missed</div>
+                            </div>
                         </div>
-                        <div class="report-stat">
-                            <div class="report-stat-value">${goal.progress}</div>
-                            <div class="report-stat-label">Done</div>
-                        </div>
-                        <div class="report-stat">
-                            <div class="report-stat-value">${goal.missed}</div>
-                            <div class="report-stat-label">Missed</div>
-                        </div>
-                    </div>
-                `;
-                reportsContainer.appendChild(reportElement);
-            });
+                    `;
+                    reportsContainer.appendChild(reportElement);
+                });
+            }
             
             // Add completed goals
             const completedGoals = goals.filter(goal => goal.status === 'completed');
@@ -1178,10 +1359,14 @@
                 completedHeader.textContent = 'Completed Goals';
                 completedHeader.style.margin = '20px 0 10px';
                 completedHeader.style.fontSize = '18px';
+                completedHeader.style.color = '#4361ee';
                 reportsContainer.appendChild(completedHeader);
                 
                 completedGoals.forEach(goal => {
-                    const progressPercent = Math.round((goal.progress / goal.totalDays) * 100);
+                    const start = new Date(goal.startDate);
+                    const end = new Date(goal.endDate);
+                    const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                    const progressPercent = Math.round((goal.progress / totalDays) * 100);
                     
                     const reportElement = document.createElement('div');
                     reportElement.className = 'report-card';
@@ -1206,6 +1391,25 @@
                     `;
                     reportsContainer.appendChild(reportElement);
                 });
+            }
+        }
+        
+        // Update rewards section
+        function updateRewards() {
+            const completedGoals = goals.filter(goal => goal.status === 'completed').length;
+            const rewardTitle = document.getElementById('reward-title');
+            const rewardText = document.getElementById('reward-text');
+            
+            if (completedGoals === 0) {
+                rewardTitle.textContent = "Get Started!";
+                rewardText.textContent = "Complete your first goal to earn rewards and recognition for your achievements.";
+            } else if (completedGoals < 3) {
+                rewardTitle.textContent = "Great Progress!";
+                rewardText.textContent = `You've completed ${completedGoals} goals. Keep going to unlock more rewards!`;
+            } else {
+                const points = completedGoals * 50;
+                rewardTitle.textContent = "Congratulations!";
+                rewardText.textContent = `You've completed ${completedGoals} goals. You've earned ${points} points towards your next reward.`;
             }
         }
         
@@ -1242,6 +1446,13 @@
                     currentMonth = 0;
                     currentYear++;
                 }
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            // Today button
+            document.getElementById('today-month').addEventListener('click', function() {
+                currentMonth = today.getMonth();
+                currentYear = today.getFullYear();
                 generateCalendar(currentMonth, currentYear);
             });
             
@@ -1282,22 +1493,72 @@
                     return;
                 }
                 
-                // In a real app, this would save to localStorage
-                alert(`Goal "${goalName}" added successfully!`);
+                // Calculate total days
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                
+                // Create new goal
+                const newGoal = {
+                    id: Date.now(),
+                    name: goalName,
+                    startDate: startDate,
+                    endDate: endDate,
+                    progress: 0,
+                    totalDays: totalDays,
+                    missed: 0,
+                    status: "active"
+                };
+                
+                // Add to goals array
+                goals.push(newGoal);
+                
+                // Save to localStorage
+                saveGoalsToStorage();
+                
+                // Re-render goals and reports
+                renderGoals();
+                renderReports();
+                updateRewards();
                 
                 // Reset form
                 this.reset();
+                setFormDefaults();
+                
+                // Show success message
+                alert(`Goal "${goalName}" added successfully!`);
             });
             
             // Delete goal buttons
             document.addEventListener('click', function(e) {
                 if (e.target.closest('.delete-goal')) {
-                    const goalId = e.target.closest('.delete-goal').dataset.id;
+                    const goalId = parseInt(e.target.closest('.delete-goal').dataset.id);
                     if (confirm('Are you sure you want to delete this goal?')) {
-                        // In a real app, this would remove from localStorage
+                        // Remove goal from array
+                        goals = goals.filter(goal => goal.id !== goalId);
+                        
+                        // Save to localStorage
+                        saveGoalsToStorage();
+                        
+                        // Re-render goals and reports
+                        renderGoals();
+                        renderReports();
+                        updateRewards();
+                        
                         alert('Goal deleted successfully!');
                     }
                 }
+            });
+            
+            // Generate report
+            document.getElementById('generate-report').addEventListener('click', function() {
+                if (goals.length === 0) {
+                    alert('No goals available to generate report');
+                    return;
+                }
+                
+                // In a real app, this would generate a downloadable report
+                alert('Report generated successfully! A summary has been added to the reports section.');
             });
         }
         
@@ -1320,6 +1581,14 @@
                 day: 'numeric', 
                 year: 'numeric' 
             });
+        }
+        
+        // Get formatted date string (YYYY-MM-DD)
+        function getFormattedDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
         }
     </script>
 </body>
