@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Goal Tracker</title>
+    <title>Advanced Goal Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -147,7 +147,7 @@
             transform: translateY(-2px);
         }
         
-        /* Calendar Styles - ENHANCED FOR BETTER VISIBILITY */
+        /* Calendar Styles */
         .calendar-container {
             background: white;
             border-radius: 16px;
@@ -174,7 +174,7 @@
         }
         
         .day {
-            min-height: 140px; /* Increased height for better visibility */
+            min-height: 140px;
             border-radius: 12px;
             display: flex;
             flex-direction: column;
@@ -195,7 +195,7 @@
         }
         
         .day-number {
-            font-size: 22px; /* Larger day number */
+            font-size: 22px;
             margin-bottom: 5px;
             z-index: 2;
             font-weight: 600;
@@ -213,7 +213,7 @@
         }
         
         .day-status {
-            font-size: 14px; /* Larger status text */
+            font-size: 14px;
             font-weight: 600;
             padding: 6px 10px;
             border-radius: 20px;
@@ -260,7 +260,7 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 13px; /* Larger label text */
+            font-size: 13px;
             color: var(--dark);
             z-index: 2;
             padding: 6px 8px;
@@ -1020,10 +1020,13 @@
         // Goals data (stored in localStorage)
         let goals = [];
         
+        // Day status data (stored in localStorage)
+        let dayStatuses = {};
+        
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            // Load goals from localStorage
-            loadGoalsFromStorage();
+            // Load data from localStorage
+            loadDataFromStorage();
             
             // Set default dates in the form
             setFormDefaults();
@@ -1044,8 +1047,9 @@
             updateRewards();
         });
         
-        // Load goals from localStorage
-        function loadGoalsFromStorage() {
+        // Load data from localStorage
+        function loadDataFromStorage() {
+            // Load goals
             const storedGoals = localStorage.getItem('goals');
             if (storedGoals) {
                 goals = JSON.parse(storedGoals);
@@ -1085,11 +1089,22 @@
                 ];
                 saveGoalsToStorage();
             }
+            
+            // Load day statuses
+            const storedDayStatuses = localStorage.getItem('dayStatuses');
+            if (storedDayStatuses) {
+                dayStatuses = JSON.parse(storedDayStatuses);
+            }
         }
         
         // Save goals to localStorage
         function saveGoalsToStorage() {
             localStorage.setItem('goals', JSON.stringify(goals));
+        }
+        
+        // Save day statuses to localStorage
+        function saveDayStatusesToStorage() {
+            localStorage.setItem('dayStatuses', JSON.stringify(dayStatuses));
         }
         
         // Set default dates in the form
@@ -1149,12 +1164,23 @@
                 if (thisDate < today && !(i === today.getDate() && month === today.getMonth() && year === today.getFullYear())) {
                     day.classList.add('past');
                     
-                    // Random status for demonstration
-                    const statuses = ['done', 'missed', 'pending'];
-                    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-                    day.classList.add(randomStatus);
-                    
-                    day.innerHTML += `<div class="day-status"><i class="fas fa-${randomStatus === 'done' ? 'check' : randomStatus === 'missed' ? 'times' : 'clock'}"></i> ${randomStatus.charAt(0).toUpperCase() + randomStatus.slice(1)}</div>`;
+                    // Check for stored status
+                    const storedStatus = dayStatuses[dateStr];
+                    if (storedStatus) {
+                        day.classList.add(storedStatus.status);
+                        day.innerHTML += `<div class="day-status"><i class="fas fa-${storedStatus.status === 'done' ? 'check' : storedStatus.status === 'missed' ? 'times' : 'clock'}"></i> ${storedStatus.status.charAt(0).toUpperCase() + storedStatus.status.slice(1)}</div>`;
+                        
+                        // Show note icon if note exists
+                        if (storedStatus.note) {
+                            day.innerHTML += `<div class="day-icons">
+                                <div class="day-icon icon-note"><i class="fas fa-comment"></i></div>
+                            </div>`;
+                        }
+                    } else {
+                        // Default to missed for past days with no status
+                        day.classList.add('missed');
+                        day.innerHTML += `<div class="day-status"><i class="fas fa-times"></i> Missed</div>`;
+                    }
                 }
                 
                 // Add labels for some days
@@ -1166,23 +1192,6 @@
                     day.innerHTML += `<div class="day-label">Team Meeting</div>`;
                 } else if (i === 25) {
                     day.innerHTML += `<div class="day-label">Birthday Party</div>`;
-                }
-                
-                // Add icons for status indicators
-                if (i % 3 === 0) {
-                    day.innerHTML += `<div class="day-icons">
-                        <div class="day-icon icon-done"><i class="fas fa-check"></i></div>
-                    </div>`;
-                } else if (i % 5 === 0) {
-                    day.innerHTML += `<div class="day-icons">
-                        <div class="day-icon icon-missed"><i class="fas fa-times"></i></div>
-                        <div class="day-icon icon-note"><i class="fas fa-comment"></i></div>
-                    </div>`;
-                } else if (i % 7 === 0) {
-                    day.innerHTML += `<div class="day-icons">
-                        <div class="day-icon icon-done"><i class="fas fa-check"></i></div>
-                        <div class="day-icon icon-note"><i class="fas fa-comment"></i></div>
-                    </div>`;
                 }
                 
                 day.innerHTML = `<div class="day-number">${i}</div>` + day.innerHTML;
@@ -1425,6 +1434,30 @@
             });
             
             document.getElementById('modal-date-text').textContent = dateText;
+            
+            // Load existing status if available
+            const existingStatus = dayStatuses[dateString];
+            if (existingStatus) {
+                // Select the correct status
+                document.querySelectorAll('.status-option').forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.dataset.status === existingStatus.status) {
+                        option.classList.add('selected');
+                    }
+                });
+                
+                // Set note
+                document.getElementById('reason').value = existingStatus.note || '';
+            } else {
+                // Reset modal
+                document.querySelectorAll('.status-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                document.getElementById('reason').value = '';
+            }
+            
+            // Store the current date being edited
+            modal.dataset.currentDate = dateString;
             modal.style.display = 'flex';
         }
         
@@ -1460,8 +1493,32 @@
             document.querySelector('.close-modal').addEventListener('click', closeModal);
             document.getElementById('cancel-status').addEventListener('click', closeModal);
             document.getElementById('save-status').addEventListener('click', function() {
-                // In a real app, this would save to localStorage
+                const modal = document.getElementById('status-modal');
+                const dateStr = modal.dataset.currentDate;
+                const selectedOption = document.querySelector('.status-option.selected');
+                const note = document.getElementById('reason').value;
+                
+                if (!selectedOption) {
+                    alert('Please select a status');
+                    return;
+                }
+                
+                const status = selectedOption.dataset.status;
+                
+                // Save to dayStatuses
+                dayStatuses[dateStr] = {
+                    status: status,
+                    note: note
+                };
+                
+                // Save to localStorage
+                saveDayStatusesToStorage();
+                
+                // Close modal
                 closeModal();
+                
+                // Regenerate calendar to show new status
+                generateCalendar(currentMonth, currentYear);
                 
                 // Show success message
                 alert('Status updated successfully!');
